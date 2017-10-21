@@ -1,12 +1,13 @@
 /* eslint-env node */
 'use strict';
 
-module.exports = function(environment) {
+module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'greggames-ui',
-    environment:environment,
+    environment: environment,
     rootURL: '/',
     locationType: 'auto',
+
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -23,6 +24,16 @@ module.exports = function(environment) {
       // when it is created
 
       API_HOST: 'http://localhost:8080/greggames'
+    },
+    contentSecurityPolicy: {
+      'default-src': "'none'",
+      'script-src': "'self' 'unsafe-inline' 'unsafe-eval'",
+      'font-src': "'self'",
+      'connect-src': "'self' *",
+      'img-src': "'self'",
+      'report-uri': "'localhost'",
+      'style-src': "'self' 'unsafe-inline'",
+      'frame-src': "'none'"
     }
   };
 
