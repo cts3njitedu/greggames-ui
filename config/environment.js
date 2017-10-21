@@ -23,7 +23,7 @@ module.exports = function (environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
 
-      API_HOST: 'http://localhost:8080/greggames'
+      API_HOST: 'http://localhost:8080'
     },
     contentSecurityPolicy: {
       'default-src': "'none'",
@@ -43,7 +43,7 @@ module.exports = function (environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.APP.API_HOST = "https://greggames-app.herokuapp.com"
+    ENV.APP.API_HOST = "http://localhost:8080"
   }
 
   if (environment === 'test') {
