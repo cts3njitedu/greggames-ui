@@ -32,7 +32,7 @@ module.exports = function (environment) {
       'connect-src': "'self' *",
       'img-src': "'self'",
       'report-uri': "'localhost'",
-      'style-src': "'self' 'unsafe-inline'",
+      'style-src': "'self' *",
       'frame-src': "'none'"
     }
   };
