@@ -23,7 +23,7 @@ module.exports = function (environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
 
-      API_HOST: 'http://localhost:8080'
+      API_HOST: 'https://greggames-app.herokuapp.com'
     },
     contentSecurityPolicy: {
       'default-src': "'none'",
