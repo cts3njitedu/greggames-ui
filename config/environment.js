@@ -37,7 +37,7 @@ module.exports = function (environment) {
     }
   };
 
-  if (environment === 'development') {
+  if (ENV.environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -57,7 +57,7 @@ module.exports = function (environment) {
     ENV.APP.rootElement = '#ember-testing';
   }
 
-  if (environment === 'production') {
+  if (ENV.environment === 'production') {
     ENV.APP.API_HOST = "https://greggames-app.herokuapp.com"
   }
 
