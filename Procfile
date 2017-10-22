@@ -1,1 +1,1 @@
-web: bin/compile
+web: ember build -prod
