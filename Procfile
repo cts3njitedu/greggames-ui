@@ -1,1 +1,1 @@
-web: bin/compile BUILD_DIR
+web: bin/compile
