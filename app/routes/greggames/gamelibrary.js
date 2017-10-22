@@ -24,6 +24,9 @@ export default Ember.Route.extend({
             url: ENV.APP.API_HOST+"/greggames",
             dataType: "json",
             crossDomain:true,
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                console.log(XMLHttpRequest);
+            },
            
            
             xhrFields: {
