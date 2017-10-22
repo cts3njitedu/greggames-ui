@@ -1,1 +1,1 @@
-web: ember server
+web: ember server --live-reload=false
