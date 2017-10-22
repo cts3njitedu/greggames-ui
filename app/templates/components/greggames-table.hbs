@@ -1,0 +1,14 @@
+<div id="gregdiv">
+
+
+<table id="gregtable">
+{{#each greggames as |greggame|}}
+<tr>
+<div><button class="greglink" {{action "routeToGame" greggame}}>{{greggame}}</button></div>
+</tr>
+{{/each}}
+
+</table>
+
+
+</div>
