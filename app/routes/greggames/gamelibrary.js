@@ -20,9 +20,11 @@ export default Ember.Route.extend({
         // });
 
         var request = Ember.$.ajax({
-            type: 'GET',
-            url: "/greggames",
-            dataType: "jsonp",
+            method: 'GET',
+            url: ENV.APP.API_HOST+"/greggames",
+            dataType: "json",
+            crossDomain:true,
+           
            
             xhrFields: {
                 withCredentials: true
