@@ -21,7 +21,7 @@ export default Ember.Route.extend({
 
         var request = Ember.$.ajax({
             type: 'GET',
-            url: ENV.APP.API_HOST + "/greggames",
+            url: "/greggames",
             dataType: "jsonp",
            
             xhrFields: {
