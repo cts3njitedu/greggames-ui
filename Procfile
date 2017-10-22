@@ -1,1 +1,1 @@
-web: ember server —-environment production
+web: ember deploy production
