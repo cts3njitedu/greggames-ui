@@ -1,1 +1,1 @@
-web: bin/boot
+web: bin/compile BUILD_DIR
