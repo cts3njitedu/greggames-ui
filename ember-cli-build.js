@@ -8,6 +8,8 @@ module.exports = function(defaults) {
     // Add options here
   });
 
+  app.import('vendor/stomp.min.js');
+  app.import('vendor/sockjs.min.js');
   // Use `app.import` to add additional libraries to the generated
   // output files.
   //

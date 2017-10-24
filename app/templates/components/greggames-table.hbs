@@ -4,11 +4,11 @@
 <table id="gregtable">
 {{#each greggames as |greggame|}}
 <tr>
-<div><button class="greglink" {{action "routeToGame" greggame}}>{{greggame}}</button></div>
+<div>{{#link-to "greggames.spades"}}<button class="greglink" {{action "routeToGame" greggame}}>{{greggame}}</button>{{/link-to}}</div>
 </tr>
 {{/each}}
 
 </table>
 
-
+{{outlet}}
 </div>

@@ -8,8 +8,9 @@ const Router = Ember.Router.extend({
 
 Router.map(function() {
   this.route('greggames', function() {
-    this.route('gamelibrary');
+    this.route('gamelibrary', function() {});
     this.route('about');
+    this.route('spades');
   });
 });
 
