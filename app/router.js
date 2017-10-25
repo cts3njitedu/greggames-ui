@@ -12,6 +12,9 @@ Router.map(function() {
     this.route('about');
     this.route('spades');
   });
+  this.route('cards', function() {
+    this.route('spades');
+  });
 });
 
 export default Router;
