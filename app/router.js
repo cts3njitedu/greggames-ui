@@ -13,7 +13,9 @@ Router.map(function() {
     this.route('spades');
   });
   this.route('cards', function() {
-    this.route('spades');
+    this.route('spades', function() {
+      this.route('games');
+    });
   });
 });
 
