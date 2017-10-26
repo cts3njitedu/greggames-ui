@@ -1,0 +1,7 @@
+{{input type="text" value=newGame}}
+
+{{#each games as |game|}}
+<p>{{game.pointsToWin}}</p>
+{{/each}}
+
+<button {{action "addGame"}}>Click Me</button>
