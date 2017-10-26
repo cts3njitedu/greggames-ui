@@ -8,19 +8,32 @@ export default Ember.Route.extend({
     data: null,
     init() {
 
+        
+    },
+    changeData(content,that){
+
+        that.set("data",content);
+        that.refresh();
+    },
+    getGamesSocket(that){
+
         var socket = new SockJS(ENV.APP.API_HOST + '/ggsocket');
         stompClient = Stomp.over(socket);
 
+        //let that = this;
+        
+        console.log(that);
         stompClient.connect({}, function (frame) {
             console.log('Connected: ' + frame);
-            let that = this;
 
-            stompClient.subscribe('/topic/spades', function (greeting) {
+            stompClient.subscribe('/topic/spades/1', function (greeting) {
                 //showGreeting(JSON.parse(greeting.body).content);
-                let _then = that;
-                console.log(greeting.body);
-                this.set("data", JSON.parse(greeting.body));
-                _then.refresh();
+        
+                //console.log(greeting.body);
+             
+                that.get("changeData")(JSON.parse(greeting.body),that);
+                
+                //_then.refresh();
 
 
 
@@ -29,16 +42,19 @@ export default Ember.Route.extend({
 
 
         });
+
     },
     model() {
 
+        let that=this;
+        this.get("getGamesSocket")(that);
         return this.get("data");
     },
     actions: {
 
         test() {
             
-            stompClient.send("/app/greggames/spades", {}, JSON.stringify({ 'name': "Please Work" }));
+            stompClient.send("/app/greggames/spades/1", {}, JSON.stringify({ 'name': "Please Work" }));
            
 
 
