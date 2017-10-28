@@ -57,8 +57,11 @@ export default Ember.Route.extend({
 
 
                 //that.get("updateGames")(JSON.parse(response.body), that);
-                
+                console.log("Response:");
+                console.log(response.body);
                 that.get("getGames")(that);
+                
+
 
 
 
@@ -70,8 +73,9 @@ export default Ember.Route.extend({
         });
 
     },
-    model() {
+    model(params) {
 
+        //console.log(params.gameId);
 
         this.get("getGamesSocket")(this);
         return this.get("games");
@@ -82,10 +86,7 @@ export default Ember.Route.extend({
 
             console.log(newGame);
 
-            let newSpadeGame = {
-                "pointsToWin": newGame
-            }
-            stompClient.send("/app/greggames/spades", {}, JSON.stringify(newSpadeGame));
+            stompClient.send("/app/greggames/spades", {}, JSON.stringify(newGame));
 
 
 

@@ -1,0 +1,26 @@
+<table id="buttonTable">
+
+    <tr>
+        <td>
+            {{#if isCreateView}}
+            <button id="newGameButton" {{action "closeView"}}>Close</button>
+            {{/if}}
+        </td>
+        <td>
+            {{#if isGameView}}
+            <button id="newGameButton" {{action "createView"}}>New Game</button>
+            {{/if}} {{#if isCreateView}}
+            <button id="newGameButton" {{action "addGame"}}>Create Game</button>
+            {{/if}}
+        </td>
+
+
+
+
+
+
+
+    </tr>
+
+
+</table>

@@ -1,7 +1,54 @@
-{{input type="text" value=newGame}}
+<div class="col-sm-3 center" style="border:1px solid red; width:100%; height:700px">
 
-{{#each games as |game|}}
-<p>{{game.pointsToWin}}</p>
-{{/each}}
+    {{!--
+    <div style="position:relative;top:10%">{{input type="text" value=newGame}}</div> --}} {{#if isGameView}}
+    <div style="position:relative; top: 3%">
+        <table id="activeGames">
+            <tr>
+                <th>Game Id</th>
+                <th>Points</th>
+                <th>Bid Nil</th>
+                <th>OverBook</th>
+                <th>Number of Players</th>
+                <th>Click to Join</th>
+            </tr>
+            {{#each games as |game|}}
 
-<button {{action "addGame"}}>Click Me</button>
+            <tr>
+                <td>{{game.gameId}}</td>
+                <td>{{game.pointsToWin}}</td>
+                <td>{{game.bidNil}}</td>
+                <td>{{game.overBook}}</td>
+                <td>{{game.numberOfPlayers}}</td>
+                <td>Under Construction</td>
+            </tr>
+            {{/each}}
+
+        </table>
+    </div>
+    {{/if}} {{#if isCreateView}}
+    <div style="position:relative; top:3%">
+        <form>
+            <label>Points to Win</label>
+            <br/> {{input type="text" value=newGame.pointsToWin placeHolder="Enter number of points to win..."}}
+            <br/>
+            <label>Bags</label>
+            <br/> {{input type="text" value=newGame.bags placeHolder="Enter number of bags..." }}
+            <br/>
+            <label>Points Lost Due to OverBook</label>
+            <br/> {{input id="overBook" type="text" value=newGame.overBook placeHolder="Points to Lose..."}}
+            <br/>
+            <label>Bid Nil</label>
+            <br/> {{input id="bidNil" value=newGame.bidNil type="text" placeHolder="Points lost or gained"}}
+
+        </form>
+
+    </div>
+    {{/if}}
+
+    <div id="newGameDiv">
+        {{#newgame-modal isGameView=isGameView isCreateView=isCreateView addGame="addGame"}} {{/newgame-modal}}
+    </div>
+
+
+</div>
