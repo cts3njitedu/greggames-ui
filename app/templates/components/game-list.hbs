@@ -1,28 +1,42 @@
-<div class="col-sm-3 center" style="border:1px solid red; width:100%; height:700px">
+<div class="col-sm-3 center row" style="border:1px solid red; width:100%; height:700px">
 
     {{!--
     <div style="position:relative;top:10%">{{input type="text" value=newGame}}</div> --}} {{#if isGameView}}
-    <div style="position:relative; top: 3%">
-        <table id="activeGames">
-            <tr>
-                <th>Game Id</th>
-                <th>Points</th>
-                <th>Bid Nil</th>
-                <th>OverBook</th>
-                <th>Number of Players</th>
-                <th>Click to Join</th>
-            </tr>
-            {{#each games as |game|}}
+    <div style="position:relative; top: 5%; width:100%; height:100px" class="panel">
+        <div class="panel-heading">
+            <h4 style="color:red">
+                Active Games
+            </h4>
+        </div>
+        <table id="activeGames" class="table-responsive table-striped">
+            <thead style="width:100%; text-align:center">
 
-            <tr>
-                <td>{{game.gameId}}</td>
-                <td>{{game.pointsToWin}}</td>
-                <td>{{game.bidNil}}</td>
-                <td>{{game.overBook}}</td>
-                <td>{{game.numberOfPlayers}}</td>
-                <td>Under Construction</td>
-            </tr>
-            {{/each}}
+
+
+                <tr>
+                    <th>Game Id</th>
+                    <th>Points</th>
+                    <th>Bid Nil</th>
+                    <th>OverBook</th>
+                    <th>Number of Players</th>
+                    <th>Click to View</th>
+                </tr>
+            </thead>
+            <tbody style="height:350px; width:100%; overflow-y:auto; text-align:center">
+                {{#each gameState.games as |game|}}
+
+                <tr>
+                    <td>{{game.gameId}}</td>
+                    <td>{{game.pointsToWin}}</td>
+                    <td>{{game.bidNil}}</td>
+                    <td>{{game.overBook}}</td>
+                    <td>{{game.numberOfPlayers}}</td>
+                    <td>
+                       {{#link-to "cards.spades.games.game" game.gameId}} <button>View Game</button>{{/link-to}}
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
 
         </table>
     </div>
@@ -46,8 +60,18 @@
     </div>
     {{/if}}
 
+    {{#if isEnterGame}}
+
+        {{#link-to "cards.spades.games.game" gameState.gameId}}
+        <button class="enterState">Press To Enter Game</button>
+        {{/link-to}}
+     
+
+    {{/if}}
+
+    
     <div id="newGameDiv">
-        {{#newgame-modal isGameView=isGameView isCreateView=isCreateView addGame="addGame"}} {{/newgame-modal}}
+        {{#newgame-modal isGameView=isGameView isCreateView=isCreateView addGame="addGame" isEnterGame=isEnterGame}} {{/newgame-modal}}
     </div>
 
 

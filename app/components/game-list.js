@@ -18,6 +18,7 @@ export default Ember.Component.extend({
 
     isGameView: true,
     isCreateView: false,
+    isEnterGame: false,
 
 
     actions: {
@@ -25,8 +26,9 @@ export default Ember.Component.extend({
 
             let nG = Ember.copy(this.get("newGame"));
             //this.set("newGame",null);
-            this.set("newGame",{});
+            this.set("newGame",{numberOfPlayers:1});
             this.sendAction("addGame", nG);
+         
         }
     }
 });

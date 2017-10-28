@@ -12,6 +12,9 @@
             {{/if}} {{#if isCreateView}}
             <button id="newGameButton" {{action "addGame"}}>Create Game</button>
             {{/if}}
+            {{#if isEnterGame}}
+                    <button id="newGameButton" {{action "gameView"}}>Game View</button>
+            {{/if}}
         </td>
 
 

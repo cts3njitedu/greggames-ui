@@ -5,7 +5,7 @@ let stompClient = null;
 import ENV from 'greggames-ui/config/environment';
 export default Ember.Route.extend({
 
-    games: null,
+    gameState: {},
 
     init() {
 
@@ -21,9 +21,12 @@ export default Ember.Route.extend({
 
                 //that.get("updateGames")(JSON.parse(response.body), that);
                 console.log("Response:");
-                console.log(response.body);
+                let resp = JSON.parse(response.body);
+                console.log(resp.gameId);
                 that.get("getGames")(that);
+                that.set("gameState.gameId",resp.gameId);
                 
+               // that.transitionTo('cards.spades.games.game',resp.gameId);
 
 
 
@@ -57,7 +60,7 @@ export default Ember.Route.extend({
         request.done(function (data) {
             console.log(ENV.APP.API_HOST);
             //data = data.map(v => v.toLowerCase());
-            that.set("games", data);
+            that.set("gameState.games", data);
             that.refresh();
 
         });
@@ -100,7 +103,9 @@ export default Ember.Route.extend({
         //console.log(params.gameId);
         
         //this.get("getGamesSocket")(this);
-        return this.get("games");
+        console.log("adfsdfsadfasdf"+this.get("gameState"));
+        return this.get("gameState");
+        
     },
     actions: {
 
