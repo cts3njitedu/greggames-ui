@@ -13,6 +13,28 @@ export default Ember.Route.extend({
         var socket = new SockJS(ENV.APP.API_HOST + '/ggsocket');
         stompClient = Stomp.over(socket);
         that.get("getGames")(that);
+        stompClient.connect({}, function (frame) {
+            console.log('Connected: ' + frame);
+
+            stompClient.subscribe('/topic/spades', function (response) {
+
+
+                //that.get("updateGames")(JSON.parse(response.body), that);
+                console.log("Response:");
+                console.log(response.body);
+                that.get("getGames")(that);
+                
+
+
+
+
+
+            });
+
+
+
+        });
+        
 
 
     },
@@ -76,8 +98,8 @@ export default Ember.Route.extend({
     model(params) {
 
         //console.log(params.gameId);
-
-        this.get("getGamesSocket")(this);
+        
+        //this.get("getGamesSocket")(this);
         return this.get("games");
     },
     actions: {
