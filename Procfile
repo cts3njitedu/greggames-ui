@@ -1,1 +1,1 @@
-web: ember server --live-reload=false —-environment=production —-proxy=https://greggames-app.herokuapp.com --report-uri /csp-report
+web: ember server --live-reload=false —-environment=production —-proxy=https://greggames-app.herokuapp.com
