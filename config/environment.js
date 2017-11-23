@@ -67,8 +67,7 @@ module.exports = function (environment) {
       'connect-src': "'self' https://greggames-app.herokuapp.com ws://greggames-app.herokuapp.com",
       'img-src': "'self'",
       'style-src': "'self' 'unsafe-inline'",
-      'frame-src': "'none'",
-      'report-uri': "/csp-report"
+      'frame-src': "'none'"
     }
   }
 
