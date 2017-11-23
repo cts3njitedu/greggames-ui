@@ -24,17 +24,8 @@ module.exports = function (environment) {
       // when it is created
 
       API_HOST: 'https://greggames-app.herokuapp.com'
-    },
-    contentSecurityPolicy: {
-      'default-src': "'none'",
-      'script-src': "'self' 'unsafe-inline' 'unsafe-eval'",
-      'font-src': "'self'",
-      'connect-src': "'self' *",
-      'img-src': "'self'",
-      'report-uri': "'localhost'",
-      'style-src': "'self' *",
-      'frame-src': "'none'"
     }
+
   };
 
   if (ENV.environment === 'development') {
@@ -43,7 +34,16 @@ module.exports = function (environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
-    ENV.APP.API_HOST = "http://localhost:8081"
+    ENV.APP.API_HOST = "http://localhost:8081";
+    ENV.contentSecurityPolicy = {
+      'default-src': "'self' 'unsafe-inline'",
+      'script-src': "'self' *",
+      'font-src': "'self'",
+      'connect-src': "'self' http://localhost:8081 ws://localhost:8081",
+      'img-src': "'self'",
+      'style-src': "'self' 'unsafe-inline'",
+      'frame-src': "'none'"
+    }
   }
 
   if (environment === 'test') {
@@ -58,7 +58,16 @@ module.exports = function (environment) {
   }
 
   if (ENV.environment === 'production') {
-    ENV.APP.API_HOST = "https://greggames-app.herokuapp.com"
+    ENV.APP.API_HOST = "https://greggames-app.herokuapp.com";
+    ENV.contentSecurityPolicy = {
+      'default-src': "'self' 'unsafe-inline'",
+      'script-src': "'self' *",
+      'font-src': "'self'",
+      'connect-src': "'self' https://greggames-app.herokuapp.com ws://greggames-app.herokuapp.com",
+      'img-src': "'self'",
+      'style-src': "'self' 'unsafe-inline'",
+      'frame-src': "'none'"
+    }
   }
 
   return ENV;
