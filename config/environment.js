@@ -68,10 +68,11 @@ module.exports = function (environment) {
       'connect-src': "'self' *",
       'img-src': "'self'",
       'style-src': "'self' 'unsafe-inline'",
-      'frame-src': "'none'",
-      'report-url': "/csp-report"
+      'frame-src': "'none'"
     }
     process.env.API_HOST = "https://greggames-app.herokuapp.com";
+    console.log(process.env.API_HOST);
+
   }
 
   return ENV;
