@@ -39,7 +39,7 @@ module.exports = function (environment) {
       'default-src': "'self' 'unsafe-inline'",
       'script-src': "'self' *",
       'font-src': "'self'",
-      'connect-src': "'self' http://localhost:8081 ws://localhost:8081",
+      'connect-src': "'self' *",
       'img-src': "'self'",
       'style-src': "'self' 'unsafe-inline'",
       'frame-src': "'none'"
@@ -64,7 +64,7 @@ module.exports = function (environment) {
       'default-src': "'self' 'unsafe-inline'",
       'script-src': "'self' *",
       'font-src': "'self'",
-      'connect-src': "'self' https://greggames-app.herokuapp.com ws://greggames-app.herokuapp.com",
+      'connect-src': "'self' *",
       'img-src': "'self'",
       'style-src': "'self' 'unsafe-inline'",
       'frame-src': "'none'",

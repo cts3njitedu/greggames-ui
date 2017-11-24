@@ -20,18 +20,13 @@ export default Ember.Route.extend({
         // });
 
         var request = Ember.$.ajax({
-            method: 'GET',
-            //url: ENV.APP.API_HOST+"/greggames/cards",
-            url: "/greggames/cards",
-            dataType: "json",
-            crossDomain:true,
+            method: "GET",
+           //url: ENV.APP.API_HOST+"/greggames/cards",
+            url: "/gregproxy/greggames/cards",
+       
+            //crossDomain:true,
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 console.log(XMLHttpRequest);
-            },
-           
-           
-            xhrFields: {
-                withCredentials: true
             }
         });
         request.done(function (data) {
