@@ -44,7 +44,7 @@ module.exports = function (environment) {
       'style-src': "'self' 'unsafe-inline'",
       'frame-src': "'none'"
     };
-    process.env.API_HOST = "http://localhost:8081";
+    process.env.NPM_CONFIG_API_HOST = "http://localhost:8081";
   }
 
   if (environment === 'test') {
@@ -70,7 +70,7 @@ module.exports = function (environment) {
       'style-src': "'self' 'unsafe-inline'",
       'frame-src': "'none'"
     }
-    process.env.API_HOST = "https://greggames-app.herokuapp.com";
+    process.env.NPM_CONFIG_API_HOST = "https://greggames-app.herokuapp.com";
     console.log(process.env.API_HOST);
 
   }
