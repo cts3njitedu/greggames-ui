@@ -15,7 +15,7 @@ module.exports = function (app) {
     console.error(err, req.url);
   });
 
-  app.use(proxyPath, function (req, res, next) {
+  app.use(proxyPath, function (req, res) {
     // include root path in proxied request
     //req.url = proxyPath + '/' + req.url;
     console.log(req.url);

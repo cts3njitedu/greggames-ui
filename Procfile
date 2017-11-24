@@ -1,1 +1,1 @@
-web: ember server --live-reload=false —-environment=production
+web: ember server --live-reload=false
