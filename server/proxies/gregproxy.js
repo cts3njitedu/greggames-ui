@@ -15,12 +15,12 @@ module.exports = function (app) {
     console.error(err, req.url);
   });
 
-  app.use(proxyPath, function (req, res) {
+  app.use(proxyPath, function (req, res, next) {
     // include root path in proxied request
     //req.url = proxyPath + '/' + req.url;
     console.log(req.url);
-    console.log(process.env.NPM_CONFIG_API_HOST);
-    proxy.web(req, res, { target: "https://greggames-app.herokuapp.com" });
+    console.log(process.env.URL);
+    proxy.web(req, res, { target: "http://greggames-app.herokuapp.com" });
   });
 
   // proxy.on('proxyReq', function (proxyReq, req, res, options) {
