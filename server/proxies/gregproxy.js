@@ -20,7 +20,7 @@ module.exports = function (app) {
     //req.url = proxyPath + '/' + req.url;
     console.log(req.url);
     console.log(process.env.API_HOST);
-    proxy.web(req, res, { target: process.env.API_HOST });
+    proxy.web(req, res, { target: "https://greggames-app.herokuapp.com" });
   });
 
   // proxy.on('proxyReq', function (proxyReq, req, res, options) {
