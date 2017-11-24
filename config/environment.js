@@ -43,7 +43,8 @@ module.exports = function (environment) {
       'img-src': "'self'",
       'style-src': "'self' 'unsafe-inline'",
       'frame-src': "'none'"
-    }
+    };
+    process.env.API_HOST = "http://localhost:8081";
   }
 
   if (environment === 'test') {
@@ -70,6 +71,7 @@ module.exports = function (environment) {
       'frame-src': "'none'",
       'report-url': "/csp-report"
     }
+    process.env.API_HOST = "https://greggames-app.herokuapp.com";
   }
 
   return ENV;

@@ -3,7 +3,6 @@
 
 const proxyPath = '/gregproxy';
 
-
 module.exports = function (app) {
   // For options, see:
   // https://github.com/nodejitsu/node-http-proxy
@@ -20,7 +19,8 @@ module.exports = function (app) {
     // include root path in proxied request
     //req.url = proxyPath + '/' + req.url;
     console.log(req.url);
-    proxy.web(req, res, { target: 'http://localhost:8081' });
+    console.log(process.env.API_HOST);
+    proxy.web(req, res, { target: process.env.API_HOST });
   });
 
   // proxy.on('proxyReq', function (proxyReq, req, res, options) {
