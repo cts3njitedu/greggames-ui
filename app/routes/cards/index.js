@@ -24,21 +24,25 @@ export default Ember.Route.extend({
            //url: ENV.APP.API_HOST+"/greggames/cards",
             url: "/gregproxy/greggames/cards",
             dataType: "json",
-            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
        
             //crossDomain:true,
             error: function(XMLHttpRequest, textStatus, errorThrown) {
                 console.log(XMLHttpRequest);
+            },
+            success: function(data,textStatus,XMLHttpRequest){
+
+                console.log(ENV.APP.API_HOST);
+                console.log(data);
+                data = data.map(v => v.toLowerCase());
+                that.set("games", data);
+                that.refresh();
+
             }
         });
-        request.done(function (data) {
-            console.log(ENV.APP.API_HOST);
-            console.log(data);
-            data = data.map(v => v.toLowerCase());
-            that.set("games", data);
-            that.refresh();
+        // request.done(function (data) {
+           
 
-        });
+        // });
 
     },
     model() {
