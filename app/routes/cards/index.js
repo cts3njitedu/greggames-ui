@@ -31,6 +31,7 @@ export default Ember.Route.extend({
         });
         request.done(function (data) {
             console.log(ENV.APP.API_HOST);
+            console.log(data);
             data = data.map(v => v.toLowerCase());
             that.set("games", data);
             that.refresh();
