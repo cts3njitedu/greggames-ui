@@ -23,6 +23,8 @@ export default Ember.Route.extend({
             method: "GET",
            //url: ENV.APP.API_HOST+"/greggames/cards",
             url: "/gregproxy/greggames/cards",
+            dataType: "json",
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
        
             //crossDomain:true,
             error: function(XMLHttpRequest, textStatus, errorThrown) {

@@ -17,7 +17,8 @@ module.exports = function (app) {
 
   app.use(proxyPath, function (req, res, next) {
     // include root path in proxied request
-    //req.url = proxyPath + '/' + req.url;
+    //req.url = proxyPath + '/' + req.url;'
+    console.log("adkfja;dfj;asfj;sjf;sd");
     console.log(req.url);
     console.log(process.env.URL);
     proxy.web(req, res, { target: "http://greggames-app.herokuapp.com" });
