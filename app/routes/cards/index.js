@@ -19,6 +19,7 @@ export default Ember.Route.extend({
 
         // });
 
+        console.log("adfjak;sdjf;asdf");
         var request = Ember.$.ajax({
             method: "GET",
            //url: ENV.APP.API_HOST+"/greggames/cards",
