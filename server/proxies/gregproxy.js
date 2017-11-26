@@ -1,7 +1,7 @@
 /* eslint-env node */
 'use strict';
 
-const proxyPath = '/gregproxy';
+const proxyPath = '/api';
 
 module.exports = function (app) {
   // For options, see:

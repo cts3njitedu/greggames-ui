@@ -46,7 +46,7 @@ export default Ember.Route.extend({
         var request = Ember.$.ajax({
             method: 'GET',
             //url: ENV.APP.API_HOST + "/cards/spades/games",
-            url: "/gregproxy/cards/spades/games",
+            url: "/api/cards/spades/games",
             dataType: "json",
             crossDomain: true,
             error: function (XMLHttpRequest, textStatus, errorThrown) {
