@@ -5,7 +5,7 @@ module.exports = function (environment) {
   let ENV = {
     modulePrefix: 'greggames-ui',
     environment: environment,
-    rootURL: '/gregproxy/',
+    rootURL: '/',
     locationType: 'auto',
 
     EmberENV: {
