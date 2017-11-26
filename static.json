@@ -1,7 +1,7 @@
 {
     "proxies": {
-      "/api/": {
-        "origin": "https://greggames-app.herokuapp.com/"
-      }
+        "/api/greggames/cards/": {
+            "origin": "https://greggames-app.herokuapp.com/"
+        }
     }
-  }
+}
