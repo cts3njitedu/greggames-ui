@@ -61,7 +61,7 @@ module.exports = function (environment) {
   if (ENV.environment === 'production') {
     //console.log("in prod");
     ENV.APP.API_HOST = "https://greggames-app.herokuapp.com";
-    ENV.baseURL = '/gregproxy';
+    //ENV.baseURL = '/gregproxy';
     ENV.contentSecurityPolicy = {
       'default-src': "'self' 'unsafe-inline'",
       'script-src': "'self' *",

@@ -22,7 +22,7 @@ export default Ember.Route.extend({
         var request = Ember.$.ajax({
             method: "GET",
            //url: ENV.APP.API_HOST+"/greggames/cards",
-            url: "/gregproxy/greggames/cards",
+            url: "https://greggames.herokuapp.com/gregproxy/greggames/cards",
             dataType: "json",
        
             //crossDomain:true,
