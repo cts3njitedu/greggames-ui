@@ -1,112 +1,47 @@
 import Ember from 'ember';
-let SockJS = window.SockJS;
-let Stomp = window.Stomp;
-let stompClient = null;
-import ENV from 'greggames-ui/config/environment';
-export default Ember.Route.extend({
+import SpadeMixin from '../../../mixins/spade-mixin';
+export default Ember.Route.extend(SpadeMixin, {
 
-    gameState: {},
+
+    spadeGameService: Ember.inject.service("spadegames"),
+
+
 
     init() {
 
-        var that = this;
-        var socket = new SockJS(ENV.APP.API_HOST + '/ggsocket');
-        stompClient = Stomp.over(socket);
-        that.get("getGames")(that);
-        stompClient.connect({}, function (frame) {
-            console.log('Connected: ' + frame);
+        //that.get("getGames")(that);
 
-            stompClient.subscribe('/topic/spades', function (response) {
+        //this._getGames();
 
-
-                //that.get("updateGames")(JSON.parse(response.body), that);
-                console.log("Response:");
-                let resp = JSON.parse(response.body);
-                console.log(resp.gameId);
-                that.get("getGames")(that);
-                that.set("gameState.gameId",resp.gameId);
-                
-               // that.transitionTo('cards.spades.games.game',resp.gameId);
-
-
-
-
-
-            });
-
-
-
-        });
-        
+        this.get("spadeGameService").getInitialGames();
+        this.get("spadeGameService").getGames();
 
 
     },
-    getGames(that) {
+    getGames() {
 
-        var request = Ember.$.ajax({
-            method: 'GET',
-            //url: ENV.APP.API_HOST + "/cards/spades/games",
-            url: "/api/cards/spades/games",
-            dataType: "json",
-            crossDomain: true,
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                console.log(XMLHttpRequest);
-            },
+        var self = this;
+        var games = this.getSpadeGames(function (games) {
 
-
-            xhrFields: {
-                withCredentials: true
-            }
-        });
-        request.done(function (data) {
-            console.log(ENV.APP.API_HOST);
-            //data = data.map(v => v.toLowerCase());
-            that.set("gameState.games", data);
-            that.refresh();
-
+         
+            Ember.set(self, "spadeGameService.gameState.games", games);
+         
+            self.refresh();
         });
 
-    },
-    updateGames(content, that) {
-
-        that.set("games", content);
-        that.refresh();
-    },
-    getGamesSocket(that) {
 
 
 
-        stompClient.connect({}, function (frame) {
-            console.log('Connected: ' + frame);
-
-            stompClient.subscribe('/topic/spades', function (response) {
-
-
-                //that.get("updateGames")(JSON.parse(response.body), that);
-                console.log("Response:");
-                console.log(response.body);
-                that.get("getGames")(that);
-                
-
-
-
-
-
-            });
-
-
-
-        });
 
     },
     model(params) {
 
         //console.log(params.gameId);
-        
+
         //this.get("getGamesSocket")(this);
-        console.log("adfsdfsadfasdf"+this.get("gameState"));
-        return this.get("gameState");
-        
+        //console.log("adfsdfsadfasdf" + JSON.stringify(this.get("gameState")));
+        return this.get("spadeGameService.gameState");
+
     },
     actions: {
 
@@ -114,7 +49,7 @@ export default Ember.Route.extend({
 
             console.log(newGame);
 
-            stompClient.send("/app/greggames/spades", {}, JSON.stringify(newGame));
+            this.get("spadeGameService").addGame(newGame);
 
 
 

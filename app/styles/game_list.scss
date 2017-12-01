@@ -1,0 +1,84 @@
+.table-fixed {
+    width:100%;
+    background-color: #f3f3f3;
+    tbody {
+      height:200px;
+      overflow-y:auto;
+      width: 100%;
+    }
+  
+    thead,tbody,tr,td,th{
+      display:block;
+      text-align: left;
+
+    }
+    tbody{
+      td{
+        float:left;
+        text-align: left;
+        padding-bottom: 10px;
+        height:50px;
+        border-left: 1px solid black;
+        
+      }
+    }
+    thead {
+
+      width:100%;
+      
+      tr{
+       
+        th{
+          float:left;
+          background-color: #210374;
+       
+          text-align: left;
+          padding-bottom: 10px;
+          height:60px;
+          border-left: 1px solid black;
+          
+       
+        }
+      }
+    }
+
+  }
+  // .table-fixed tbody {
+  //   height: 230px;
+  //   overflow-y: auto;
+  //   width: 100%;
+  // }
+  // .table-fixed thead, .table-fixed tbody, .table-fixed tr, .table-fixed td, .table-fixed th {
+  //   display: block;
+  // }
+  // .table-fixed tbody td, .table-fixed thead > tr> th {
+  //   float: left;
+  //   border-bottom-width: 0;
+  // }
+// #activeGames thead th{
+//   background-color: rgb(139, 0, 97);
+// }
+#activeGames tr:nth-child(even){
+    background-color: #17277e;
+    color: rgb(5, 238, 17)
+}
+#activeGames tr:nth-child(odd)
+{
+    background-color: #75b0e0;
+    color:rgb(199, 240, 17)
+
+
+}
+
+#activeGames tr:hover {background-color: rgb(236, 17, 65);}
+
+// #activeGames {
+//     font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+//     border-collapse: collapse;
+//     //width: 100%;
+    
+//     //top: 5%;
+  
+
+
+// }
