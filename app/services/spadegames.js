@@ -9,7 +9,7 @@ export default Ember.Service.extend(SpadeMixin, {
     stompClient: null,
 
 
-    getGames: function () {
+    makeSubscriber: function (other) {
         let self = this;
         this.get("gregWebSocket").connect(function (stompClient) {
             Ember.set(self, "stompClient", stompClient);
@@ -23,10 +23,11 @@ export default Ember.Service.extend(SpadeMixin, {
                 console.log(resp.gameId);
 
                 let __self = _self;
-                _self.getSpadeGames(function (games) {
+                _self.getSpadeGames().then(function (games) {
 
                     Ember.set(__self, "gameState.games", games);
                     Ember.set(__self, "gameState.gameId", resp.gameId);
+                    other.refresh();
                 })
 
                 // that.transitionTo('cards.spades.games.game',resp.gameId);
@@ -41,14 +42,18 @@ export default Ember.Service.extend(SpadeMixin, {
 
 
     },
-    getInitialGames: function () {
+    getInitialGames: function (other) {
 
         let self = this;
-        this.getSpadeGames(function (games) {
+        this.getSpadeGames().then(function(games){
 
             Ember.set(self, "gameState.games", games);
-          
+            other.refresh();
+
         })
+
+          
+          
 
     },
 

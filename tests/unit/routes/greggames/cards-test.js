@@ -1,6 +1,6 @@
 import { moduleFor, test } from 'ember-qunit';
 
-moduleFor('route:greggames/gamelibrary', 'Unit | Route | greggames/gamelibrary', {
+moduleFor('route:greggames/cards', 'Unit | Route | greggames/cards', {
   // Specify the other units that are required for this test.
   // needs: ['controller:foo']
 });

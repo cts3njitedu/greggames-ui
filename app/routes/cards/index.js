@@ -1,28 +1,17 @@
 import Ember from 'ember';
 import ENV from 'greggames-ui/config/environment';
-import CardMixin from '../../mixins/card-mixin';
-export default Ember.Route.extend(CardMixin,{
 
-    games: null,
+export default Ember.Route.extend({
+
+    greggameService: Ember.inject.service("greggames-service"),
     init() {
 
-      this.getGames();
+        this.get("greggameService").getInitialGames(this);
 
     },
     
-
-    getGames(){
-
-        var self = this;
-        var games = this.getCardGames(function(games){
-            console.log("sugar honey ice tea");
-            Ember.set(self,"games",games);
-            self.refresh();
-
-        });
-    },
     model() {
 
-        return this.get("games");
+        return this.get("greggameService.games");
     }
 });

@@ -1,9 +1,24 @@
 {{greggames-header}}
 
 <div class="container">
-{{outlet}}
+    {{greggames-header}}
+    <div id="gregdiv" class="container">
+
+
+        <table id="gregtable">
+            {{#each model as |cardgame|}}
+            <tr>
+                <td>
+                    <div>{{#link-to "cards.spades.games"}}
+                        <button class="greglink">Spades</button>{{/link-to}}
+                    </div>
+                </td>
+            </tr>
+            {{/each}}
+
+        </table>
+
+
+    </div>
 
 </div>
-
-
-

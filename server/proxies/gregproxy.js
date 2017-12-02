@@ -16,7 +16,7 @@ module.exports = function (app) {
   });
 
   proxy.on('proxyReq', function (proxyReq, req, res) {
-    console.log('RAW Response from the target', req);
+    //console.log('RAW Response from the target', req);
   });
 
   app.use(proxyPath, function (req, res, next) {

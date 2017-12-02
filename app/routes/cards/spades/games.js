@@ -13,8 +13,8 @@ export default Ember.Route.extend(SpadeMixin, {
 
         //this._getGames();
 
-        this.get("spadeGameService").getInitialGames();
-        this.get("spadeGameService").getGames();
+        this.get("spadeGameService").getInitialGames(this);
+        this.get("spadeGameService").makeSubscriber(this);
 
 
     },

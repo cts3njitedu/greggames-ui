@@ -3,15 +3,9 @@ import ENV from 'greggames-ui/config/environment';
 import GregGameAjaxMixin from './greggame-ajax-mixin';
 export default Ember.Mixin.create(GregGameAjaxMixin, {
 
-    getSpadeGames: function (cb) {
+    getSpadeGames: function () {
 
-        this.doGet("/api/cards/spades/games").then(function (response) {
-
-
-            cb(response);
-
-
-        });
+        return this.doGet("/api/cards/spades/games");
 
 
     }

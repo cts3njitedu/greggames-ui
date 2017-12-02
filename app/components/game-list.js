@@ -13,7 +13,6 @@ export default Ember.Component.extend({
         numberOfPlayers: 1,
         
     },
-   
 
 
     isGameView: true,
