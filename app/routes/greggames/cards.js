@@ -8,9 +8,16 @@ export default Ember.Route.extend({
         this.get("cardService").getInitialGames(this);
 
     },
-    
+
     model() {
 
         return this.get("cardService.games");
+    },
+    actions: {
+
+        viewGame(game) {
+
+            this.transitionTo("greggames.cards." + game.toLowerCase());
+        }
     }
 });

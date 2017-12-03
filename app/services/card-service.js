@@ -12,7 +12,7 @@ export default Ember.Service.extend(CardMixin,{
 
         var self = this;
         var games = this.getCardGames().then(function(games){
-            //console.log("sugar honey ice tea");
+            console.log("sugar honey ice tea");
             Ember.set(self,"games",games);
             other.refresh();
 

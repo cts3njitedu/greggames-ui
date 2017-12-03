@@ -3,13 +3,16 @@
         {{#each games as |game|}}
 
             <section>
-                <div class="cardGame">
+                <div class={{divClass}}>
 
 
                 </div>
 
-               {{#link-to "greggames.cards.spades" tagName="button"}}{{game}} {{/link-to}}
+               {{!-- {{#link-to "greggames.cards.spades" tagName="button"}}{{game}} {{/link-to}} --}}
+               
+               <button {{action "viewGame" game}} >{{game}}</button>
             </section>
+            <br/>
 
 
         {{/each}}
