@@ -1,0 +1,65 @@
+#newGameModal{
+
+    z-index: 20;
+    height: 500px;
+    width: 80%;
+    border: 1px solid rgba(25, 10, 228, 0);
+    background-color: darkgray;
+    box-shadow: inset 3px 3px 10px 3px #000000;
+    position: fixed;
+    border-radius: 20px;
+    //top: 25%;
+    //top: 40%;
+    top: 20%;
+    right:0%;
+}
+
+#newGameModalHeader{
+
+    width:100%;
+    height:25%;
+    background-color: rgb(10, 168, 231);
+    color: rgb(228, 15, 15);
+    text-align: center;
+   
+    box-shadow: inset 3px 3px 10px 3px #000000;
+    border-radius: 20px;
+}
+
+.newGameModalInput{
+
+    //font-size: 130%;
+    color: green;
+
+}
+
+
+#newGameModalButtonDiv{
+    margin-left: 55%;
+    top: 15%;
+    height: 100px;
+    position:relative;
+}
+
+#newGameModalButton{
+
+    height: 100px;
+    width: 100px;
+    background-color: black;
+    border: 5px dashed yellow;
+    color: yellow;
+
+}
+#newGameModalButtonCanel{
+    
+        height: 100px;
+        width: 100px;
+        background-color: rgb(245, 4, 4);
+        border: 5px dashed yellow;
+        color: yellow;
+}
+
+.buttonContainer{
+
+    margin-top:-25%;
+}

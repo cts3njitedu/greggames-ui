@@ -2,34 +2,29 @@ import Ember from 'ember';
 
 export default Ember.Component.extend({
 
-    buttonValue: "New Game",
-    game:null,
+
+    newGame: {
+
+        pointsToWin: 500,
+        bags: 10,
+        bagPoints: 100,
+        bidNilPoints: 100,
+        numberOfTeams: 2,
+        pointsToLose: -100
+    },
 
     actions: {
 
-        createView(){
-            this.set("isGameView",false);
-            this.set("isCreateView",true);
-        },
-        closeView(){
+        createNewGame(){
 
-            this.set("isGameView",true);
-            this.set("isCreateView",false);
+            this.sendAction("createNewGame",this.get("newGame"));
         },
-        addGame(){
+        cancelGame(){
 
-            //console.log("Sugar Honey Ice Tea");
-            this.set("isEnterGame",true);
-            this.set("isCreateView",false);
-            this.sendAction("addGame");
-            //that.transitionTo('cards.spades.games.game',resp.gameId);
-        },
-        gameView(){
-            this.set("isGameView",true);
-            this.set("isCreateView",false);
-            this.set("isEnterGame",false);
-            this.set("game",{});
-
+           this.sendAction("cancelGame");
         }
+
     }
+
+    
 });

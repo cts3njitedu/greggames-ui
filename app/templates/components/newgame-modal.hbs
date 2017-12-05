@@ -1,29 +1,33 @@
-<table id="buttonTable">
+<div class="container" id="newGameModal">
 
-    <tr>
-        <td>
-            {{#if isCreateView}}
-            <button id="newGameButton" {{action "closeView"}}>Close</button>
-            {{/if}}
-        </td>
-        <td>
-            {{#if isGameView}}
-            <button id="newGameButton" {{action "createView"}}>New Game</button>
-            {{/if}} {{#if isCreateView}}
-            <button id="newGameButton" {{action "addGame"}}>Create Game</button>
-            {{/if}}
-            {{#if isEnterGame}}
-                    <button id="newGameButton" {{action "gameView"}}>Game View</button>
-            {{/if}}
-        </td>
+<div class="container" id="newGameModalHeader">
+    <h1>Creating New Game</h1>
+</div>
+<br/>
+<div class="container">
+<div class="newGameModalInput"><p>Number of Points To Win:</p> {{input type="text" value=newGame.pointsToWin}}</div>
+<br/>
+<div class="newGameModalInput"><p>Number of Points to Win/Lose for Nil Bid:</p> {{input type="text" value=newGame.bidNilPoints}}</div>
+<br/>
+<div class="newGameModalInput"><p>Number of Bags to OverBook</p> {{input type="text" value=newGame.bags}}</div>
+<br/>
+<div class="newGameModalInput"><p>Number of Points to Lose When OverBook</p> {{input type="text" value=newGame.bagPoints}}</div>
 
 
+</div>
+
+<div class="col-sm container buttonContainer">
+<div class="container" id="newGameModalButtonDiv">
+    <button {{action "createNewGame"}} id="newGameModalButton">Create New Game</button>
+</div>
+<div class="container" id="newGameModalButtonDiv">
+    <button {{action "cancelGame"}} id="newGameModalButtonCanel">Cancel</button>
+</div>
+
+</div>
 
 
 
 
 
-    </tr>
-
-
-</table>
+</div>

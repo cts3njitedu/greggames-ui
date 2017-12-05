@@ -1,18 +1,37 @@
 <div class="container">
 
-<article>
-
-{{#each gameState.games as |game|}}
-
-<section>
-
-    {{game.gameId}}
-
-</section>
-
-{{/each}}
-
-</article>
+    <button type="button" {{action "createGame"}} id="spadeListButton">Create Game</button>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
 
 
+    <article>
+
+        {{#each gameState.games as |game|}}
+
+        <section class="gameSection">
+            <div>
+                <div>
+                    <p> Points To Win: {{game.pointsToWin}}</p>
+                    <p>Number of Bags to OverBook: {{game.bags}} </p>
+                    <p>Points Lost When OverBook: {{game.bagPoints}}</p>
+                    <p>Points to Win/Lose When Bid Nil: {{game.bidNilPoints}}</p>
+
+                </div>
+
+                <button {{action "playGame" game.gameId}} id="playSpadeGameButton">Play Game</button>
+            </div>
+
+        </section>
+        <br/> {{/each}}
+
+    </article>
+    {{!--
+    <div class="container"> --}} {{!-- </div> --}} {{#if showModal}}
+    <div class="container">
+        {{newgame-modal createNewGame="createNewGame" cancelGame="cancelGame"}}
+    </div>
+    {{/if}}
 </div>

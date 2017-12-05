@@ -9,8 +9,12 @@ export default Ember.Service.extend(SpadeMixin, {
 
     stompClient: null,
 
+  
+
 
     makeSubscriber: function (other) {
+
+
         let self = this;
         this.get("gregWebSocket").connect(function (stompClient) {
             Ember.set(self, "stompClient", stompClient);
@@ -22,14 +26,20 @@ export default Ember.Service.extend(SpadeMixin, {
                 console.log("Response:");
                 let resp = JSON.parse(response.body);
                 console.log(resp.gameId);
-
+        
                 let __self = _self;
-                _self.getSpadeGames().then(function (games) {
+                Ember.get(__self,"gameState.games").pushObject(resp);
+                Ember.set(__self,"gameState.gameId",resp.gameId);
+                other.refresh();
 
-                    Ember.set(__self, "gameState.games", games);
-                    Ember.set(__self, "gameState.gameId", resp.gameId);
-                    other.refresh();
-                })
+                // _self.getSpadeGames().then(function (games) {
+
+                //     Ember.get(__self,"gameState.games").pushObject()
+                //     Ember.set(__self, "gameState.games", games);
+                //     Ember.set(__self, "gameState.gameId", resp.gameId);
+                //     other.refresh();
+                //     other.transitionTo("greggames.spades.games.game",resp.gameId);
+                // })
 
                 // that.transitionTo('cards.spades.games.game',resp.gameId);
 
@@ -42,25 +52,37 @@ export default Ember.Service.extend(SpadeMixin, {
         });
 
 
+
+
+
+
     },
     getInitialGames: function (other) {
 
         let self = this;
-        this.getSpadeGames().then(function(games){
+        this.getSpadeGames().then(function (games) {
 
             Ember.set(self, "gameState.games", games);
+            Ember.set(self, "gameState.gameId", "");
+
             other.refresh();
 
         })
 
-          
-          
+
+
 
     },
 
     addGame: function (newGame) {
 
-        this.get("stompClient").send("/app/greggames/spades", {}, JSON.stringify(newGame));
+        let self = this;
+
+            this.get("stompClient").send("/app/greggames/spades", {}, JSON.stringify(newGame));
+
+           
+        
+
 
 
     }
