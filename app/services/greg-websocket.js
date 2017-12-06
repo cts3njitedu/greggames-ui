@@ -7,24 +7,32 @@ import ENV from 'greggames-ui/config/environment';
 export default Ember.Service.extend({
 
 
-    stompClient: null,
+    client: null,
 
 
-    connect: function(cb){
-
-        
-
-        var that = this;
-        var socket = new SockJS(ENV.APP.API_HOST + '/ggsocket');
-        var stompClient = Stomp.over(socket);
-
-        stompClient.connect({}, function (frame) {
-            console.log('Connected: ' + frame);
-            cb(stompClient);
-        });
+    connect: function (cb) {
 
 
-        
+        if (this.get("client")) {
+            cb(this.get("client"));
+        }
+        else {
+
+            let self = this;
+            var socket = new SockJS(ENV.APP.API_HOST + '/ggsocket');
+            var stompClient = Stomp.over(socket);
+
+            stompClient.connect({}, function (frame) {
+                self.set("client",stompClient);
+                //console.log('Connected: ' + frame);
+                cb(stompClient);
+            });
+
+        }
+
+
+
+
 
 
 

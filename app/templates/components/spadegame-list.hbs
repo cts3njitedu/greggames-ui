@@ -6,6 +6,10 @@
     <br/>
     <br/>
 
+    {{!-- {{#each temp as |t|}}
+    <p>{{t.gameId}}</p>
+    {{/each}} --}}
+    {{!-- <p>{{temp}}</p> --}}
 
     <article>
 
@@ -29,9 +33,10 @@
 
     </article>
     {{!--
-    <div class="container"> --}} {{!-- </div> --}} {{#if showModal}}
+    <div class="container"> --}} {{!-- </div> --}} 
+</div>
+{{#if showModal}}
     <div class="container">
         {{newgame-modal createNewGame="createNewGame" cancelGame="cancelGame"}}
     </div>
     {{/if}}
-</div>

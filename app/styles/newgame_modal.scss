@@ -2,16 +2,16 @@
 
     z-index: 20;
     height: 500px;
-    width: 80%;
+    width: 60%;
     border: 1px solid rgba(25, 10, 228, 0);
     background-color: darkgray;
     box-shadow: inset 3px 3px 10px 3px #000000;
-    position: fixed;
+    position: absolute;
     border-radius: 20px;
     //top: 25%;
     //top: 40%;
     top: 20%;
-    right:0%;
+    right:15%;
 }
 
 #newGameModalHeader{
