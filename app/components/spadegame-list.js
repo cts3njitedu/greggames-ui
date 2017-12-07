@@ -6,15 +6,7 @@ export default Ember.Component.extend({
     isCreator: false,
     gameState: null,
     spadeService: Ember.inject.service("spade-service"),
-    temp: Ember.computed('spadeService.gameState.newGameId',function(){
-
-        console.log("checking cable");
-        console.log(this.get("spadeService.newGameId"));
-        return this.get("spadeService.gameState.newGameId");
-
-
-
-    }),
+ 
     actions: {
 
         playGame(gameId) {

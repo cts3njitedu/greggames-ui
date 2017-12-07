@@ -8,5 +8,10 @@ export default Ember.Mixin.create(GregGameAjaxMixin, {
         return this.doGet("/api/cards/spades/games");
 
 
+    },
+    getGameById: function(gameId){
+
+
+        return this.doGet("/api/cards/spades/games/"+gameId);
     }
 });

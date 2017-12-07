@@ -7,6 +7,8 @@ export default Ember.Service.extend(SpadeMixin, {
 
     gameState: {},
 
+    gameView: {},
+
     init(){
 
         this.set("gameState.games",[]);
@@ -89,7 +91,15 @@ export default Ember.Service.extend(SpadeMixin, {
 
 
 
+    },
+
+    getGame: function(gameId){
+
+        console.log("Game being called");
+        console.log(gameId);
+        return this.getGameById(gameId);
     }
+
 
 
 
