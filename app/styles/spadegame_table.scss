@@ -1,7 +1,42 @@
-#gameTable{
+.spadeGameTable{
 
     border: 1px solid black;
     background-color: green;
-    height: 500px;
-    width: 500px;
+    height: 90%;
+    position: absolute;
+    width: 80%;
+    margin-bottom: 100px;
+}
+
+.spadeGameTablePadding{
+
+    position:fixed;
+    height: 30%;
+    background-color: blue;
+}
+
+
+.teamOne{
+
+    border:1px solid black;
+    display: table-cell;
+
+}
+
+
+.playerOne{
+
+    height:100px;
+    width: 80%;
+    position:absolute;
+    margin-top:100px;
+    display: table-cell;
+ 
+}
+
+
+.playerThree{
+
+    height:200px;
+    width: 200px;
 }

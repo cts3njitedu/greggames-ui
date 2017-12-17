@@ -12,6 +12,7 @@ export default Ember.Route.extend({
             console.log("Single game");
             console.log(game);
             self.set("spadeService.gameView", game);
+            //self.refresh();
             return self.get("spadeService.gameView")
 
         })
