@@ -2,12 +2,25 @@
 
     border: 10px dotted yellow;
     background-color: green;
-    height: 90%;
+    height: 100%;
     position: absolute;
     width: 80%;
-    margin-bottom: 100px;
+    margin-bottom: 10%;
+    margin-left: -5%;
+    
 }
 
+.startGameButton{
+
+    position:absolute;
+    top: 45%;
+    left: 37%;
+    height: 10%;
+    width: 30%;
+    background-color: blue;
+    color: red;
+    font-size: 200%;
+}
 .spadeGameTablePadding{
 
     position:fixed;

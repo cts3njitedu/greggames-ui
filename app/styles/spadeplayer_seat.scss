@@ -1,17 +1,144 @@
-.playerSeat{
+.playerSeatNorth{
 
 
     height: 15%;
-    border: 1px solid black;
+
     position: absolute;
-    width: 90%;
+    width: 50%;
     top: 10%;
+    left:30%;
     z-index:10;
-    transform: rotate(90deg);
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
 }
 
+
+
+.playerSeatWest{
+
+
+    height: 15%;
+   
+    position: absolute;
+    width: 50%;
+    top: 40%;
+    left: -10%;
+    z-index:10;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+   
+   
+}
+
+.playerSeatEast{
+
+
+    height: 15%;
+   
+    position: absolute;
+    width: 50%;
+    top: 47%;
+    left: 63%;
+    z-index:10;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+   
+   
+}
+
+.playerSeatSouth{
+
+
+    height: 15%;
+   
+    position: absolute;
+    width: 50%;
+    bottom: 10%;
+    left:24%;
+    z-index:10;
+   
+   
+   
+}
+.playerButtonSouth{
+
+
+    height: 35%;
+
+    position: absolute;
+    width: 20%;
+    bottom: -35%;
+    left:45%;
+    z-index:5;
+    
+   
+}
+
+.playerButtonNorth{
+
+
+    height: 35%;
+
+    position: absolute;
+    width: 20%;
+    bottom: -35%;
+    left:40%;
+    z-index:5;
+    // -webkit-transform: rotate(180deg);
+    // -moz-transform: rotate(180deg);
+    // -ms-transform: rotate(180deg);
+    // -o-transform: rotate(180deg);
+   
+}
+
+.playerButtonEast{
+
+
+    height: 35%;
+   
+    position: absolute;
+    width: 20%;
+    top: 100%;
+    left: 40%;
+    z-index:10;
+    
+   
+}
+.playerButtonWest{
+
+
+    height: 35%;
+   
+    position: absolute;
+    width: 20%;
+    top: 100%;
+    left: 40%;
+    z-index:10;
+    
+   
+}
 .cardSize{
 
     height:95%;
-    width:10%;
+    width:22%;
+}
+.cardDetails{
+
+    position:absolute;
+    margin-left:15%;
+    border: 1px solid black;
+}
+.playCardDiv{
+    position: absolute;
+    left: 44%;
+    border: 1px solid black;
+    height: 95%;
+    width: 25%;
+    bottom: 150%;
 }

@@ -61,8 +61,7 @@ export default Ember.Route.extend({
         });
 
         return this.get("spadeService").getInitialGames().then(function (response) {
-            console.log("My mouse is blue");
-            console.log(self.get("spadeService.gameState.newGameId"));
+     
             self.set("spadeService.gameState.games", response);
 
             //self.set("spadeService.gameState.newGameId",self.get("spadeService.gameState.newGameId"));

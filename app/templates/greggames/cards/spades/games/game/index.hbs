@@ -1,4 +1,49 @@
+<div class="container spadeGameTable">
 
+    
+    {{#if model.starting}}
 
-{{spadegame-table gameState=model isGameView=gameView}}
+       
+       <div class="container"><button class="startGameButton" {{action "startGame" model}}>Start Game</button></div> 
 
+    {{/if}}
+    <div class="container playerSeatNorth">
+        {{spadeplayer-seat player=model.teams.TEAM1.players.PLAYER3}}
+        {{#if model.teams.TEAM1.players.PLAYER3.bot}}
+
+            <button {{action "createPlayerView" model.teams.TEAM1.players.PLAYER3}} class="playerButtonNorth">PLAYER3</button>
+
+        {{/if}}
+     
+        
+    </div>
+
+    <div class="container playerSeatWest">
+        {{spadeplayer-seat player=model.teams.TEAM2.players.PLAYER2}}
+         {{#if model.teams.TEAM2.players.PLAYER2.bot}}
+
+            <button {{action "createPlayerView" model.teams.TEAM2.players.PLAYER2}} class="playerButtonWest">PLAYER2</button>
+
+        {{/if}}
+    </div>
+
+    <div class="container playerSeatEast">
+        {{spadeplayer-seat player=model.teams.TEAM2.players.PLAYER4}}
+         {{#if model.teams.TEAM2.players.PLAYER4.bot}}
+
+            <button {{action "createPlayerView" model.teams.TEAM2.players.PLAYER4}} class="playerButtonEast">PLAYER4</button>
+
+        {{/if}}
+    </div>
+
+    <div class="container playerSeatSouth">
+        {{spadeplayer-seat player=model.teams.TEAM1.players.PLAYER1}}
+       {{#if model.teams.TEAM1.players.PLAYER1.bot}}
+
+            <button {{action "createPlayerView" model.teams.TEAM1.players.PLAYER1}} class="playerButtonSouth">PLAYER1</button>
+
+        {{/if}}
+    </div>
+
+</div>
+{{!-- {{spadegame-table gameState=model createPlayerView="createPlayerView"}} --}}

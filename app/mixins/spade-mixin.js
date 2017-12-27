@@ -13,5 +13,14 @@ export default Ember.Mixin.create(GregGameAjaxMixin, {
 
 
         return this.doGet("/api/cards/spades/games/"+gameId);
+    },
+
+    updateGame: function(gameView){
+
+
+        return this.doPut("/api/cards/spades/games/"+gameView.gameId,gameView);
     }
+
+
+    
 });

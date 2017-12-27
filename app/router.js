@@ -13,7 +13,11 @@ Router.map(function () {
       this.route('spades', function () {
         this.route('about');
         this.route('games', function () {
-          this.route('game', { path: '/:gameId' }, function() {});
+          this.route('game', { path: '/:gameId' }, function() {
+            this.route('players', function() {
+              this.route('player',{path: '/:playerId'});
+            });
+          });
         });
       });
     });

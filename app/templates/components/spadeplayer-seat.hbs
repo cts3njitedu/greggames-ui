@@ -1,0 +1,12 @@
+{{#each player.remainingCards as |card index|}}
+
+{{#if isShowPlayerCards}}
+
+<img {{action "playCard"}} src={{image-src "/assets/images/cards/" card.name ".jpeg"}} id={{id-formatter player.name index}} class="cardSize cardDetails"> 
+
+{{else}}
+<img src="/assets/images/cards/BACK_CARD.jpeg" id={{id-formatter player.name index}} class="cardSize cardDetails"> 
+{{/if}}
+{{/each}}
+
+<div class="playCardDiv"></div>

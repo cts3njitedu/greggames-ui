@@ -23,5 +23,28 @@ export default Ember.Mixin.create({
            
  
 
+    },
+
+    doPut: function(url,data){
+
+        return this.get("ajax").request(url,{
+            method: 'PUT',
+            //url: ENV.APP.API_HOST + "/cards/spades/games",
+            dataType: "json",
+
+            data: data,
+            contentType: "application/json"
+           
+            // error: function (reason) {
+            //     reject(reason);
+            // },
+            // success: function(response){
+            //     console.log(response);
+            //     resolve(response);
+            // }
+        });
+
+
+
     }
 });
