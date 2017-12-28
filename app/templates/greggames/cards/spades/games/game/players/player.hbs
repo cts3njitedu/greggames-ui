@@ -1,27 +1,34 @@
-<div class="container spadeGameTable">
+{{#spadegame-table gameView=model}}
 
     
 
     <div class="container playerSeatNorth">
         {{spadeplayer-seat player=model.seats.playerNorth playerView=model.playerView}}
       
-     
+        <div class="teamName">Team: {{model.seats.playerNorth.team}}</div>
+        <div class="playerNameDisplay">Player: {{model.seats.playerNorth.name}}</div>
         
     </div>
 
     <div class="container playerSeatWest">
         {{spadeplayer-seat player=model.seats.playerWest playerView=model.playerView}}
+        <div class="teamName">Team: {{model.seats.playerWest.team}}</div>
+        <div class="playerNameDisplay">Player: {{model.seats.playerWest.name}}</div>
 
     </div>
 
     <div class="container playerSeatEast">
         {{spadeplayer-seat player=model.seats.playerEast playerView=model.playerView}}
+        <div class="teamName">Team: {{model.seats.playerEast.team}}</div>
+        <div class="playerNameDisplay">Player: {{model.seats.playerEast.name}}</div>
        
     </div>
 
     <div class="container playerSeatSouth">
-        {{spadeplayer-seat player=model.seats.playerSouth playerView=model.playerView}}
-    
+        {{spadeplayer-seat player=model.seats.playerSouth playerView=model.playerView currTurn=model.currTurn playerCard="playerCard"}}
+        {{bidding-modal playerBid="playerBid" gameView=model}}
+        <div class="teamName">Team: {{model.seats.playerSouth.team}}</div>
+        <div class="playerNameDisplay">Player: {{model.seats.playerSouth.name}}</div>
     </div>
 
-</div>
+{{/spadegame-table}}

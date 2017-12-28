@@ -2,59 +2,96 @@ import Ember from 'ember';
 
 export default Ember.Route.extend({
 
+    spadeService: Ember.inject.service("spade-service"),
+
+    playerId: null,
     seats: {
 
-        "playerSouth":null,
+        "playerSouth": null,
         "playerWest": null,
-        "playerNorth":null,
-        "playerEast":null
+        "playerNorth": null,
+        "playerEast": null
 
     },
-    seatIds:{
+    seatIds: {
 
-        1:"playerSouth",
-        2:"playerWest",
-        3:"playerNorth",
-        4:"playerEast"
+        1: "playerSouth",
+        2: "playerWest",
+        3: "playerNorth",
+        4: "playerEast"
     },
+    gameState: {},
 
-    model(params){
+    gamePlayers: {},
 
-        console.log("Player going to hate");
+    model(params) {
+
+
         const PLAYER = "PLAYER";
         let seatName = params.playerId;
-        let seatId = seatName.charAt(seatName.length-1);
+        this.set("playerId", params.playerId);
+        let seatId = seatName.charAt(seatName.length - 1);
 
         let allPlayers = {};
         let gameView = this.modelFor("greggames.cards.spades.games.game");
+        this.set("gameState", Ember.copy(gameView));
         let teams = gameView.teams;
-       
+
         for (var team in teams) {
             if (teams.hasOwnProperty(team)) {
                 let players = teams[team].players;
-                for(var player in players){
+                for (var player in players) {
 
                     allPlayers[player] = players[player];
                 }
             }
         }
-
+        this.set("gamePlayers", allPlayers);
         let counter = 1;
-        while(counter<=gameView.numberOfPlayers){
-            
-            let position = this.get("seatIds."+counter);
-            this.set("seats."+position,allPlayers[PLAYER+seatId]);
+        while (counter <= gameView.numberOfPlayers) {
+
+            let position = this.get("seatIds." + counter);
+            this.set("seats." + position, allPlayers[PLAYER + seatId]);
             seatId++;
-            if(seatId>4){
+            if (seatId > 4) {
                 seatId = 1;
             }
             counter++;
         }
-        console.log(this.get("seats"));
 
-        gameView["seats"]=this.get("seats");
+
+        gameView["seats"] = this.get("seats");
         gameView["playerView"] = params.playerId;
-        console.log(gameView);
+
+
         return gameView;
+    },
+    actions: {
+
+        playerBid(bid) {
+
+            console.log("Player Route Bid");
+            console.log(bid);
+            
+            let gameView = Ember.copy(this.get("gameState"));
+            let player = this.get("gamePlayers")[this.get("playerId")];
+            console.log(player);
+            // let bidder = 10*bid;
+            // this.set("gameView.teams."+player.team+".players."+player.name,bidder);
+            // delete gameView.seats;
+            // delete gameView.playerView;
+            let gameViewPlayer = gameView.teams[player.team].players[player.name];
+            Ember.set(gameViewPlayer, "playerBid", 10 * bid);
+            this.get("spadeService").modifyGame(gameView);
+
+        },
+        playerCard(card) {
+
+            let gameView = Ember.copy(this.get("gameState"));
+            let player = this.get("gamePlayers")[this.get("playerId")];
+            let gameViewPlayer = gameView.teams[player.team].players[player.name];
+            Ember.set(gameViewPlayer, "playingCard", card);
+            this.get("spadeService").modifyGame(gameView);
+        }
     }
 });

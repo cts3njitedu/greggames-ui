@@ -142,3 +142,45 @@
     width: 25%;
     bottom: 150%;
 }
+
+.playerPoints{
+
+    border: 1px solid black;
+    top: -40%;
+    left: 30%;
+    height: 40%;
+    width: 50%;
+    text-align: center;
+    position: absolute;
+    background-color: burlywood
+
+}
+
+.teamName{
+
+    border: 1px solid black;
+    top: 100%;
+    width: 20%;
+    background-color: rgb(8, 8, 131);
+    color: white;
+    text-align: center;
+    left: 50%;
+    position: absolute;
+}
+.playerNameDisplay{
+
+    border: 1px solid black;
+    top: 120%;
+    left:45%;
+    width:30%;
+    text-align: center;
+    background-color: lightblue;
+    position: absolute;
+}
+
+.playingCardSize{
+
+    width:100%;
+    height:100%;
+ 
+}

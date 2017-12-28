@@ -1,7 +1,17 @@
 <div class="container spadeGameTable">
+    {{#each teams as |team|}}
 
+    <div class="teamPointsReset">
+        <p>{{team.name}}:</p>
+        <p>Team Points: {{team.totalScore}}</p>
+        <p>Bags: {{team.bags}}</p>
+    </div>
 
-  
+    {{/each}} 
+    <div class="gameMetaData">Current Turn: {{gameView.currTurn}}</div>
+    
+    {{yield}}
+
 
 
 

@@ -1,0 +1,28 @@
+{{#if isBidding}}
+<div class="biddingModal">
+
+    <div class="biddingBody">
+
+   
+
+        <div class="biddingButton">
+            {{#each counter as |count|}}
+
+            <button {{action "playerBid" count}}>{{count}}</button>
+
+            {{/each}}
+
+        </div>
+
+        <p>Make a Bid</p>
+
+
+     
+
+
+
+
+    </div>
+
+</div>
+{{/if}}

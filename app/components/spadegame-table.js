@@ -9,6 +9,20 @@ export default Ember.Component.extend({
         console.log(this.get("playerName"));
     },
 
+    teams: Ember.computed("gameView.teams",function(){
+
+        let gameTeams = this.get("gameView.teams");
+        let gameTeamsArray = [];
+        for(var team in gameTeams){
+
+            if(gameTeams.hasOwnProperty(team)){
+                gameTeamsArray.push(gameTeams[team]);
+            }
+        }
+
+        return gameTeamsArray;
+    }),
+
     action: {
 
         createPlayerView(playerId){

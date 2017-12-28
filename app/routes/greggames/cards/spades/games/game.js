@@ -41,7 +41,7 @@ export default Ember.Route.extend({
             //self.refresh();
 
             let gameView = self.get("spadeService.gameView");
-            
+            console.log(gameView);
             return gameView;
 
         })

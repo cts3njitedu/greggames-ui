@@ -6,7 +6,7 @@ export default Ember.Component.extend({
     init() {
 
         this._super();
-   
+
     },
     didRender() {
 
@@ -16,26 +16,47 @@ export default Ember.Component.extend({
         $("#" + div.id).children("img").each(function (i) {
 
 
-        
+
             let index = this.id.split("_")[1];
             Ember.$("#" + this.id).css({
-                "left":(5*index)+"%", "z-index":index
-                
-        
+                "left": (5 * index) + "%", "z-index": index
+
+
             }
 
 
             )
+            Ember.$("#" + this.id).addClass("cardSize");
+            Ember.$("#" + this.id).addClass("cardDetails");
+
         })
     },
-    isShowPlayerCards: Ember.computed("playerView","player.name",function(){
+    isShowPlayerCards: Ember.computed("playerView", "player.name", function () {
 
-        return this.get("player.name")==this.get("playerView");
+        return this.get("player.name") == this.get("playerView");
+    }),
+
+    hasPlayingCard: Ember.computed("player.playingCard",function(){
+
+        return this.get("player.playingCard")!=null;
     }),
     actions: {
 
-        playCard(){
-            alert("Sugar Honey Ice Tea");
+        playerCard(card) {
+
+
+            console.log("Playing Card");
+            console.log(card);
+            console.log(this.get("currTurn"));
+            if (this.get("currTurn") != this.get("playerView")) {
+
+                alert("It is not your turn!!!!");
+            }
+            else {
+                this.sendAction("playerCard", card);
+
+            }
+
         }
     }
     // didRender() {

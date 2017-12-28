@@ -2,11 +2,20 @@
 
 {{#if isShowPlayerCards}}
 
-<img {{action "playCard"}} src={{image-src "/assets/images/cards/" card.name ".jpeg"}} id={{id-formatter player.name index}} class="cardSize cardDetails"> 
+<img {{action "playerCard" card}} src={{image-src "/assets/images/cards/" card.name ".jpeg"}} id={{id-formatter player.name index}} class="cardSize cardDetails"> 
 
 {{else}}
-<img src="/assets/images/cards/BACK_CARD.jpeg" id={{id-formatter player.name index}} class="cardSize cardDetails"> 
+<img src="/assets/images/cards/BACK_CARD.jpeg" id={{id-formatter player.name index}}> 
 {{/if}}
 {{/each}}
+<div class="playerPoints"><p>Player Bid: {{player.playerBid}}</p>
+<p>Player Score: {{player.playerCurrentScore}}</p>
+</div>
 
-<div class="playCardDiv"></div>
+
+<div class="playCardDiv container">
+    {{#if hasPlayingCard}}
+    <img src={{image-src "/assets/images/cards/" player.playingCard.name ".jpeg"}} class="playingCardSize">
+    {{/if}}    
+    
+</div>

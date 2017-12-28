@@ -1,6 +1,6 @@
-<div class="container spadeGameTable">
+{{!-- <div class="container spadeGameTable"> --}}
 
-    
+ {{#spadegame-table gameView=model}}   
     {{#if model.starting}}
 
        
@@ -44,6 +44,7 @@
 
         {{/if}}
     </div>
+{{/spadegame-table}}
 
-</div>
+{{!-- </div> --}}
 {{!-- {{spadegame-table gameState=model createPlayerView="createPlayerView"}} --}}
