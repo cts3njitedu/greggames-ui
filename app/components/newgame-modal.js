@@ -17,6 +17,7 @@ export default Ember.Component.extend({
 
         createNewGame(){
 
+            this.set("newGame.bags",10*this.get("newGame.bags"));
             this.sendAction("createNewGame",this.get("newGame"));
         },
         cancelGame(){
