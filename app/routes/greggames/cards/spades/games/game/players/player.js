@@ -82,6 +82,9 @@ export default Ember.Route.extend({
             // delete gameView.playerView;
             let gameViewPlayer = gameView.teams[player.team].players[player.name];
             Ember.set(gameViewPlayer, "playerBid", 10 * bid);
+
+            Ember.set(gameView,"gameModifier",this.get("playerId"));
+            console.log(gameView);
             this.get("spadeService").modifyGame(gameView);
 
         },
@@ -91,6 +94,8 @@ export default Ember.Route.extend({
             let player = this.get("gamePlayers")[this.get("playerId")];
             let gameViewPlayer = gameView.teams[player.team].players[player.name];
             Ember.set(gameViewPlayer, "playingCard", card);
+            //gameViewPlayer.playingCard = card;
+            Ember.set(gameView,"gameModifier",this.get("playerId"));
             this.get("spadeService").modifyGame(gameView);
         }
     }

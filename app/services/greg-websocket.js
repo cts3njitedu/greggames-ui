@@ -14,6 +14,8 @@ export default Ember.Service.extend({
 
 
         if (this.get("client")) {
+            console.log("Web socket connection");
+            console.log(this.get("client"));
             cb(this.get("client"));
         }
         else {

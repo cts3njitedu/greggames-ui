@@ -36,9 +36,9 @@ export default Ember.Component.extend({
         return this.get("player.name") == this.get("playerView");
     }),
 
-    hasPlayingCard: Ember.computed("player.playingCard",function(){
+    hasPlayingCard: Ember.computed("player",function(){
 
-        return this.get("player.playingCard")!=null;
+        return (this.get("player.playingCard")!=null);
     }),
     actions: {
 
@@ -48,14 +48,15 @@ export default Ember.Component.extend({
             console.log("Playing Card");
             console.log(card);
             console.log(this.get("currTurn"));
-            if (this.get("currTurn") != this.get("playerView")) {
+            // if (this.get("currTurn") != this.get("playerView")) {
 
-                alert("It is not your turn!!!!");
-            }
-            else {
-                this.sendAction("playerCard", card);
+            //     alert("It is not your turn!!!!");
+            // }
+            // else {
+            //     this.sendAction("playerCard", card);
 
-            }
+            // }
+            this.sendAction("playerCard", card);
 
         }
     }
