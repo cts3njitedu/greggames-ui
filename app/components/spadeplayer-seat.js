@@ -6,11 +6,51 @@ export default Ember.Component.extend({
     init() {
 
         this._super();
+        // if(this.get("previousTrick")==null){
+
+        //     if(this.get("player.playingCard")==null){
+
+        //         this.set("showSectionForCard",false);
+        //     }
+        //     this.set("displayedCard",this.get("player.playingCard.name"));
+            
+        // }
+        // else{
+        //     this.set("displayedCard",this.get("previousTrick"));
+        // }
 
     },
     didRender() {
 
         console.log("we are one mu fried");
+        // if(this.get("previousTrick")==null||this.get("previousTrick")==undefined){
+
+            
+        //     this.set("displayedCard",this.get("player.playingCard.name"));
+        //     if(this.get("player.playingCard.name")==null){
+
+        //         this.set("hasPlayingCard",false);
+        //     }
+        //     else{
+        //         this.set("hasPLayingCard",true);
+        //     }
+
+        // }
+        
+        // if(this.get("previousTrick")==null){
+
+        //     if(this.get("player.playingCard")==null){
+
+        //         this.set("showSectionForCard",false);
+        //     }
+        //     this.set("displayedCard",this.get("player.playingCard.name"));
+            
+        // }
+        // else{
+        //     this.set("displayedCard",this.get("previousTrick"));
+        // }
+       
+       
         let div = this.element;
 
         $("#" + div.id).children("img").each(function (i) {
@@ -36,9 +76,60 @@ export default Ember.Component.extend({
         return this.get("player.name") == this.get("playerView");
     }),
 
-    hasPlayingCard: Ember.computed("player",function(){
+    showSectionForCard: true,
 
-        return (this.get("player.playingCard")!=null);
+    displayedCard: Ember.computed("previousTrick","player.playingCard",function(){
+     
+        let previousPlayer = this.get("previousTrick.players");
+          console.log("Entering displaying card")
+ 
+
+            if(previousPlayer==null||previousPlayer==undefined){
+
+                console.log("We are previous");
+               
+    
+                return this.get("player.playingCard.name");
+            
+            }
+            else{
+    
+                console.log("Previous trick");
+                console.log(previousPlayer);
+                console.log(this.get("player.name"));
+    
+                let playerData = previousPlayer[this.get("player.name")];
+                
+                console.log(playerData);
+                let self = this;
+                setTimeout(function(){
+
+
+                    self.set("previousTrick",null);
+                    self.set("player.playingCard",null);
+
+
+                },1200)
+    
+        
+                return playerData.playingCard.name;
+            }
+
+        
+       
+
+        
+
+
+    }),
+
+    hasPlayingCard: Ember.computed("previousTrick","player.playingCard",function(){
+       
+
+        return ((this.get("player.playingCard")!=null)||(this.get("previousTrick")!=null));
+       
+        
+        // return (this.get("previousTrick")!=null)||(this.get("player.playingCard")!=null);
     }),
     actions: {
 
@@ -48,6 +139,8 @@ export default Ember.Component.extend({
             console.log("Playing Card");
             console.log(card);
             console.log(this.get("currTurn"));
+
+          
             // if (this.get("currTurn") != this.get("playerView")) {
 
             //     alert("It is not your turn!!!!");
@@ -56,6 +149,13 @@ export default Ember.Component.extend({
             //     this.sendAction("playerCard", card);
 
             // }
+        //    if(this.get("player.name")!=this.get("playerView")){
+        //        card = null;
+        //        this.set("displayedCard",null);
+        //    }
+
+            
+            
             this.sendAction("playerCard", card);
 
         }

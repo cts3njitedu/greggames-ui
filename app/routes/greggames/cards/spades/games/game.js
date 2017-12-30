@@ -1,5 +1,5 @@
 import Ember from 'ember';
-
+import SpadeConstants from '../../../../../utils/spade-constants'
 export default Ember.Route.extend({
 
 
@@ -42,7 +42,7 @@ export default Ember.Route.extend({
 
             let gameView = self.get("spadeService.gameView");
             console.log(gameView);
-            return gameView;
+            return self.get("spadeService.gameView");
 
         })
     },
@@ -61,6 +61,8 @@ export default Ember.Route.extend({
             this.set("isSocket", true);
             this.set("playerId",playerMetaData.name);
 
+            Ember.set(gameView,"playerNotification",SpadeConstants.GAME_STATES.NEW_PLAYER);
+            console.log(gameView);
             this.get("spadeService").modifyGame(gameView);
 
         },
@@ -68,7 +70,7 @@ export default Ember.Route.extend({
 
             console.log("Please work now");
             // console.log(gameView);
-
+            Ember.set(gameView,"playerNotification",SpadeConstants.GAME_STATES.START);
             this.get("spadeService").modifyGame(gameView);
         }
     }

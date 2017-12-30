@@ -1,5 +1,5 @@
 import Ember from 'ember';
-
+import SpadeConstants from "../../../../../../../utils/spade-constants"
 export default Ember.Route.extend({
 
     spadeService: Ember.inject.service("spade-service"),
@@ -84,8 +84,22 @@ export default Ember.Route.extend({
             Ember.set(gameViewPlayer, "playerBid", 10 * bid);
 
             Ember.set(gameView,"gameModifier",this.get("playerId"));
+            Ember.set(gameView,"playerNotification",SpadeConstants.GAME_STATES.BID);
             console.log(gameView);
             this.get("spadeService").modifyGame(gameView);
+
+        },
+        closeErrorModal(){
+
+            let gameView = Ember.copy(this.get("gameState"));
+            Ember.set(gameView,"playerNotification",SpadeConstants.GAME_STATES.RECEIVED_ERROR);
+
+            Ember.set(gameView,"gameModifier",this.get("playerId"));
+            console.log("Error");
+            console.log(gameView);
+            this.get("spadeService").modifyGame(gameView);
+
+
 
         },
         playerCard(card) {
@@ -96,6 +110,7 @@ export default Ember.Route.extend({
             Ember.set(gameViewPlayer, "playingCard", card);
             //gameViewPlayer.playingCard = card;
             Ember.set(gameView,"gameModifier",this.get("playerId"));
+            Ember.set(gameView,"playerNotification",SpadeConstants.GAME_STATES.PLAY);
             this.get("spadeService").modifyGame(gameView);
         }
     }

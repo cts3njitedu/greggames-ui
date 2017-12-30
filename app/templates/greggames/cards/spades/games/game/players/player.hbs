@@ -3,7 +3,7 @@
 
 
 <div class="container playerSeatNorth">
-    {{spadeplayer-seat player=model.seats.playerNorth playerView=model.playerView}}
+    {{spadeplayer-seat player=model.seats.playerNorth playerView=model.playerView previousTrick=model.previousTrick previousHand=model.previousHand}}
 
     <div class="teamName">Team: {{model.seats.playerNorth.team}}</div>
     <div class="playerNameDisplay">Player: {{model.seats.playerNorth.name}}</div>
@@ -11,27 +11,27 @@
 </div>
 
 <div class="container playerSeatWest">
-    {{spadeplayer-seat player=model.seats.playerWest playerView=model.playerView}}
+    {{spadeplayer-seat player=model.seats.playerWest playerView=model.playerView previousTrick=model.previousTrick previousHand=model.previousHand}}
     <div class="teamName">Team: {{model.seats.playerWest.team}}</div>
     <div class="playerNameDisplay">Player: {{model.seats.playerWest.name}}</div>
 
 </div>
 
 <div class="container playerSeatEast">
-    {{spadeplayer-seat player=model.seats.playerEast playerView=model.playerView}}
+    {{spadeplayer-seat player=model.seats.playerEast playerView=model.playerView previousTrick=model.previousTrick previousHand=model.previousHand}}
     <div class="teamName">Team: {{model.seats.playerEast.team}}</div>
     <div class="playerNameDisplay">Player: {{model.seats.playerEast.name}}</div>
 
 </div>
 
 <div class="container playerSeatSouth">
-    {{spadeplayer-seat player=model.seats.playerSouth playerView=model.playerView currTurn=model.currTurn playerCard="playerCard"}}
+    {{spadeplayer-seat player=model.seats.playerSouth playerView=model.playerView currTurn=model.currTurn playerCard="playerCard" previousTrick=model.previousTrick previousHand=model.previousHand}}
     {{bidding-modal playerBid="playerBid" gameView=model}}
     <div class="teamName">Team: {{model.seats.playerSouth.team}}</div>
     <div class="playerNameDisplay">Player: {{model.seats.playerSouth.name}}</div>
     {{#if model.seats.playerSouth.error}}
 
-    <div class="container">{{error-modal player=model.seats.playerSouth}}</div>
+    <div class="container">{{error-modal player=model.seats.playerSouth closeErrorModal="closeErrorModal"}}</div>
     {{/if}}
 
 </div>

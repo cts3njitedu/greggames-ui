@@ -11,24 +11,6 @@ export default Ember.Component.extend({
 
     }),
 
-    didRender(){
-
-        // this._super();
-        this.displayErrorTimer();
-
-    },
-
-    displayErrorTimer: function(){
-
-        let self = this;
-        setTimeout(function(){
-            
-            self.set("player.error",false);
-
-        },3000)
-
-    },
-
     errors: Ember.computed("player.errorMessages",function(){
 
         let errorMessages = this.get("player.errorMessages");
@@ -38,5 +20,14 @@ export default Ember.Component.extend({
             displayedError.push(errorMessages[em]);
         }
         return displayedError;
-    })
+    }),
+    actions: {
+
+        closeErrorModal(){
+
+            console.log("I like chicken");
+            this.sendAction("closeErrorModal");
+        }
+
+    }
 });

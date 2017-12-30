@@ -1,14 +1,9 @@
 {{!-- <div class="container spadeGameTable"> --}}
 
  {{#spadegame-table gameView=model}}   
-    {{#if model.starting}}
-
-       
-       <div class="container"><button class="startGameButton" {{action "startGame" model}}>Start Game</button></div> 
-
-    {{/if}}
+   {{spadegame-button gameView=model startGame="startGame"}}
     <div class="container playerSeatNorth">
-        {{spadeplayer-seat player=model.teams.TEAM1.players.PLAYER3}}
+        {{spadeplayer-seat player=model.teams.TEAM1.players.PLAYER3 previousTrick=model.previousTrick previousHand=model.previousHand}}
         {{#if model.teams.TEAM1.players.PLAYER3.bot}}
 
             <button {{action "createPlayerView" model.teams.TEAM1.players.PLAYER3}} class="playerButtonNorth">PLAYER3</button>
@@ -19,7 +14,7 @@
     </div>
 
     <div class="container playerSeatWest">
-        {{spadeplayer-seat player=model.teams.TEAM2.players.PLAYER2}}
+        {{spadeplayer-seat player=model.teams.TEAM2.players.PLAYER2 previousTrick=model.previousTrick previousHand=model.previousHand}}
          {{#if model.teams.TEAM2.players.PLAYER2.bot}}
 
             <button {{action "createPlayerView" model.teams.TEAM2.players.PLAYER2}} class="playerButtonWest">PLAYER2</button>
@@ -28,7 +23,7 @@
     </div>
 
     <div class="container playerSeatEast">
-        {{spadeplayer-seat player=model.teams.TEAM2.players.PLAYER4}}
+        {{spadeplayer-seat player=model.teams.TEAM2.players.PLAYER4 previousTrick=model.previousTrick previousHand=model.previousHand}}
          {{#if model.teams.TEAM2.players.PLAYER4.bot}}
 
             <button {{action "createPlayerView" model.teams.TEAM2.players.PLAYER4}} class="playerButtonEast">PLAYER4</button>
@@ -37,7 +32,7 @@
     </div>
 
     <div class="container playerSeatSouth">
-        {{spadeplayer-seat player=model.teams.TEAM1.players.PLAYER1}}
+        {{spadeplayer-seat player=model.teams.TEAM1.players.PLAYER1 previousTrick=model.previousTrick previousHand=model.previousHand}}
        {{#if model.teams.TEAM1.players.PLAYER1.bot}}
 
             <button {{action "createPlayerView" model.teams.TEAM1.players.PLAYER1}} class="playerButtonSouth">PLAYER1</button>

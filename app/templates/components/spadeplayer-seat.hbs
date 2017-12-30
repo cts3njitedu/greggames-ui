@@ -14,10 +14,16 @@
 
 
 <div class="playCardDiv container">
+    
+
+    {{#if player.error}}
+
+    {{else}}
     {{#if hasPlayingCard}}
-    <img src={{image-src "/assets/images/cards/" player.playingCard.name ".jpeg"}} class="playingCardSize">
-    {{/if}}    
-   
+    <img src={{image-src "/assets/images/cards/" displayedCard ".jpeg"}} class="playingCardSize">
+    {{/if}}
+    {{/if}}
+
 </div>
 
 
