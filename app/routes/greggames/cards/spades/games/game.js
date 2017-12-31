@@ -5,7 +5,7 @@ export default Ember.Route.extend({
 
     spadeService: Ember.inject.service("spade-service"),
 
-
+    isGetGame: true,
 
     beforeModel() {
 
@@ -21,6 +21,7 @@ export default Ember.Route.extend({
     
     model(params) {
 
+        let gameViewTemp = this.get("spadeService.gameView");
 
         let self = this;
    
@@ -29,22 +30,35 @@ export default Ember.Route.extend({
             //self.set("spadeService.gameState.games",response);
 
             console.log("This is strange");
-
+            self.set("isGetGame",true);
             self.refresh();
 
         });
-        return this.get("spadeService").getGame(params.gameId).then(function (game) {
-            console.log("Single game");
+        if(this.get("isGetGame")){
 
-            self.set("spadeService.gameView", game);
+            return this.get("spadeService").getGame(params.gameId).then(function (game) {
+                console.log("Single game");
+    
+                if(self.get("isGetGame")){
+    
+                    self.set("spadeService.gameView", game);
+                }
+               
+    
+                //self.refresh();
+    
+                let gameView = self.get("spadeService.gameView");
+                console.log(gameView);
+                return self.get("spadeService.gameView");
+    
+            })
 
-            //self.refresh();
-
-            let gameView = self.get("spadeService.gameView");
-            console.log(gameView);
-            return self.get("spadeService.gameView");
-
-        })
+        }
+        else{
+            return gameViewTemp;
+        }
+        
+        
     },
     actions: {
 
@@ -69,9 +83,11 @@ export default Ember.Route.extend({
         startGame(gameView) {
 
             console.log("Please work now");
+            this.set("isGetGame",false);
             // console.log(gameView);
             Ember.set(gameView,"playerNotification",SpadeConstants.GAME_STATES.START);
             this.get("spadeService").modifyGame(gameView);
         }
+       
     }
 });

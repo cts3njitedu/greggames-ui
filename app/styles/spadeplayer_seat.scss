@@ -184,3 +184,17 @@
     height:100%;
  
 }
+
+.circleBase{
+    border-radius:50%
+}
+
+.playerTurn{
+
+    width:15%;
+    height:40%;
+    background:yellow;
+    top: -50%;
+    left: 14%;
+    position:absolute;
+}

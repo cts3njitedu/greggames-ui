@@ -10,7 +10,8 @@ spade_const = {
     "PLAY": "PLAY",
     "RECEIVED_ERROR": "RECEIVED_ERROR",
     "BID": "BID"
-  }
+  },
+  "SPADE_BOOK_VALUE":"10"
 
 
 

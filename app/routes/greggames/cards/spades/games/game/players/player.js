@@ -33,7 +33,8 @@ export default Ember.Route.extend({
         let seatId = seatName.charAt(seatName.length - 1);
 
         let allPlayers = {};
-        let gameView = this.modelFor("greggames.cards.spades.games.game");
+
+        let gameView = Ember.copy(this.modelFor("greggames.cards.spades.games.game"), true);
         this.set("gameState", Ember.copy(gameView));
         let teams = gameView.teams;
 
@@ -72,29 +73,32 @@ export default Ember.Route.extend({
 
             console.log("Player Route Bid");
             console.log(bid);
-            
-            let gameView = Ember.copy(this.get("gameState"));
+
+            let gameView = Ember.copy(this.get("spadeService.gameView"), true);
             let player = this.get("gamePlayers")[this.get("playerId")];
             console.log(player);
             // let bidder = 10*bid;
             // this.set("gameView.teams."+player.team+".players."+player.name,bidder);
             // delete gameView.seats;
             // delete gameView.playerView;
-            let gameViewPlayer = gameView.teams[player.team].players[player.name];
-            Ember.set(gameViewPlayer, "playerBid", 10 * bid);
+            gameView = JSON.parse(JSON.stringify(gameView));
+            gameView.teams[player.team].players[player.name].playerBid = 10 * bid;
+            // Ember.set(gameViewPlayer, "playerBid", 10 * bid);
 
-            Ember.set(gameView,"gameModifier",this.get("playerId"));
-            Ember.set(gameView,"playerNotification",SpadeConstants.GAME_STATES.BID);
+            gameView.gameModifier = this.get("playerId");
+            // Ember.set(gameView,"gameModifier",this.get("playerId"));
+            gameView.playerNotification = SpadeConstants.GAME_STATES.BID
+            // Ember.set(gameView,"playerNotification",SpadeConstants.GAME_STATES.BID);
             console.log(gameView);
             this.get("spadeService").modifyGame(gameView);
 
         },
-        closeErrorModal(){
+        closeErrorModal() {
 
             let gameView = Ember.copy(this.get("gameState"));
-            Ember.set(gameView,"playerNotification",SpadeConstants.GAME_STATES.RECEIVED_ERROR);
+            Ember.set(gameView, "playerNotification", SpadeConstants.GAME_STATES.RECEIVED_ERROR);
 
-            Ember.set(gameView,"gameModifier",this.get("playerId"));
+            Ember.set(gameView, "gameModifier", this.get("playerId"));
             console.log("Error");
             console.log(gameView);
             this.get("spadeService").modifyGame(gameView);
@@ -102,16 +106,29 @@ export default Ember.Route.extend({
 
 
         },
-        playerCard(card) {
+        playerCard(cardDetails) {
 
-            let gameView = Ember.copy(this.get("gameState"));
-            let player = this.get("gamePlayers")[this.get("playerId")];
-            let gameViewPlayer = gameView.teams[player.team].players[player.name];
-            Ember.set(gameViewPlayer, "playingCard", card);
-            //gameViewPlayer.playingCard = card;
-            Ember.set(gameView,"gameModifier",this.get("playerId"));
-            Ember.set(gameView,"playerNotification",SpadeConstants.GAME_STATES.PLAY);
-            this.get("spadeService").modifyGame(gameView);
+            let gameView = Ember.copy(this.get("spadeService.gameView"), true);
+
+            let player = cardDetails.player;
+
+            let card = JSON.parse(JSON.stringify(cardDetails.card));
+
+            gameView = JSON.parse(JSON.stringify(gameView));
+            gameView.teams[player.team].players[player.name].playingCard = card;
+
+            gameView.playerNotification = SpadeConstants.GAME_STATES.PLAY;
+
+
+            gameView.gameModifier = player.name;
+            console.log("Playing card");
+
+            this.get("spadeService").modifyGame(gameView)
         }
+        // ,
+        // playerCard(card) {
+
+        //     this.sendAction("playerCard",card);
+        // }
     }
 });
