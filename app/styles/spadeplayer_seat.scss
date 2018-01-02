@@ -80,16 +80,17 @@
    
 }
 
-.playerButtonNorth{
+.playerButtonSeat{
 
 
     height: 35%;
 
     position: absolute;
     width: 20%;
-    bottom: -35%;
-    left:40%;
+    top: -35%;
+    left:85%;
     z-index:5;
+    font-size: 100%
     // -webkit-transform: rotate(180deg);
     // -moz-transform: rotate(180deg);
     // -ms-transform: rotate(180deg);
@@ -197,4 +198,9 @@
     top: -50%;
     left: 14%;
     position:absolute;
+}
+.playerAction{
+
+    top:50%;
+    position: absolute;
 }

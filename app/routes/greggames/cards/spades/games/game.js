@@ -18,47 +18,45 @@ export default Ember.Route.extend({
 
     },
 
-    
+
     model(params) {
 
         let gameViewTemp = this.get("spadeService.gameView");
 
         let self = this;
-   
+
         this.get("spadeService").makeGameSubscriber(params.gameId).then(function (response) {
 
             //self.set("spadeService.gameState.games",response);
 
             console.log("This is strange");
-            self.set("isGetGame",true);
+            self.set("isGetGame", true);
             self.refresh();
 
         });
-        if(this.get("isGetGame")){
 
-            return this.get("spadeService").getGame(params.gameId).then(function (game) {
-                console.log("Single game");
-    
-                if(self.get("isGetGame")){
-    
-                    self.set("spadeService.gameView", game);
-                }
-               
-    
-                //self.refresh();
-    
-                let gameView = self.get("spadeService.gameView");
-                console.log(gameView);
-                return self.get("spadeService.gameView");
-    
-            })
 
-        }
-        else{
-            return gameViewTemp;
-        }
-        
-        
+        return this.get("spadeService").getGame(params.gameId).then(function (game) {
+            console.log("Single game");
+
+
+            self.set("spadeService.gameView", game);
+           
+            
+
+            //self.refresh();
+
+
+            let gameView = self.get("spadeService.gameView");
+
+            console.log(gameView);
+            return self.get("spadeService.gameView");
+
+        })
+
+
+
+
     },
     actions: {
 
@@ -73,9 +71,9 @@ export default Ember.Route.extend({
 
             gameView.teams[playerMetaData.team].players[playerMetaData.name].userId = playerMetaData.name;
             this.set("isSocket", true);
-            this.set("playerId",playerMetaData.name);
+            this.set("playerId", playerMetaData.name);
 
-            Ember.set(gameView,"playerNotification",SpadeConstants.GAME_STATES.NEW_PLAYER);
+            Ember.set(gameView, "playerNotification", SpadeConstants.GAME_STATES.NEW_PLAYER);
             console.log(gameView);
             this.get("spadeService").modifyGame(gameView);
 
@@ -83,11 +81,22 @@ export default Ember.Route.extend({
         startGame(gameView) {
 
             console.log("Please work now");
-            this.set("isGetGame",false);
+            this.set("isGetGame", false);
             // console.log(gameView);
-            Ember.set(gameView,"playerNotification",SpadeConstants.GAME_STATES.START);
+            Ember.set(gameView, "playerNotification", SpadeConstants.GAME_STATES.START);
+            this.get("spadeService").modifyGame(gameView);
+        },
+
+        trickOver(player) {
+
+            let gameView = Ember.copy(this.get("spadeService.gameView"), true);
+
+            gameView.playerNotification = SpadeConstants.GAME_STATES.RECEIVED_TRICK_OVER;
+            gameView.gameModifier = player;
+            console.log("Trick is Over Baby");
+            console.log(gameView);
             this.get("spadeService").modifyGame(gameView);
         }
-       
+
     }
 });

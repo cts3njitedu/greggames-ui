@@ -1,16 +1,40 @@
 <div class="container spadeGameTable">
-    {{#each teams as |team|}}
+    <div class="spadesWinOrLose">{{gameView.pointsToWin}}/{{gameView.pointsToLose}}</div>
+    <div class="teamScoreBoard container">
 
-    <div class="teamPointsReset">
-        <p>{{team.name}}:</p>
-        <p>Team Points: {{team.totalScore}}</p>
-        <p>Bags: {{team.bags}}</p>
+        <table class="teamPointsTable container">
+             <tr>
+
+                <td class="container gameMetaData">Current Turn: {{gameView.currTurn}}</td>
+            </tr>
+            <tr>
+                {{#each teams as |team|}}
+                <td class="teamPointsReset">
+                    
+                        <p class="container teamData">{{team.name}}:</p>
+                        <p class="container teamData">Team Points: {{team.totalScore}}</p>
+                        <p class="container teamData">Bags: {{divide-spadescore team.totalBags}}</p>
+                   
+                </td>
+                {{/each}}
+
+
+            </tr>
+           
+
+
+        </table>
+
+        
+
     </div>
 
-    {{/each}} 
-    <div class="gameMetaData">Current Turn: {{gameView.currTurn}}</div>
-    
-    {{yield}}
+
+    <div class="container">
+
+        {{yield}}
+    </div>
+
 
 
 

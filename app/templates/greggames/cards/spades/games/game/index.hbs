@@ -3,41 +3,20 @@
  {{#spadegame-table gameView=model}}   
    {{spadegame-button gameView=model startGame="startGame"}}
     <div class="container playerSeatNorth">
-        {{spadeplayer-seat player=model.teams.TEAM1.players.PLAYER3 previousTrick=model.previousTrick previousHand=model.previousHand}}
-        {{#if model.teams.TEAM1.players.PLAYER3.bot}}
-
-            <button {{action "createPlayerView" model.teams.TEAM1.players.PLAYER3}} class="playerButtonNorth">PLAYER3</button>
-
-        {{/if}}
-     
-        
+        {{spadeplayer-seat player=model.teams.TEAM1.players.PLAYER3 createPlayerView="createPlayerView" classButton="playerButtonNorth" previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver}}   
     </div>
 
     <div class="container playerSeatWest">
-        {{spadeplayer-seat player=model.teams.TEAM2.players.PLAYER2 previousTrick=model.previousTrick previousHand=model.previousHand}}
-         {{#if model.teams.TEAM2.players.PLAYER2.bot}}
-
-            <button {{action "createPlayerView" model.teams.TEAM2.players.PLAYER2}} class="playerButtonWest">PLAYER2</button>
-
-        {{/if}}
+        {{spadeplayer-seat player=model.teams.TEAM2.players.PLAYER2 createPlayerView="createPlayerView" classButton="playerButtonWest" previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver}}
     </div>
 
     <div class="container playerSeatEast">
-        {{spadeplayer-seat player=model.teams.TEAM2.players.PLAYER4 previousTrick=model.previousTrick previousHand=model.previousHand}}
-         {{#if model.teams.TEAM2.players.PLAYER4.bot}}
-
-            <button {{action "createPlayerView" model.teams.TEAM2.players.PLAYER4}} class="playerButtonEast">PLAYER4</button>
-
-        {{/if}}
+        {{spadeplayer-seat player=model.teams.TEAM2.players.PLAYER4 createPlayerView="createPlayerView" classButton="playerButtonEast" previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver}}
+    
     </div>
 
     <div class="container playerSeatSouth">
-        {{spadeplayer-seat player=model.teams.TEAM1.players.PLAYER1 previousTrick=model.previousTrick previousHand=model.previousHand}}
-       {{#if model.teams.TEAM1.players.PLAYER1.bot}}
-
-            <button {{action "createPlayerView" model.teams.TEAM1.players.PLAYER1}} class="playerButtonSouth">PLAYER1</button>
-
-        {{/if}}
+        {{spadeplayer-seat player=model.teams.TEAM1.players.PLAYER1 createPlayerView="createPlayerView" classButton="playerButtonSouth" previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver}}
     </div>
 {{/spadegame-table}}
 

@@ -1,0 +1,119 @@
+<div class="spadeScoreModal container">
+    <div>Round {{gameView.previousHand.handCount}} Information</div>
+    <table class="spadeScoreTable">
+        <tr>
+            <td class="spadeScoreInfoLabel">&nbsp;</td>
+            {{#each teams as |team|}}
+            <td class="spadeScoreData">{{team.name}}</td>
+            {{/each}}
+
+        </tr>
+        <tr>
+            <td>Players</td>
+            {{#each teams as |team|}}
+            
+            <td class="spadeScoreData">
+                {{#each team.players as |player|}}
+                    {{player.userId}}
+                 {{/each}}
+
+            </td>
+           
+            {{/each}}
+        </tr>
+        <tr>
+            <td>Bid</td>
+            {{#each teams as |team|}}
+            <td class="spadeScoreData">{{divide-spadescore team.totalBid}}</td>
+            {{/each}}
+        </tr>
+
+        <tr>
+            <td>Total Tricks</td>
+            {{#each teams as |team|}}
+            <td class="spadeScoreData">{{divide-spadescore team.totalTricks}}</td>
+            {{/each}}
+        </tr>
+        <tr>
+            <td>Bags</td>
+            {{#each teams as |team|}}
+            <td class="spadeScoreData">{{divide-spadescore team.totalRoundBags}}</td>
+            {{/each}}
+        </tr>
+        <tr>
+            <td>Previous Bags</td>
+            {{#each teams as |team|}}
+            <td class="spadeScoreData">{{divide-spadescore team.totalPreviousBags}}</td>
+            {{/each}}
+        </tr>
+        <tr>
+            <td>Total Bags</td>
+            {{#each teams as |team|}}
+            <td class="spadeScoreData">{{divide-spadescore team.totalBags}}</td>
+            {{/each}}
+        </tr>
+    
+
+    </table>
+    <div>Scoring</div>
+    <table class="spadeScoreTable">
+        <tr>
+            <td class="spadeScoreInfoLabel">&nbsp;</td>
+            {{#each teams as |team|}}
+            <td class="spadeScoreData">{{team.name}}</td>
+            {{/each}}
+
+        </tr>
+
+        <tr>
+            <td>Successful Bid Points</td>
+            {{#each teams as |team|}}
+            <td class="spadeScoreData">{{team.totalSuccessfulBids}}</td>
+            {{/each}}
+        </tr>
+
+        <tr>
+            <td>Bag Points</td>
+            {{#each teams as |team|}}
+            <td class="spadeScoreData">{{divide-spadescore team.totalRoundBags}}</td>
+            {{/each}}
+        </tr>
+        <tr>
+            <td>Failed Bid Points</td>
+            {{#each teams as |team|}}
+            <td class="spadeScoreData">{{team.totalFailedBids}}</td>
+            {{/each}}
+        </tr>
+         <tr>
+            <td>OverBook Points</td>
+            {{#each teams as |team|}}
+            <td class="spadeScoreData">{{team.totalOverBookScore}}</td>
+            {{/each}}
+        </tr>
+        <tr>
+            <td>Bid Nil Points</td>
+            {{#each teams as |team|}}
+            <td class="spadeScoreData">{{team.totalBidNilScore}}</td>
+            {{/each}}
+        </tr>
+        <tr>
+            <td>Round Points</td>
+            {{#each teams as |team|}}
+            <td class="spadeScoreData">{{team.totalRoundScore}}</td>
+            {{/each}}
+        </tr>
+        <tr>
+            <td>Previous Points</td>
+            {{#each teams as |team|}}
+            <td class="spadeScoreData">{{team.totalPreviousScore}}</td>
+            {{/each}}
+        </tr>
+        <tr>
+            <td>Total</td>
+            {{#each teams as |team|}}
+            <td class="spadeScoreData">{{team.totalScore}}</td>
+            {{/each}}
+        </tr>
+    </table>
+
+</div>

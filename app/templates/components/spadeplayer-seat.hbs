@@ -1,4 +1,4 @@
-{{#each player.remainingCards as |card index|}}
+{{#each playerCards as |card index|}}
 
 {{#if isShowPlayerCards}}
 
@@ -8,12 +8,21 @@
 {{card-generator cardName="BACK_CARD" index=index}} 
 {{/if}}
 {{/each}}
+{{#if gameView.handOver}}
+{{#if isShowPlayerCards}}
+{{#if isShowScore}}
+{{spadescore-modal gameView=gameView}}
+{{/if}}
+{{/if}}
+{{/if}}
 
-<div class="playerPoints"><p>Player Bid: {{player.playerBid}}</p>
+
+
+<div class="playerPoints"><p>Player Bid: {{playerBid}}</p>
 <p>Player Score: {{player.playerCurrentScore}}</p>
 </div>
 {{#if player.turn}}
-<div class="circleBase playerTurn"></div>
+<div class="circleBase playerTurn"><p class="container playerAction">{{playerAction}}</p></div>
 {{/if}}
 
 <div class="playCardDiv container">
@@ -27,5 +36,15 @@
     
 </div>
 
+ <div class="teamName">Team: {{player.team}}</div>
+ <div class="playerNameDisplay">Player: {{player.name}}</div>
+ {{#if isGameView}}
 
+    {{#if isBot}}
+    <button {{action "createPlayerView" player}} class="playerButtonSeat">{{player.name}}</button>
+
+    {{/if}}
+
+
+ {{/if}}
 
