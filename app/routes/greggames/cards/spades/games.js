@@ -1,5 +1,5 @@
 import Ember from 'ember';
-
+import SpadeConstants from '../../../../utils/spade-constants';
 export default Ember.Route.extend({
 
 
@@ -98,6 +98,8 @@ export default Ember.Route.extend({
             let self = this;
             console.log(self.get("spadeService"));
             this.set("isSocket",true);
+            newGame["playerNotification"]=SpadeConstants.GAME_STATES.CREATE;
+            console.log(newGame);
             this.get("spadeService").addGame(newGame);
 
             //console.log("Please Help me");
