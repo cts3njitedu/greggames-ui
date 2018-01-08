@@ -1,0 +1,31 @@
+.playAgainModal{
+
+    border: 1px solid black;
+    z-index: 27;
+    background-color: whitesmoke;
+    height: 200%;
+    width: 100%;
+    left: 12%;
+    top:-350%;
+    position:absolute;
+    border-radius:20px;
+}
+
+.playAgainButton{
+
+    border: 1px solid black;
+
+    position: relative;
+    height: 30%;
+    width:50%;
+    color:white;
+    left: 30%;
+    background-color: blue;
+
+}
+
+.playAgainButtonDiv{
+
+    border: 1 px solid black;
+    position: relative;
+}

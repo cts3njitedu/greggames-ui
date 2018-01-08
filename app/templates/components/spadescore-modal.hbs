@@ -11,14 +11,12 @@
         <tr>
             <td>Players</td>
             {{#each teams as |team|}}
-            
+
             <td class="spadeScoreData">
-                {{#each team.players as |player|}}
-                    {{player.userId}}
-                 {{/each}}
+                {{#each team.players as |player|}} {{player.userId}} {{/each}}
 
             </td>
-           
+
             {{/each}}
         </tr>
         <tr>
@@ -52,7 +50,7 @@
             <td class="spadeScoreData">{{divide-spadescore team.totalBags}}</td>
             {{/each}}
         </tr>
-    
+
 
     </table>
     <div>Scoring</div>
@@ -84,7 +82,7 @@
             <td class="spadeScoreData">{{team.totalFailedBids}}</td>
             {{/each}}
         </tr>
-         <tr>
+        <tr>
             <td>OverBook Points</td>
             {{#each teams as |team|}}
             <td class="spadeScoreData">{{team.totalOverBookScore}}</td>
@@ -111,9 +109,19 @@
         <tr>
             <td>Total</td>
             {{#each teams as |team|}}
-            <td class="spadeScoreData">{{team.totalScore}}</td>
+            <td class="spadeScoreData">{{#if team.won}}
+                <b>{{team.totalScore}}</b>{{else}}{{team.totalScore}}{{/if}}</td>
             {{/each}}
         </tr>
     </table>
+
+    {{#each teams as |team|}} 
+    {{#if team.won}}
+    <div class="spadeTeamWhoWon">{{team.name}} has won!!!!!!!!!!!!!
+    <p>Winning Team</p>
+    {{#each team.players as |player|}} <p>{{player.userId}}</p> {{/each}}
+    {{#if playerWon}}Congradulations, Your Team Has Won!!! {{else}}Too Bad, Your Team Lost.{{/if}}
+    </div>
+    {{/if}} {{/each}}
 
 </div>

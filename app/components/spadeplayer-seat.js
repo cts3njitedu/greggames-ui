@@ -4,7 +4,22 @@ export default Ember.Component.extend({
 
 
     isShowScore: false,
+
+    isPlayAgainView: false,
+
+    isWonTrick: Ember.computed("player.won",function(){
+
+        return this.get("player.won")&&(this.get("previousTrick")!=null);
+
+
+    }),
     isShowPlayerCards: Ember.computed("playerView", "player.name", function () {
+
+        return this.get("player.name") == this.get("playerView");
+    }),
+
+    isSentNewPlayerNotification: false,
+    isShowPlayerCardsWhenOver: Ember.computed("playerView", "player.name", function () {
 
         return this.get("player.name") == this.get("playerView");
     }),
@@ -22,8 +37,9 @@ export default Ember.Component.extend({
 
 
     }),
-    playerAction: Ember.computed("player", function () {
+    playerAction: Ember.computed("gameNotification", function () {
 
+        console.log("Bottles bottles bottles");
         if (this.get("gameNotification") == SpadeConstants.GAME_STATES.PLAY) {
 
             return SpadeConstants.GAME_STATES.PLAY;
@@ -92,11 +108,10 @@ export default Ember.Component.extend({
         let previousPlayer = this.get("previousTrick.players");
         console.log("Entering displaying card")
 
-
         if (this.get("isTrickOver")) {
 
             console.log("Previous trick");
-
+            console.log("as;dfj;asfjijw;elfkjle");
 
             let playerData = previousPlayer[this.get("player.name")];
 
@@ -110,15 +125,45 @@ export default Ember.Component.extend({
 
                 self.set("previousTrick", null);
                 self.set("player.playingCard", null);
+                self.set("player.won",false);
 
-                let _self = self;
+                if (self.get("isShowPlayerCards") && !self.get("isGameView")) {
 
-                self.set("isShowScore",true);
-                setTimeout(function () {
-                    _self.set("previousHand", null);
-                    _self.set("isShowScore", false);
+                    let _self = self;
+                    console.log("Sugar Baby");
+                    if (self.get("isHandOver")) {
 
-                }, 15000)
+                        _self.set("isShowScore", true);
+                        setTimeout(function () {
+
+                            if (_self.get("isGameOver")) {
+
+                                _self.set("isShowPlayerCards", false);
+                                let __self = _self;
+                                _self.set("isPlayAgainView", true);
+                                // setTimeout(function(){
+                                //    __self.set("isPlayAgainView",false);
+
+                                //    if(__self.get("player.name") == __self.get("playerView")){
+                                //     __self.set("isShowPlayerCards",true);
+                                //    }
+
+
+                                // },5000)
+                            }
+
+                            _self.set("isShowScore", false);
+                            _self.set("previousHand", null);
+
+
+
+
+                        }, 5000)
+
+
+                    }
+
+                }
 
 
 
@@ -186,6 +231,8 @@ export default Ember.Component.extend({
         },
         createPlayerView(player) {
             console.log("Seat Player metadata");
+            this.set("isPlayAgainView", false);
+            this.set("isShowPlayerCards", true);
             this.sendAction("createPlayerView", player);
         }
     }

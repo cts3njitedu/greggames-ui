@@ -4,8 +4,21 @@ export default Ember.Route.extend({
 
 
     spadeService: Ember.inject.service("spade-service"),
+    greggamesService: Ember.inject.service("greggames-service"),
 
     isGetGame: true,
+
+    init(){
+
+        this._super();
+        let self = this;
+        setInterval(function(){
+
+            self.get("greggamesService").pingSocket("spades");
+        },25000);
+
+
+    },
 
     beforeModel() {
 
@@ -35,6 +48,12 @@ export default Ember.Route.extend({
 
         });
 
+        this.get("greggamesService").makePingSubscriber("spades").then(function(response){
+
+
+            console.log("Pinging Socket for Spade");
+        
+        });
 
         return this.get("spadeService").getGame(params.gameId).then(function (game) {
             console.log("Single game");
@@ -82,7 +101,7 @@ export default Ember.Route.extend({
         startGame(gameView) {
 
             console.log("Please work now");
-            this.set("isGetGame", false);
+          
             // console.log(gameView);
             Ember.set(gameView, "playerNotification", SpadeConstants.GAME_STATES.START);
             this.get("spadeService").modifyGame(gameView);
@@ -97,6 +116,10 @@ export default Ember.Route.extend({
             console.log("Trick is Over Baby");
             console.log(gameView);
             this.get("spadeService").modifyGame(gameView);
+        },
+        pingSocket(){
+
+            
         }
 
     }

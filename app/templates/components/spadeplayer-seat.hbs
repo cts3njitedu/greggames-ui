@@ -9,13 +9,19 @@
 {{/if}}
 {{/each}}
 {{#if gameView.handOver}}
-{{#if isShowPlayerCards}}
+{{#if isShowPlayerCardsWhenOver}}
 {{#if isShowScore}}
-{{spadescore-modal gameView=gameView}}
+{{spadescore-modal gameView=gameView player=player}}
 {{/if}}
 {{/if}}
 {{/if}}
 
+
+{{#if isShowPlayerCardsWhenOver}}
+{{#if isPlayAgainView}}
+{{playagain-modal createPlayerView="createPlayerView" player=player}}
+{{/if}}
+{{/if}}
 
 
 <div class="playerPoints"><p>Player Bid: {{playerBid}}</p>
@@ -30,7 +36,12 @@
     
   
     {{#if hasPlayingCard}}
+    {{#if isWonTrick}}
+    <img src={{image-src "/assets/images/cards/" displayedCard ".jpeg"}} class="playingCardSize playingCardSizeBorder">
+    {{else}}
     <img src={{image-src "/assets/images/cards/" displayedCard ".jpeg"}} class="playingCardSize">
+    {{/if}}
+    
     {{/if}}
  
     
@@ -38,6 +49,7 @@
 
  <div class="teamName">Team: {{player.team}}</div>
  <div class="playerNameDisplay">Player: {{player.name}}</div>
+ {{#if player.bot}}<div class="showBotView">Bot</div>{{/if}}
  {{#if isGameView}}
 
     {{#if isBot}}

@@ -1,35 +1,45 @@
 import Ember from 'ember';
+import ConvertObjectMixin from '../mixins/convert-object-mixin';
+export default Ember.Component.extend(ConvertObjectMixin, {
 
-export default Ember.Component.extend({
 
-
-    teams: Ember.computed("gameView.previousHand.teams",function(){
+    teams: Ember.computed("gameView.previousHand.teams", function () {
 
         let gameTeams = this.get("gameView.previousHand.teams");
 
-        let gameTeamsArray = [];
-        for(var team in gameTeams){
+        console.log("Whaddup my friend.");
 
-            if(gameTeams.hasOwnProperty(team)){
+        return this.makeTeamArray(gameTeams);
 
-                
+    }),
 
-                let gamePlayers = gameTeams[team].players;
+    playerWon: Ember.computed("teams", function () {
 
-                let gamePlayersArray=[];
+        let allTeams = this.get("teams");
+        console.log("Show me the winner!!!!!");
+        console.log(this.get("playerName"));
 
-                for(var player in gamePlayers){
+        for (var team in allTeams) {
+            if (allTeams.hasOwnProperty(team)) {
 
-                    gamePlayersArray.push(gamePlayers[player]);
+                let allPlayers = allTeams[team].players;
+                for (var player in allPlayers) {
+
+                    if(allPlayers.hasOwnProperty(player)){
+                       if(this.get("player.name")==allPlayers[player].name){
+
+                            return allTeams[team].won;
+                       }
+
+                    }
                 }
-                gameTeams[team].players = gamePlayersArray;
 
-                gameTeamsArray.push(gameTeams[team]);
             }
-        }
-        console.log("Teams United");
-        console.log(gameTeamsArray);
 
-        return gameTeamsArray;
+
+        }
     })
+
+    
+
 });

@@ -98,7 +98,7 @@ export default Ember.Route.extend({
             let self = this;
             console.log(self.get("spadeService"));
             this.set("isSocket",true);
-            newGame["playerNotification"]=SpadeConstants.GAME_STATES.CREATE;
+            newGame["gameNotification"]=SpadeConstants.GAME_STATES.CREATE;
             console.log(newGame);
             this.get("spadeService").addGame(newGame);
 

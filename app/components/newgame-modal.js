@@ -1,5 +1,5 @@
 import Ember from 'ember';
-
+import SpadeConstants from '../utils/spade-constants'
 export default Ember.Component.extend({
 
 
@@ -17,7 +17,7 @@ export default Ember.Component.extend({
 
         createNewGame(){
 
-            this.set("newGame.bags",10*this.get("newGame.bags"));
+            this.set("newGame.bags",SpadeConstants.SPADE_BOOK_VALUE*this.get("newGame.bags"));
             this.sendAction("createNewGame",this.get("newGame"));
         },
         cancelGame(){

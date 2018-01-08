@@ -18,8 +18,14 @@ export default Ember.Component.extend({
         let zIndex = "z-index:" + this.get("index");
         let left = "left:"+ (5*this.get("index")) + "%";
         let border = "5px solid black";
+        let cursor="";
+        if(this.get("cardName")!="BACK_CARD"){
+            cursor = "cursor:pointer"
 
-        return new Ember.String.htmlSafe(zIndex+";"+left);
+        }
+        
+
+        return new Ember.String.htmlSafe(zIndex+";"+left+";"+cursor);
 
     }),
     

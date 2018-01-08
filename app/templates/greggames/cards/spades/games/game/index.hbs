@@ -3,20 +3,20 @@
  {{#spadegame-table gameView=model}}   
    {{spadegame-button gameView=model startGame="startGame"}}
     <div class="container playerSeatNorth">
-        {{spadeplayer-seat player=model.teams.TEAM1.players.PLAYER3 createPlayerView="createPlayerView" classButton="playerButtonNorth" previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver}}   
+        {{spadeplayer-seat player=model.teams.TEAM1.players.PLAYER3 createPlayerView="createPlayerView" classButton="playerButtonNorth" previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver isGameOver=model.gameOver}}   
     </div>
 
     <div class="container playerSeatWest">
-        {{spadeplayer-seat player=model.teams.TEAM2.players.PLAYER2 createPlayerView="createPlayerView" classButton="playerButtonWest" previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver}}
+        {{spadeplayer-seat player=model.teams.TEAM2.players.PLAYER2 createPlayerView="createPlayerView" classButton="playerButtonWest" previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver isGameOver=model.gameOver}}
     </div>
 
     <div class="container playerSeatEast">
-        {{spadeplayer-seat player=model.teams.TEAM2.players.PLAYER4 createPlayerView="createPlayerView" classButton="playerButtonEast" previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver}}
+        {{spadeplayer-seat player=model.teams.TEAM2.players.PLAYER4 createPlayerView="createPlayerView" classButton="playerButtonEast" previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver isGameOver=model.gameOver}}
     
     </div>
 
     <div class="container playerSeatSouth">
-        {{spadeplayer-seat player=model.teams.TEAM1.players.PLAYER1 createPlayerView="createPlayerView" classButton="playerButtonSouth" previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver}}
+        {{spadeplayer-seat player=model.teams.TEAM1.players.PLAYER1 createPlayerView="createPlayerView" classButton="playerButtonSouth" previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver isGameOver=model.gameOver}}
     </div>
 {{/spadegame-table}}
 

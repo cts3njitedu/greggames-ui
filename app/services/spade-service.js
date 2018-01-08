@@ -120,6 +120,7 @@ export default Ember.Service.extend(SpadeMixin, {
 
     },
 
+
     modifyGame: function (gameView) {
 
         var self = this;
