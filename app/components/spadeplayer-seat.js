@@ -5,11 +5,17 @@ export default Ember.Component.extend({
 
     isShowScore: false,
 
-    isPlayAgainView: false,
+    isPlayAgainView: Ember.computed("previousHand","player.userId",function(){
 
-    isWonTrick: Ember.computed("player.won",function(){
 
-        return this.get("player.won")&&(this.get("previousTrick")!=null);
+        return this.get("player.userId")==null&&this.get("previousHand")==null;
+
+
+    }),
+
+    isWonTrick: Ember.computed("player.won", function () {
+
+        return this.get("player.won") && (this.get("previousTrick") != null);
 
 
     }),
@@ -103,96 +109,115 @@ export default Ember.Component.extend({
 
     }),
 
-    displayedCard: Ember.computed("previousTrick", "player.playingCard", function () {
+    didRender(){
+       
+       
+    
+        if(this.get("isTrickOver")){
 
-        let previousPlayer = this.get("previousTrick.players");
-        console.log("Entering displaying card")
+            this.handleDisplayedCard();
+        }
+        else{
+            this.set("displayedCard",this.get("player.playingCard.name"));
+      
+        }
+        
+            
+        
+        
 
+    },
+    handleDisplayedCard: function(){
+
+        console.log("Handle Displaying Card");
         if (this.get("isTrickOver")) {
 
-            console.log("Previous trick");
-            console.log("as;dfj;asfjijw;elfkjle");
-
+            let previousPlayer = this.get("previousTrick.players");
+   
             let playerData = previousPlayer[this.get("player.name")];
+            this.set("displayedCard", playerData.playingCard.name);
+            this.trickOverHandler();
 
+
+
+        }
+
+
+
+    },
+
+
+
+    trickOverHandler() {
+
+        let self = this;
+        setTimeout(function () {
+
+
+            self.set("previousTrick", null);
+         
+            self.set("isShowScore", true);
+            self.set("isTrickOver",false);
+            
+            if (self.get("isHandOver")) {
+
+                self.handOverHandler();
+            }
+
+
+
+        }, 1200)
+
+
+
+    },
+    handOverHandler() {
+
+        if (this.get("player.name") == this.get("playerView")) {
 
             let self = this;
 
-            console.log("In here like spinware");
 
             setTimeout(function () {
 
 
-                self.set("previousTrick", null);
-                self.set("player.playingCard", null);
-                self.set("player.won",false);
+                    
+                    self.set("isShowScore",false);
+                    self.set("previousHand",null);
+                    self.set("isHandOver",false);
+                    if(self.get("isGameOver")){
 
-                if (self.get("isShowPlayerCards") && !self.get("isGameView")) {
-
-                    let _self = self;
-                    console.log("Sugar Baby");
-                    if (self.get("isHandOver")) {
-
-                        _self.set("isShowScore", true);
-                        setTimeout(function () {
-
-                            if (_self.get("isGameOver")) {
-
-                                _self.set("isShowPlayerCards", false);
-                                let __self = _self;
-                                _self.set("isPlayAgainView", true);
-                                // setTimeout(function(){
-                                //    __self.set("isPlayAgainView",false);
-
-                                //    if(__self.get("player.name") == __self.get("playerView")){
-                                //     __self.set("isShowPlayerCards",true);
-                                //    }
-
-
-                                // },5000)
-                            }
-
-                            _self.set("isShowScore", false);
-                            _self.set("previousHand", null);
-
-
-
-
-                        }, 5000)
-
+                        
+                        self.gameOverHander();
 
                     }
+                   
 
-                }
-
-
-
+            }, 5000)
 
 
-            }, 1200)
 
-
-            return playerData.playingCard.name;
-
-        }
-
-        else {
-
-            console.log("We are previous");
-
-
-            return this.get("player.playingCard.name");
 
         }
 
 
+    },
+
+    gameOverHander() {
+        this.set("isPlayAgainView", true);
+        this.set("isShowPlayerCards", false);
+        let self = this;
+        // setTimeout(function () {
+        //     self.set("isPlayAgainView", false);
+        //     self.set("isGameOver",false);
+        //     if (self.get("player.name") == self.get("playerView")) {
+        //         self.set("isShowPlayerCards", true);
+        //     }
 
 
+        // }, 5000)
 
-
-
-    }),
-
+    },
     isPlayerTurn: Ember.computed("currTurn", "player.name", function () {
 
         return this.get("currTurn") == this.get("player.name");

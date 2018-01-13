@@ -10,12 +10,12 @@ export default Ember.Route.extend({
 
     init(){
 
-        this._super();
-        let self = this;
-        setInterval(function(){
+        // this._super();
+        // let self = this;
+        // setInterval(function(){
 
-            self.get("greggamesService").pingSocket("spades");
-        },25000);
+        //     self.get("greggamesService").pingSocket("spades");
+        // },25000);
 
 
     },
