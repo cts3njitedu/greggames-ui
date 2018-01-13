@@ -110,41 +110,35 @@ export default Ember.Component.extend({
     }),
 
     didRender(){
+
+
+
+        console.log("Initializating Player Seat");
+        Ember.run.schedule("afterRender",this,function(){
+
+            this.send("handleDisplayedCard");
+        })
+
+    },
+    // didRender(){
        
        
     
-        if(this.get("isTrickOver")){
+    //     if(this.get("isTrickOver")){
 
-            this.handleDisplayedCard();
-        }
-        else{
-            this.set("displayedCard",this.get("player.playingCard.name"));
+    //         this.handleDisplayedCard();
+    //     }
+    //     else{
+    //         this.set("displayedCard",this.get("player.playingCard.name"));
       
-        }
+    //     }
         
             
         
         
 
-    },
-    handleDisplayedCard: function(){
-
-        console.log("Handle Displaying Card");
-        if (this.get("isTrickOver")) {
-
-            let previousPlayer = this.get("previousTrick.players");
-   
-            let playerData = previousPlayer[this.get("player.name")];
-            this.set("displayedCard", playerData.playingCard.name);
-            this.trickOverHandler();
-
-
-
-        }
-
-
-
-    },
+    // },
+    
 
 
 
@@ -152,21 +146,13 @@ export default Ember.Component.extend({
 
         let self = this;
         setTimeout(function () {
-
+            console.log("Trick is over");
 
             self.set("previousTrick", null);
-         
-            self.set("isShowScore", true);
+            self.set("isWonTrick",false);
             self.set("isTrickOver",false);
-            
-            if (self.get("isHandOver")) {
 
-                self.handOverHandler();
-            }
-
-
-
-        }, 1200)
+        }, 2000)
 
 
 
@@ -177,35 +163,34 @@ export default Ember.Component.extend({
 
             let self = this;
 
-
+            this.set("isShowScore", true);
             setTimeout(function () {
 
 
-                    
-                    self.set("isShowScore",false);
-                    self.set("previousHand",null);
-                    self.set("isHandOver",false);
-                    if(self.get("isGameOver")){
-
-                        
-                        self.gameOverHander();
-
-                    }
+                self.set("previousHand",null);
+                self.set("isHandOver",false);
                    
 
-            }, 5000)
+            }, 10000)
 
 
 
 
+        }
+        else{
+            return;
         }
 
 
     },
 
     gameOverHander() {
+
+        this.set("isShowScore",false);
+  
         this.set("isPlayAgainView", true);
         this.set("isShowPlayerCards", false);
+        this.set("isGameOver",false);
         let self = this;
         // setTimeout(function () {
         //     self.set("isPlayAgainView", false);
@@ -259,6 +244,40 @@ export default Ember.Component.extend({
             this.set("isPlayAgainView", false);
             this.set("isShowPlayerCards", true);
             this.sendAction("createPlayerView", player);
+        },
+        handleDisplayedCard(){
+
+            console.log("Handle Displaying Card");
+            if (this.get("isTrickOver")) {
+    
+               console.log("Tricking");
+                let previousPlayer = this.get("previousTrick.players");
+       
+                let playerData = previousPlayer[this.get("player.name")];
+                if(playerData.won){
+                    this.set("isWonTrick",true);
+                }
+                this.set("displayedCard", playerData.playingCard.name);
+                this.trickOverHandler();
+    
+    
+    
+            }
+            else if(this.get("isHandOver")&&!this.get("isTrickOver")){
+
+                this.handOverHandler();
+            }
+            else if(this.get("isGameOver")&&!this.get("isHandOver")&&!this.get("isTrickOver")){
+
+                this.gameOverHander();
+            }
+            else{
+                this.set("displayedCard",this.get("player.playingCard.name"));
+                
+            }
+    
+    
+    
         }
     }
 
