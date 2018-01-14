@@ -72,7 +72,7 @@ module.exports = function (environment) {
       'frame-src': "'none'"
     }
     process.env.NPM_CONFIG_API_HOST = "https://greggames-app.herokuapp.com";
-    console.log(process.env.API_HOST);
+  
 
   }
 
