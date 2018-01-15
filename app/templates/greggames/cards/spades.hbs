@@ -1,9 +1,15 @@
 <div class="container" id="spadeHomeCont">
 
-    <div class="container" id="spadePanel"><p>Spades</p> 
-       </div>
-        <div class="viewGamesDiv">{{#link-to "greggames.cards.spades.games"}} View Games{{/link-to}}</div>
-    
-    {{outlet}}
+    <div class="container" id="spadePanel">
+        <p>Spades</p>
+    </div>
+    <div class="viewGamesDiv">
+        <button {{action "spadeGames"}}>View Games</button>
+
+
+        <button {{action "spadeGamesHome"}}>Home Page</button>
+    </div>
+
+    {{!-- {{#link-to "greggames.cards.spades.games"}} View Games{{/link-to}} --}} {{outlet}}
 
 </div>

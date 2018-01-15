@@ -1,6 +1,6 @@
 {{!-- <div class="container spadeGameTable"> --}}
 
- {{#spadegame-table gameView=model}}   
+ {{#spadegame-table gameView=model renderGameView="renderGameView"}}   
    {{spadegame-button gameView=model startGame="startGame"}}
     <div class="container playerSeatNorth">
         {{spadeplayer-seat player=model.teams.TEAM1.players.PLAYER3 createPlayerView="createPlayerView" classButton="playerButtonNorth" previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver isGameOver=model.gameOver}}   

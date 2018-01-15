@@ -23,11 +23,16 @@ export default Ember.Component.extend({
         return gameTeamsArray;
     }),
 
-    action: {
+    actions: {
 
         createPlayerView(playerId){
 
             this.sendAction("createPlayerView",playerId);
+        },
+        renderGameView(gameId){
+
+            console.log(gameId);
+            this.sendAction("renderGameView",gameId);
         }
 
     }

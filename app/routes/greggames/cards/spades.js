@@ -8,7 +8,12 @@ export default Ember.Route.extend({
 
         spadeGames() {
 
-            this.transitionTo("greggames.cards.spades.games")
+            this.transitionTo("greggames.cards.spades.games");
+            this.refresh();
+        },
+        spadeGamesHome(){
+            this.transitionTo("greggames.cards.spades");
+            this.refresh();
         }
     }
 });

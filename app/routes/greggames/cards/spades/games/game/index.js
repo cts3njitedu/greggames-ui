@@ -9,5 +9,9 @@ export default Ember.Route.extend({
 
         console.log("What is going on");
         return this.modelFor("greggames.cards.spades.games.game");
+    },
+    actions: {
+
+       
     }
 });

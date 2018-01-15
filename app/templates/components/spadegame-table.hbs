@@ -1,5 +1,6 @@
 <div class="container spadeGameTable">
     <div class="spadesWinOrLose">{{gameView.pointsToWin}}/{{gameView.pointsToLose}}</div>
+    <div><button {{action "renderGameView" gameView.gameId}}>Go Back To Game View</button></div>
     <div class="teamScoreBoard container">
 
         <table class="teamPointsTable container">

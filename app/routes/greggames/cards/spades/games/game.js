@@ -120,6 +120,10 @@ export default Ember.Route.extend({
         pingSocket(){
 
             
+        },
+        renderGameView(gameId){
+            //console.log("Sugar Honey Ice Tea");
+            this.transitionTo("greggames.cards.spades.games.game",gameId);
         }
 
     }
