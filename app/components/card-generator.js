@@ -43,5 +43,17 @@ export default Ember.Component.extend({
         }
        
 
+    },
+    mouseEnter(event){
+        if(this.get("cardName")!="BACK_CARD"){
+
+            event.currentTarget.style.border="3px solid yellow";
+        }
+    },
+    mouseLeave(event){
+        if(this.get("cardName")!="BACK_CARD"){
+
+            event.currentTarget.style.border="";
+        }
     }
 });

@@ -4,39 +4,50 @@
     <br/>
     <br/>
     <br/>
-    <br/>
-
-    {{!-- {{#each temp as |t|}}
+    <br/> {{!-- {{#each temp as |t|}}
     <p>{{t.gameId}}</p>
-    {{/each}} --}}
-    {{!-- <p>{{temp}}</p> --}}
+    {{/each}} --}} {{!--
+    <p>{{temp}}</p> --}}
 
     <article>
 
         {{#each gameState.games as |game|}}
 
-        <section class="gameSection">
-            <div>
-                <div>
-                    <p> Points To Win: {{game.pointsToWin}}</p>
-                    <p>Number of Bags to OverBook: {{game.bags}} </p>
-                    <p>Points Lost When OverBook: {{game.bagPoints}}</p>
-                    <p>Points to Win/Lose When Bid Nil: {{game.bidNilPoints}}</p>
+        <div class="container gameSectionInfo">
 
+            <div class="occupiedSeatInd occupiedSeatNorth {{seat-occupied game.teams.TEAM1.players.PLAYER3}}">{{game.teams.TEAM1.players.PLAYER3.userId}}</div>
+            <div class="occupiedSeatInd occupiedSeatSouth {{seat-occupied game.teams.TEAM1.players.PLAYER1}}">{{game.teams.TEAM1.players.PLAYER1.userId}}</div>
+            <div class="occupiedSeatInd occupiedSeatEast {{seat-occupied game.teams.TEAM2.players.PLAYER2}}">{{game.teams.TEAM2.players.PLAYER2.userId}}</div>
+            <div class="occupiedSeatInd occupiedSeatWest {{seat-occupied game.teams.TEAM2.players.PLAYER4}}">{{game.teams.TEAM2.players.PLAYER4.userId}}</div>
+            <section class="gameSection">
+                <div class="gameSectionTable">
+                    <div>
+                        <p> Points To Win: {{game.pointsToWin}}</p>
+                        <p>Number of Bags to OverBook: {{game.bags}} </p>
+                        <p>Points Lost When OverBook: {{game.bagPoints}}</p>
+                        <p>Points to Win/Lose When Bid Nil: {{game.bidNilPoints}}</p>
+
+                    </div>
+
+                    <button {{action "playGame" game.gameId}} id="playSpadeGameButton">Play Game</button>
                 </div>
 
-                <button {{action "playGame" game.gameId}} id="playSpadeGameButton">Play Game</button>
-            </div>
+            </section>
 
-        </section>
+        </div>
+
+        <br/>
+        <br/>
+        <br/>
+        <br/>
         <br/> {{/each}}
 
     </article>
     {{!--
-    <div class="container"> --}} {{!-- </div> --}} 
+    <div class="container"> --}} {{!-- </div> --}}
 </div>
 {{#if showModal}}
-    <div class="container">
-        {{newgame-modal createNewGame="createNewGame" cancelGame="cancelGame"}}
-    </div>
-    {{/if}}
+<div class="container">
+    {{newgame-modal createNewGame="createNewGame" cancelGame="cancelGame"}}
+</div>
+{{/if}}

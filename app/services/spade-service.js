@@ -121,14 +121,19 @@ export default Ember.Service.extend(SpadeMixin, {
     },
 
 
-    modifyGame: function (gameView) {
+    modifyGame: function (gameView,isNewPlayer) {
 
-        var self = this;
+    
 
 
 
-        self.get("stompClient").send("/app/greggames/spades/" + gameView.gameId, {}, JSON.stringify(gameView));
 
+        this.get("stompClient").send("/app/greggames/spades/" + gameView.gameId, {}, JSON.stringify(gameView));
+
+        if(isNewPlayer){
+
+            this.get("stompClient").send("/app/greggames/spades", {}, JSON.stringify(gameView));
+        }
 
 
 

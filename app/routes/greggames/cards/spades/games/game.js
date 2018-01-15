@@ -95,7 +95,7 @@ export default Ember.Route.extend({
             Ember.set(gameView, "playerNotification", SpadeConstants.GAME_STATES.NEW_PLAYER);
             Ember.set(gameView, "gameModifier",playerMetaData.name);
             console.log(gameView);
-            this.get("spadeService").modifyGame(gameView);
+            this.get("spadeService").modifyGame(gameView,true);
 
         },
         startGame(gameView) {

@@ -4,6 +4,7 @@ export default Ember.Route.extend({
 
 
     spadeService: Ember.inject.service("spade-service"),
+    greggamesService: Ember.inject.service("greggames-service"),
     value: null,
 
     isSocket: false,
@@ -58,6 +59,12 @@ export default Ember.Route.extend({
 
             self.refresh();
 
+        });
+        this.get("greggamesService").makePingSubscriber2("spades").then(function(response){
+
+
+            console.log("Pinging Socket for Spade Games");
+        
         });
 
         return this.get("spadeService").getInitialGames().then(function (response) {

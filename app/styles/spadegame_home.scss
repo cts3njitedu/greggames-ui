@@ -2,9 +2,17 @@
 
     height: 300px;
     width: 300px;
+   color: yellow;
     margin-top: 5%;
+    border: 1px solid black;
     margin-left: 15%;
+    font-size: 200%;
 
+}
+
+.spadeButtonDiv{
+    border: 1px solid black;
+    color: red;
 }
 
 #spadeHomeCont{
@@ -24,4 +32,12 @@
     color: darkturquoise;
     font-size:500%;
     //padding-left: 2%;
+}
+
+.viewGamesDiv{
+    font-size: 100%;
+    border: 1px solid black;
+    top: 5%;
+    background-color: white;
+    position: relative;
 }
