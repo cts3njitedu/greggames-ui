@@ -239,6 +239,13 @@ export default Ember.Component.extend({
 
 
         },
+        leaveGame(player){
+            
+            console.log("I am leaving the game " + player);
+            this.set("isPlayAgainView", false);
+            this.set("isShowPlayerCards", false);
+            this.sendAction("leaveGame",player);
+        },
         createPlayerView(player) {
             console.log("Seat Player metadata");
             this.set("isPlayAgainView", false);
@@ -278,6 +285,9 @@ export default Ember.Component.extend({
     
     
     
+        },
+        willTransition(transition){
+            console.log("Leaving Page....yeajdfkajfs;ij");
         }
     }
 

@@ -124,6 +124,17 @@ export default Ember.Route.extend({
         renderGameView(gameId){
             //console.log("Sugar Honey Ice Tea");
             this.transitionTo("greggames.cards.spades.games.game",gameId);
+        },
+
+        leaveGame(player){
+            let gameView = Ember.copy(this.get("spadeService.gameView"), true);
+            gameView.playerNotification = SpadeConstants.GAME_STATES.LEAVE_GAME;
+            gameView.gameModifier = player;
+            console.log("Leaving Game....");
+            console.log(gameView);
+            this.get("spadeService").modifyGame(gameView);
+            this.transitionTo("greggames.cards.spades.games.game",gameView.gameId);
+
         }
 
     }

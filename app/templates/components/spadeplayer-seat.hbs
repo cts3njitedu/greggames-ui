@@ -34,7 +34,7 @@
 <div class="playCardDiv container">
     
     
-  
+    
     {{#if hasPlayingCard}}
     {{#if isWonTrick}}
     <img src={{image-src "/assets/images/cards/" displayedCard ".jpeg"}} class="playingCardSize playingCardSizeBorder">
@@ -45,10 +45,14 @@
     {{/if}}
  
     
+    
 </div>
 
  <div class="teamName">Team: {{player.team}}</div>
  <div class="playerNameDisplay">Player: {{player.name}}</div>
+ 
+{{#if isShowPlayerCards}}{{#unless player.bot}}<button class="leaveGame" {{action "leaveGame" player.name}}>
+    Leave Game</button>{{/unless}}{{/if}}
  {{#if player.bot}}<div class="showBotView">Bot</div>{{/if}}
  {{#if isGameView}}
 

@@ -20,7 +20,7 @@
 </div>
 
 <div class="container playerSeatSouth">
-    {{spadeplayer-seat createPlayerView="createPlayerView" player=model.seats.playerSouth playerView=model.playerView currTurn=model.currTurn playerCard="playerCard" gameView=model previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver isGameOver=model.gameOver}}
+    {{spadeplayer-seat createPlayerView="createPlayerView" player=model.seats.playerSouth playerView=model.playerView currTurn=model.currTurn playerCard="playerCard" gameView=model previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver isGameOver=model.gameOver leaveGame="leaveGame"}}
     {{bidding-modal playerBid="playerBid" gameView=model player=model.seats.playerSouth}}
     {{#if model.seats.playerSouth.error}}
 

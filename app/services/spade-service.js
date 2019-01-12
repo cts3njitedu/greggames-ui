@@ -1,6 +1,7 @@
 import Ember from 'ember';
 
 import SpadeMixin from '../mixins/spade-mixin';
+import SpadeConstants from '../utils/spade-constants'
 export default Ember.Service.extend(SpadeMixin, {
 
     gregWebSocket: Ember.inject.service("greg-websocket"),
@@ -154,8 +155,16 @@ export default Ember.Service.extend(SpadeMixin, {
         console.log("Game being called");
         console.log(gameId);
         return this.getGameById(gameId);
-    }
+    },
 
+    leaveGame: function(player){
+        let gameView = Ember.copy(this.get("gameView"), true);
+        gameView.playerNotification = SpadeConstants.GAME_STATES.LEAVE_GAME;
+        gameView.gameModifier = player;
+        console.log("Leaving Game....");
+        console.log(gameView);
+        this.modifyGame(gameView);
+    }
 
 
 
