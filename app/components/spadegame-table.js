@@ -32,6 +32,7 @@ export default Ember.Component.extend({
         renderGameView(gameId){
 
             console.log(gameId);
+            console.log(this.get("playerName"));
             this.sendAction("renderGameView",gameId);
         }
 

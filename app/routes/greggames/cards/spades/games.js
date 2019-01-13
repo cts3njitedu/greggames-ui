@@ -5,6 +5,7 @@ export default Ember.Route.extend({
 
     spadeService: Ember.inject.service("spade-service"),
     greggamesService: Ember.inject.service("greggames-service"),
+    historyService: Ember.inject.service("history-service"),
     value: null,
 
     isSocket: false,
@@ -22,10 +23,12 @@ export default Ember.Route.extend({
         var self = this;
 
         //this.subscribe();
-
-
+        // console.log(this.get('routeName'))
+        
 
     },
+
+
     sample: Ember.computed("spadeService.newGameId", function () {
 
         console.log("I like sports");
@@ -47,7 +50,7 @@ export default Ember.Route.extend({
     },
     model(params) {
 
-        //console.log(params.gameId);
+       
         var self = this;
         this.get("spadeService").makeSubscriber().then(function (response) {
 

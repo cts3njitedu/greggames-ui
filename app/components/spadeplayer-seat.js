@@ -5,6 +5,10 @@ export default Ember.Component.extend({
 
     isShowScore: false,
 
+    allowClick: Ember.computed("isPlayerTurn",function(){
+        return this.get("isPlayerTurn");
+    }),
+
     isPlayAgainView: Ember.computed("previousHand","player.userId",function(){
 
 
