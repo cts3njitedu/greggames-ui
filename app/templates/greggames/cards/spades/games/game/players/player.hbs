@@ -3,24 +3,24 @@
 
 
 <div class="container playerSeatNorth">
-    {{spadeplayer-seat player=model.seats.playerNorth playerView=model.playerView previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver isGameOver=model.gameOver}}
+    {{spadeplayer-seat maxTime=model.maxTime player=model.seats.playerNorth playerView=model.playerView previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver isGameOver=model.gameOver}}
 
 </div>
 
 <div class="container playerSeatWest">
-    {{spadeplayer-seat player=model.seats.playerWest playerView=model.playerView previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver isGameOver=model.gameOver}}
+    {{spadeplayer-seat maxTime=model.maxTime player=model.seats.playerWest playerView=model.playerView previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver isGameOver=model.gameOver}}
 
 
 </div>
 
 <div class="container playerSeatEast">
-    {{spadeplayer-seat player=model.seats.playerEast playerView=model.playerView previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver isGameOver=model.gameOver}}
+    {{spadeplayer-seat maxTime=model.maxTime player=model.seats.playerEast playerView=model.playerView previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver isGameOver=model.gameOver}}
 
 
 </div>
 
 <div class="container playerSeatSouth">
-    {{spadeplayer-seat createPlayerView="createPlayerView" player=model.seats.playerSouth playerView=model.playerView currTurn=model.currTurn playerCard="playerCard" gameView=model previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver isGameOver=model.gameOver leaveGame="leaveGame"}}
+    {{spadeplayer-seat createPlayerView="createPlayerView" maxTime=model.maxTime player=model.seats.playerSouth playerView=model.playerView currTurn=model.currTurn playerCard="playerCard" gameView=model previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver isGameOver=model.gameOver leaveGame="leaveGame"}}
     {{bidding-modal playerBid="playerBid" gameView=model player=model.seats.playerSouth}}
     {{#if model.seats.playerSouth.error}}
 

@@ -66,7 +66,7 @@ export default Ember.Route.extend({
         this.get("greggamesService").makePingSubscriber2("spades").then(function(response){
 
 
-            console.log("Pinging Socket for Spade Games");
+            console.log("Pinging Socket for Spade Games "+response);
         
         });
 

@@ -124,19 +124,19 @@ export default Ember.Route.extend({
             console.log("Playing card");
 
             this.get("spadeService").modifyGame(gameView)
-        },
-        willTransition(transition){
-            console.log("Leaving Page through different url");
-            let that = this;
-          
-            let gameView = Ember.copy(that.get("spadeService.gameView"), true);
-            gameView.playerNotification = SpadeConstants.GAME_STATES.LEAVE_GAME;
-            gameView.gameModifier = that.get("playerId");
-            console.log("Leaving Game....");
-            console.log(gameView);
-            that.get("spadeService").modifyGame(gameView);
-            //that.transitionTo("greggames.cards.spades.games.game");
         }
+        // willTransition(transition){
+        //     console.log("Leaving Page through different url");
+        //     let that = this;
+          
+        //     let gameView = Ember.copy(that.get("spadeService.gameView"), true);
+        //     gameView.playerNotification = SpadeConstants.GAME_STATES.LEAVE_GAME;
+        //     gameView.gameModifier = that.get("playerId");
+        //     console.log("Leaving Game....");
+        //     console.log(gameView);
+        //     that.get("spadeService").modifyGame(gameView);
+        //     //that.transitionTo("greggames.cards.spades.games.game");
+        // }
 
         // ,
         // playerCard(card) {

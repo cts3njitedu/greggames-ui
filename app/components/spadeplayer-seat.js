@@ -5,7 +5,15 @@ export default Ember.Component.extend({
 
     isShowScore: false,
 
+    init(){
+
+        this._super(...arguments);
+        console.log("CurrentTime spade player");
+        console.log(this.get("maxTime"));
+    },
+
     allowClick: Ember.computed("isPlayerTurn",function(){
+        
         return this.get("isPlayerTurn");
     }),
 
@@ -13,7 +21,6 @@ export default Ember.Component.extend({
 
 
         return this.get("player.userId")==null&&this.get("previousHand")==null;
-
 
     }),
 
