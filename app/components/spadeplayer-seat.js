@@ -229,6 +229,11 @@ export default Ember.Component.extend({
 
         // return (this.get("previousTrick")!=null)||(this.get("player.playingCard")!=null);
     }),
+
+    // willDestroyElement(){
+
+    //     console.log("Destroyed element "+this.get("player").name);
+    // },
     actions: {
 
         playerCard(card) {

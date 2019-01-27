@@ -10,12 +10,12 @@ export default Ember.Route.extend({
 
     init(){
 
-        // this._super();
-        // let self = this;
-        // setInterval(function(){
-
-        //     self.get("greggamesService").pingSocket("spades");
-        // },25000);
+        this._super();
+        let self = this;
+        setInterval(function(){
+            console.log("Pinging from client....");
+            self.get("greggamesService").pingSocket("spades");
+        },5000);
 
 
     },
@@ -127,14 +127,13 @@ export default Ember.Route.extend({
         },
 
         leaveGame(player){
-            // console.log("Sugar Honey Ice Teaasfdsafsoo3ir0");
-            // let gameView = Ember.copy(this.get("spadeService.gameView"), true);
-            // gameView.playerNotification = SpadeConstants.GAME_STATES.LEAVE_GAME;
-            // gameView.gameModifier = player;
-            // console.log("Leaving Game....");
-            // console.log(gameView);
-            // this.get("spadeService").modifyGame(gameView);
-            // this.get("spadeService").modifyGame(gameView,true);
+            console.log("Sugar Honey Ice Teaasfdsafsoo3ir0");
+            let gameView = Ember.copy(this.get("spadeService.gameView"), true);
+            gameView.playerNotification = SpadeConstants.GAME_STATES.LEAVE_GAME;
+            gameView.gameModifier = player;
+            console.log("Leaving Game....");
+            console.log(gameView);
+            this.get("spadeService").modifyGame(gameView,true);
             this.transitionTo("greggames.cards.spades.games.game",gameView.gameId);
 
         }
