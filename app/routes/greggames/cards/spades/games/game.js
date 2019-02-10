@@ -10,12 +10,12 @@ export default Ember.Route.extend({
 
     init(){
 
-        this._super();
-        let self = this;
-        setInterval(function(){
-            console.log("Pinging from client....");
-            self.get("greggamesService").pingSocket("spades");
-        },5000);
+        // this._super();
+        // let self = this;
+        // setInterval(function(){
+        //     console.log("Pinging from client....");
+        //     self.get("greggamesService").pingSocket("spades");
+        // },5000);
 
 
     },
@@ -51,7 +51,7 @@ export default Ember.Route.extend({
         this.get("greggamesService").makePingSubscriber("spades").then(function(response){
 
 
-            console.log("Pinging Socket for Spade");
+            //console.log("Pinging Socket for Spade");
         
         });
 
@@ -102,7 +102,7 @@ export default Ember.Route.extend({
 
             console.log("Please work now");
           
-            // console.log(gameView);
+            console.log(gameView);
             Ember.set(gameView, "playerNotification", SpadeConstants.GAME_STATES.START);
             this.get("spadeService").modifyGame(gameView);
         },

@@ -3,6 +3,18 @@ import SpadeConstants from "../../../../../../../utils/spade-constants"
 export default Ember.Route.extend({
 
     spadeService: Ember.inject.service("spade-service"),
+    greggamesService: Ember.inject.service("greggames-service"),
+
+
+    init(){
+        this._super();
+        let self = this;
+        setInterval(function(){
+            //console.log("Pinging from player....");
+            //self.refresh();
+            self.get("greggamesService").pingSocket("spades");
+        },5000);
+    },
 
     playerId: null,
     seats: {
@@ -26,7 +38,12 @@ export default Ember.Route.extend({
 
     model(params) {
 
+        this.get("greggamesService").makePingSubscriber("spades").then(function(response){
 
+
+            //console.log("Pinging Socket for Spade");
+        
+        });
         const PLAYER = "PLAYER";
         let seatName = params.playerId;
         this.set("playerId", params.playerId);

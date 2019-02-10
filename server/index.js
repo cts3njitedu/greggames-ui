@@ -17,11 +17,12 @@ module.exports = function(app) {
 
   // Log proxy requests
   //let express = require("express");
-  //let app = express();
+  // let app = express();
   const morgan = require('morgan');
   app.use(morgan('dev'));
 
   let gregproxy = require("./proxies/gregproxy");
+  
   gregproxy(app);
 
   mocks.forEach(route => route(app));

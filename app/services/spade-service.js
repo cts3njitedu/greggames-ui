@@ -35,6 +35,9 @@ export default Ember.Service.extend(SpadeMixin, {
             let self = that;
             self.get("gregWebSocket").connect(function (stompClient) {
                 Ember.set(self, "stompClient", stompClient);
+                if(!stompClient.connected){
+                    console.log("Roses are red violets are blue");
+                }
                 let _self = self;
                 stompClient.subscribe('/topic/spades/' + gameId, function (response) {
 
