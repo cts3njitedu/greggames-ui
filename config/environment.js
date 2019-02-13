@@ -58,7 +58,6 @@ module.exports = function (environment) {
     ENV.APP.autoboot = false;
   }
 
-<<<<<<< HEAD
   if (ENV.environment === 'production') {
     //console.log("in prod");
     ENV.APP.API_HOST = "https://greggames-app.herokuapp.com";
@@ -75,10 +74,6 @@ module.exports = function (environment) {
     process.env.NPM_CONFIG_API_HOST = "https://greggames-app.herokuapp.com";
   
 
-=======
-  if (environment === 'production') {
-    // here you can enable a production-specific feature
->>>>>>> 4e8088c... message
   }
 
   return ENV;
