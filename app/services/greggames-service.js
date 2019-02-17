@@ -96,7 +96,7 @@ export default Ember.Service.extend(CardMixin,{
         let req= {
             "message":"Sugar Honey Ice Tea"
         }
-        this.get("stompClient").send("/app/greggames/"+gameType+"/ping" , {}, JSON.stringify(req));
+        //this.get("stompClient").send("/app/greggames/"+gameType+"/ping" , {}, JSON.stringify(req));
         this.get("stompClient").send("/app/greggames/ping" , {}, JSON.stringify(req));
     }
 

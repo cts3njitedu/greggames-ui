@@ -17,11 +17,11 @@
 {{/if}}
 
 
-{{#if isShowPlayerCardsWhenOver}}
+{{!-- {{#if isShowPlayerCardsWhenOver}}
 {{#if isPlayAgainView}}
 {{playagain-modal createPlayerView="createPlayerView" player=player}}
 {{/if}}
-{{/if}}
+{{/if}} --}}
 
 
 <div class="playerPoints"><p>Player Bid: {{playerBid}}</p>
@@ -61,11 +61,12 @@
  {{#if player.bot}}<div class="showBotView">Bot</div>{{/if}}
  {{#if isGameView}}
 
+    {{#unless isStarting}}
     {{#if isBot}}
     <button {{action "createPlayerView" player}} class="playerButtonSeat">{{player.name}}</button>
 
     {{/if}}
-
+    {{/unless}}
 
  {{/if}}
 

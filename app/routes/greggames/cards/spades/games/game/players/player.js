@@ -1,89 +1,81 @@
 import Ember from 'ember';
 import SpadeConstants from "../../../../../../../utils/spade-constants"
+import { task } from 'ember-concurrency';
 export default Ember.Route.extend({
 
     spadeService: Ember.inject.service("spade-service"),
     greggamesService: Ember.inject.service("greggames-service"),
 
 
-    init(){
+    init() {
         this._super();
         let self = this;
-        setInterval(function(){
-            //console.log("Pinging from player....");
-            //self.refresh();
-            self.get("greggamesService").pingSocket("spades");
-        },5000);
+        // setInterval(function(){
+        //     //console.log("Pinging from player....");
+        //     //self.refresh();
+        //     self.get("greggamesService").pingSocket("spades");
+        // },5000);
+
+        
     },
 
     playerId: null,
-    seats: {
 
-        "playerSouth": null,
-        "playerWest": null,
-        "playerNorth": null,
-        "playerEast": null
+    isTransition: true,
 
-    },
-    seatIds: {
-
-        1: "playerSouth",
-        2: "playerWest",
-        3: "playerNorth",
-        4: "playerEast"
-    },
     gameState: {},
 
-    gamePlayers: {},
+    gamePlayers: {}, 
 
     model(params) {
+        let self = this;
 
-        this.get("greggamesService").makePingSubscriber("spades").then(function(response){
-
-
-            //console.log("Pinging Socket for Spade");
         
-        });
-        const PLAYER = "PLAYER";
-        let seatName = params.playerId;
-        this.set("playerId", params.playerId);
-        let seatId = seatName.charAt(seatName.length - 1);
+    
+        return this.get("spadeService").getGame(self.get("spadeService.gameView.gameId")).then(function (game) {
+            console.log("What is game value");
 
-        let allPlayers = {};
-
-        let gameView = Ember.copy(this.modelFor("greggames.cards.spades.games.game"), true);
-        this.set("gameState", Ember.copy(gameView));
-        let teams = gameView.teams;
-
-        for (var team in teams) {
-            if (teams.hasOwnProperty(team)) {
-                let players = teams[team].players;
-                for (var player in players) {
-
-                    allPlayers[player] = players[player];
-                }
-            }
-        }
-        this.set("gamePlayers", allPlayers);
-        let counter = 1;
-        while (counter <= gameView.numberOfPlayers) {
-
-            let position = this.get("seatIds." + counter);
-            this.set("seats." + position, allPlayers[PLAYER + seatId]);
-            seatId++;
-            if (seatId > 4) {
-                seatId = 1;
-            }
-            counter++;
-        }
+            console.log(game);
+            return self.get("createPlayerViewTask").perform(game, params);
 
 
-        gameView["seats"] = this.get("seats");
-        gameView["playerView"] = params.playerId;
+        })
 
+        // return self.get("createPlayerViewTask").perform(self.modelFor("greggames.cards.spades.games.game"),this.paramsFor);
+       
+        
 
-        return gameView;
     },
+
+    beforeModel(){
+
+        // console.log("Coming again today i said");
+        // if(this.get("isTransition")){
+        //     this.set("isTransition",false);
+        //     this.refresh()
+        // }
+
+    },
+
+
+    createPlayerViewTask: task(function* (game, params) {
+
+        this.set("playerId", params.playerId);
+        this.set("gamerId",params.gameId);
+        let newGameView = yield this.get("spadeService").get("getPlayerViewTask").perform(game,params.playerId);
+        console.log(newGameView);
+        return this.get("spadeService.gameView");
+
+
+
+    }).drop(),
+
+
+    // playerBidTask: task(function*(bid){
+
+
+
+    // }),
     actions: {
 
         playerBid(bid) {
@@ -92,7 +84,7 @@ export default Ember.Route.extend({
             console.log(bid);
 
             let gameView = Ember.copy(this.get("spadeService.gameView"), true);
-            let player = this.get("gamePlayers")[this.get("playerId")];
+            let player = gameView.seats.PLAYERSOUTH;
             console.log(player);
             // let bidder = 10*bid;
             // this.set("gameView.teams."+player.team+".players."+player.name,bidder);
@@ -108,6 +100,7 @@ export default Ember.Route.extend({
             // Ember.set(gameView,"playerNotification",SpadeConstants.GAME_STATES.BID);
             console.log(gameView);
             this.get("spadeService").modifyGame(gameView);
+            // window.location.reload(true);
 
         },
         closeErrorModal() {
@@ -142,10 +135,10 @@ export default Ember.Route.extend({
 
             this.get("spadeService").modifyGame(gameView)
         },
-        willTransition(transition){
+        willTransition(transition) {
             // console.log("Leaving Page through different url");
             // let that = this;
-          
+
             // let gameView = Ember.copy(that.get("spadeService.gameView"), true);
             // gameView.playerNotification = SpadeConstants.GAME_STATES.LEAVE_GAME;
             // gameView.gameModifier = that.get("playerId");
@@ -160,20 +153,21 @@ export default Ember.Route.extend({
 
         //     this.sendAction("playerCard",card);
         // }
-    },
+    }
 
-    saveBeforeClose: Ember.on('init',function(){
-        let that = this;
-        jQuery(window).on('beforeunload',function(){
-            let gameView = Ember.copy(that.get("spadeService.gameView"), true);
-            gameView.playerNotification = SpadeConstants.GAME_STATES.LEAVE_GAME;
-            gameView.gameModifier = that.get("playerId");
-            console.log("Leaving Game....");
-            console.log(gameView);
-            that.get("spadeService").modifyGame(gameView);
-            //that.transitionTo("greggames.cards.spades.games.game",gameView.gameId);
 
-        })
+    // saveBeforeClose: Ember.on('init', function () {
+    //     let that = this;
+    //     jQuery(window).on('beforeunload', function () {
+    //         let gameView = Ember.copy(that.get("spadeService.gameView"), true);
+    //         gameView.playerNotification = SpadeConstants.GAME_STATES.LEAVE_GAME;
+    //         gameView.gameModifier = that.get("playerId");
+    //         console.log("Leaving Game....");
+    //         console.log(gameView);
+    //         that.get("spadeService").modifyGame(gameView);
+    //         //that.transitionTo("greggames.cards.spades.games.game",gameView.gameId);
 
-    })
+    //     })
+
+    // })
 });

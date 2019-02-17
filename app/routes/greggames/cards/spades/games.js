@@ -1,30 +1,20 @@
 import Ember from 'ember';
 import SpadeConstants from '../../../../utils/spade-constants';
+import {task} from 'ember-concurrency';
 export default Ember.Route.extend({
 
 
     spadeService: Ember.inject.service("spade-service"),
     greggamesService: Ember.inject.service("greggames-service"),
     historyService: Ember.inject.service("history-service"),
+    socketService: Ember.inject.service("greg-websocket"),
     value: null,
 
     isSocket: false,
 
 
     init() {
-
-        //that.get("getGames")(that);
-
-        //this._getGames();
-
-        //this.get("spadeService").getInitialGames(ths);
-        //this.get("spadeService").makeSubscriber(this);
-
-        var self = this;
-
-        //this.subscribe();
-        // console.log(this.get('routeName'))
-        
+ 
 
     },
 
@@ -41,8 +31,8 @@ export default Ember.Route.extend({
     },
     beforeModel(){
 
-        if(this.get("isSocket")){
-            this.set("isSocket",false);
+        if(this.get("isCreator")){
+            this.set("isCreator",false);
             this.transitionTo("greggames.cards.spades.games.game",this.get("spadeService.gameState.newGameId"))
         }
 
@@ -52,37 +42,41 @@ export default Ember.Route.extend({
 
        
         var self = this;
-        this.get("spadeService").makeSubscriber().then(function (response) {
+        this.get("spadeService").makeConnection().then(function (stompClient) {
+            let that = self;
+            let subscriber = stompClient.subscribe('/topic/spades', function (response) {
+                
+                let newGameState = JSON.parse(response.body);
+                that.set("spadeService.gameView",newGameState);  
+                
+            });
 
-            //self.set("spadeService.gameState.games",response);
-           
-            console.log("This is strange");
-            var resp = JSON.parse(response);
-            self.set("spadeService.gameState.newGameId", resp.gameId);
-
-            self.refresh();
-
-        });
-        this.get("greggamesService").makePingSubscriber2("spades").then(function(response){
-
-
-            console.log("Pinging Socket for Spade Games "+response);
-        
+            that.set("subscriber", subscriber);
         });
 
-        return this.get("spadeService").getInitialGames().then(function (response) {
+        return this.get("spadeService").getGameView().then(function (response) {
      
-            self.set("spadeService.gameState.games", response);
-
+           
+            self.set("spadeService.gameState", response);
             //self.set("spadeService.gameState.newGameId",self.get("spadeService.gameState.newGameId"));
 
             return self.get("spadeService.gameState");
         });
-        // console.log(this.get("spadeService.gameState"));
-        // console.log(this.get("sample"));
-        // return this.get("spadeService.gameState");
 
     },
+    createNewGameTask: task(function*(newGame){
+
+        let self = this;
+        console.log("Creating game....");
+        this.set("isSocket",true);
+        this.set("isCreator",true);
+        newGame["gameNotification"]=SpadeConstants.GAME_STATES.CREATE;
+        yield this.get("spadeService").addGame(newGame);
+
+        
+
+
+    }),
     actions: {
 
         addGame(newGame) {
@@ -90,10 +84,6 @@ export default Ember.Route.extend({
             //console.log(newGame);
 
             this.get("spadeService").addGame(newGame);
-
-
-
-
 
         },
         playGame(gameId) {
@@ -105,15 +95,10 @@ export default Ember.Route.extend({
         },
         createNewGame(newGame) {
 
-            let self = this;
-            console.log(self.get("spadeService"));
-            this.set("isSocket",true);
-            newGame["gameNotification"]=SpadeConstants.GAME_STATES.CREATE;
-            console.log(newGame);
-            this.get("spadeService").addGame(newGame);
-
+            
+            this.get("createNewGameTask").perform(newGame);
             //console.log("Please Help me");
             // console.log(this.get("sample"));
-        }
+        },
     }
 });

@@ -32,13 +32,17 @@ module.exports = function (app) {
 
   proxy.on('proxyReq', function (proxyReq, req, res) {
     console.log('RAW Response from the target');
+    req.headers['cache-control']='no cache, no-store, must-revalidate';
+    console.log(req.headers);
     proxyReq.timeout=60000000;
+    
     req.timeout=60000000;
     //console.log(proxyReq);
   });
 
   proxy.on('proxyReqWs',function(proxyReqWs,req,res){
     console.log("WEb socket reqquest")
+
     proxyReqWs.timeout=0;
     req.timeout=0;
     //console.log(proxyReqWs);
@@ -50,7 +54,7 @@ module.exports = function (app) {
     console.log("Proxing request");
     //console.log(req);
     console.log(req.url);
-    req.timeout = 
+   
     console.log(process.env.NPM_CONFIG_API_HOST);
     proxy.web(req, res, { 
       target: process.env.NPM_CONFIG_API_HOST,

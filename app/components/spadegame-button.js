@@ -18,8 +18,7 @@ export default Ember.Component.extend({
 
 
     actions: {
-
-
+    
         startGame(gameView){
 
             this.sendAction("startGame",gameView);

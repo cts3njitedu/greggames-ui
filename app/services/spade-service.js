@@ -2,6 +2,8 @@ import Ember from 'ember';
 
 import SpadeMixin from '../mixins/spade-mixin';
 import SpadeConstants from '../utils/spade-constants'
+import { task } from 'ember-concurrency';
+import async from 'npm:async';
 export default Ember.Service.extend(SpadeMixin, {
 
     gregWebSocket: Ember.inject.service("greg-websocket"),
@@ -22,7 +24,18 @@ export default Ember.Service.extend(SpadeMixin, {
     stompClient: null,
 
 
+    makeConnection: function(){
+        let self = this;
+        return new Ember.RSVP.Promise(function (resolve, reject) {
+            self.get("gregWebSocket").connect(function (stompClient) {
+                Ember.set(self, "stompClient", stompClient);
 
+                resolve(stompClient);
+            });
+
+        });
+
+    },
 
 
 
@@ -35,14 +48,12 @@ export default Ember.Service.extend(SpadeMixin, {
             let self = that;
             self.get("gregWebSocket").connect(function (stompClient) {
                 Ember.set(self, "stompClient", stompClient);
-                if(!stompClient.connected){
-                    console.log("Roses are red violets are blue");
-                }
+                
                 let _self = self;
                 stompClient.subscribe('/topic/spades/' + gameId, function (response) {
 
 
-
+                    
 
 
                     resolve(response.body);
@@ -111,6 +122,13 @@ export default Ember.Service.extend(SpadeMixin, {
 
     },
 
+    getGameView: function(){
+
+        return this.getSpadeGameView();
+           
+
+    },
+
     addGame: function (newGame) {
 
         let self = this;
@@ -125,15 +143,58 @@ export default Ember.Service.extend(SpadeMixin, {
     },
 
 
+    getPlayerViewTask: task(function* (game, pid) {
+        
+        //this.set("gameView", game);
+        
+        let newGameView = game;
+        let currPlayerId = pid;
+        let currPlayer = null;
+        let allPlayers = {};
+
+        let teams = newGameView.teams;
+
+        async.each(teams, function (team, callback) {
+
+            let players = team.players;
+
+            async.each(players, function (player, callback) {
+
+                if (currPlayerId == player.name) {
+                    currPlayer = player;
+                }
+
+                allPlayers[player.name] = player;
+
+            })
+
+
+        });
+
+
+
+        let playerPositions = currPlayer.playerPositions;
+        newGameView.seats = {};
+        async.each(Object.keys(playerPositions),function(position,callback){
+            newGameView.seats[position] = allPlayers[playerPositions[position]];
+        })
+        newGameView.playerView = pid;
+        this.set("gameView",newGameView);
+
+        return newGameView;
+
+
+
+    }).drop(),
+
     modifyGame: function (gameView,isNewPlayer) {
 
-    
-
-
+        
 
 
         this.get("stompClient").send("/app/greggames/spades/" + gameView.gameId, {}, JSON.stringify(gameView));
 
+     
         if(isNewPlayer){
 
             this.get("stompClient").send("/app/greggames/spades", {}, JSON.stringify(gameView));
