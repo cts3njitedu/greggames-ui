@@ -1,5 +1,6 @@
 import Ember from 'ember';
 import SpadeConstants from '../utils/spade-constants';
+import GreggamesUtil from '../utils/greggames-util';
 export default Ember.Component.extend({
 
 
@@ -10,6 +11,9 @@ export default Ember.Component.extend({
         this._super(...arguments);
         console.log("CurrentTime spade player");
         console.log(this.get("maxTime"));
+        if(!this.get('greggamesUtil')){
+            this.set('greggamesUtil',GreggamesUtil.create());
+        }
     },
 
     allowClick: Ember.computed("isPlayerTurn",function(){
@@ -229,9 +233,22 @@ export default Ember.Component.extend({
 
     }),
     hasPlayingCard: Ember.computed("previousTrick", "player.playingCard", function () {
+        let isPlayingCardAvailble = true;
+        let playingCard = this.get("player.playingCard");
+        
+        if(playingCard==null){
+            isPlayingCardAvailble = false
+        }
+        else{
+            for(let x in playingCard){
+                if(playingCard[x]==null){
+                    isPlayingCardAvailble = false;
+                }
+            }
+        }
+        console.log("Playing Card: "+ isPlayingCardAvailble);
 
-
-        let isShow = (this.get("player.playingCard") != null)
+        let isShow = (isPlayingCardAvailble)
             || (this.get("previousTrick") != null)
         return (isShow);
 

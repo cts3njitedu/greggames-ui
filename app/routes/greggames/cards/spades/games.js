@@ -30,10 +30,10 @@ export default Ember.Route.extend({
 
     },
     beforeModel(){
-
+        console.log(this.get("spadeService.gameView"));
         if(this.get("isCreator")){
             this.set("isCreator",false);
-            this.transitionTo("greggames.cards.spades.games.game",this.get("spadeService.gameState.newGameId"))
+            this.transitionTo("greggames.cards.spades.games.game",this.get("spadeService.gameView.newGame.gameId"))
         }
 
 
@@ -47,7 +47,11 @@ export default Ember.Route.extend({
             let subscriber = stompClient.subscribe('/topic/spades', function (response) {
                 
                 let newGameState = JSON.parse(response.body);
+                
+                //console.log("Tissue paper!!!/1/.1");
+                //console.log(newGameState);
                 that.set("spadeService.gameView",newGameState);  
+                that.refresh();
                 
             });
 

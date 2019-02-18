@@ -69,9 +69,9 @@ export default Ember.Route.extend({
             that.set("subscriber", subscriber);
         });
         
-        this.get("spadeService.stompClient").ws.onclose(function(res){
-            self.refresh();
-        })
+        // this.get("spadeService.stompClient").ws.onclose(function(res){
+        //     self.refresh();
+        // })
         return this.get("spadeService").getGame(params.gameId).then(function (game) {
             console.log("Single game");
 
@@ -80,7 +80,7 @@ export default Ember.Route.extend({
 
             let gameView = self.get("spadeService.gameView");
 
-
+            console.log(gameView);
             return self.get("spadeService.gameView");
 
         })
