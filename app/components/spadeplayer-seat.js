@@ -4,7 +4,10 @@ import GreggamesUtil from '../utils/greggames-util';
 export default Ember.Component.extend({
 
 
-    isShowScore: false,
+    isShowScore: Ember.computed("gameView.trickOver", "gameView.handOver",function(){
+
+        return !this.get("gameView.trickOver") && this.get("gameView.handOver")
+    }),
     init(){
 
         this._super(...arguments);
