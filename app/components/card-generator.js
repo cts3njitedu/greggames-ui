@@ -5,6 +5,7 @@ export default Ember.Component.extend({
     tagName:"img",
     attributeBindings: ['src','style'],
     classNames: ["cardSize","cardDetails"],
+
     src: Ember.computed("cardName",function(){
 
         
@@ -12,6 +13,12 @@ export default Ember.Component.extend({
         return "/assets/images/cards/" + this.get("cardName")+".jpeg";
 
     }),
+
+    init(){
+        this._super(...arguments);
+        // console.log("Inside card generator");
+
+    },
     style: Ember.computed("index",function(){
 
     

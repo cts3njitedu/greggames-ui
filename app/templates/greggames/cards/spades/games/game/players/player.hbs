@@ -1,32 +1,32 @@
-{{#spadegame-table gameView=model renderGameView="renderGameView"}}
+{{#spadegame-table renderGameView="renderGameView" isGameView=false leaveGame="leaveGame" playerBid="playerBid" playerCard="playerCard"}}
 
 
 
-<div class="container playerSeatNorth">
-    {{spadeplayer-seat maxTime=model.maxTime player=model.seats.PLAYERNORTH playerView=model.playerView previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver isGameOver=model.gameOver}}
+{{!-- <div class="container playerSeatNorth">
+    {{spadeplayer-seat maxTime=model.maxTime position="PLAYERNORTH" isGameView=false}}
 
 </div>
 
 <div class="container playerSeatWest">
-    {{spadeplayer-seat maxTime=model.maxTime player=model.seats.PLAYERWEST playerView=model.playerView previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver isGameOver=model.gameOver}}
+    {{spadeplayer-seat maxTime=model.maxTime position="PLAYERWEST" isGameView=false}}
 
 
 </div>
 
 <div class="container playerSeatEast">
-    {{spadeplayer-seat maxTime=model.maxTime player=model.seats.PLAYEREAST playerView=model.playerView previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver isGameOver=model.gameOver}}
+    {{spadeplayer-seat maxTime=model.maxTime position="PLAYEREAST" isGameView=false}}
 
 
 </div>
 
 <div class="container playerSeatSouth">
-    {{spadeplayer-seat createPlayerView="createPlayerView" maxTime=model.maxTime player=model.seats.PLAYERSOUTH playerView=model.playerView currTurn=model.currTurn playerCard="playerCard" gameView=model previousTrick=model.previousTrick previousHand=model.previousHand gameNotification=model.gameNotification isTrickOver=model.trickOver isHandOver=model.handOver isGameOver=model.gameOver leaveGame="leaveGame"}}
+    {{spadeplayer-seat createPlayerView="createPlayerView" maxTime=model.maxTime position="PLAYERSOUTH" leaveGame="leaveGame" playerCard="playerCard" isGameView=false}}
     {{bidding-modal playerBid="playerBid" gameView=model player=model.seats.PLAYERSOUTH}}
     {{#if model.seats.playerSouth.error}}
 
     <div class="container">{{error-modal player=model.seats.playerSouth closeErrorModal="closeErrorModal"}}</div>
     {{/if}}
 
-</div>
+</div> --}}
 
 {{/spadegame-table}}

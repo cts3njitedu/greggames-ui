@@ -32,8 +32,27 @@
 
 
     <div class="container">
+        {{spadegame-button startGame="startGame" gameView=gameView}}
+        <div class="container playerSeatNorth">
+            {{spadeplayer-seat position="PLAYERNORTH" createPlayerView="createPlayerView" classButton="playerButtonNorth" isGameView=isGameView gameView=gameView}}  
+        </div>
+        <div class="container playerSeatWest">
+            {{spadeplayer-seat  position="PLAYERWEST" createPlayerView="createPlayerView" classButton="playerButtonWest" isGameView=isGameView gameView=gameView}}
+        </div>
 
-        {{yield}}
+        <div class="container playerSeatEast">
+            {{spadeplayer-seat position="PLAYEREAST" createPlayerView="createPlayerView" classButton="playerButtonEast" isGameView=isGameView gameView=gameView}}
+    
+        </div>
+        <div class="container playerSeatSouth">
+            {{#if isGameView}}
+            {{spadeplayer-seat position="PLAYERSOUTH" createPlayerView="createPlayerView" classButton="playerButtonSouth" isGameView=isGameView gameView=gameView}}
+            {{else}}
+            {{spadeplayer-seat createPlayerView="createPlayerView" position="PLAYERSOUTH" leaveGame="leaveGame" playerCard="playerCard" isGameView=isGameView gameView=gameView}}
+            {{bidding-modal playerBid="playerBid" gameView=gameView player=gameView.seats.PLAYERSOUTH}}
+            {{/if}}
+        </div>
+        {{!-- {{yield (hash gameView=gameView)}} --}}
     </div>
 
 

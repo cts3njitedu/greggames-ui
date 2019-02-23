@@ -24,7 +24,7 @@ export default Ember.Service.extend(SpadeMixin, {
     stompClient: null,
 
 
-    makeConnection: function(){
+    makeConnection: function () {
         let self = this;
         return new Ember.RSVP.Promise(function (resolve, reject) {
             self.get("gregWebSocket").connect(function (stompClient) {
@@ -48,12 +48,12 @@ export default Ember.Service.extend(SpadeMixin, {
             let self = that;
             self.get("gregWebSocket").connect(function (stompClient) {
                 Ember.set(self, "stompClient", stompClient);
-                
+
                 let _self = self;
                 stompClient.subscribe('/topic/spades/' + gameId, function (response) {
 
 
-                    
+
 
 
                     resolve(response.body);
@@ -122,10 +122,10 @@ export default Ember.Service.extend(SpadeMixin, {
 
     },
 
-    getGameView: function(){
+    getGameView: function () {
 
         return this.getSpadeGameView();
-           
+
 
     },
 
@@ -143,10 +143,10 @@ export default Ember.Service.extend(SpadeMixin, {
     },
 
 
-    getPlayerViewTask: task(function* (game, pid) {
-        
+    getPlayerViewTask: task(function* (game, pid,cb) {
+
         //this.set("gameView", game);
-        
+
         let newGameView = game;
         let currPlayerId = pid;
         let currPlayer = null;
@@ -154,48 +154,68 @@ export default Ember.Service.extend(SpadeMixin, {
 
         let teams = newGameView.teams;
 
-        async.each(teams, function (team, callback) {
+        async.waterfall([
 
-            let players = team.players;
+            function (callback) {
+                console.log("Make all players for: "+pid);
+                async.each(teams, function (team, callback) {
 
-            async.each(players, function (player, callback) {
+                    let players = team.players;
 
-                if (currPlayerId == player.name) {
-                    currPlayer = player;
-                }
+                    async.each(players, function (player, callback) {
 
-                allPlayers[player.name] = player;
+                        if (currPlayerId == player.name) {
+                            currPlayer = player;
+                        }
 
-            })
+                        allPlayers[player.name] = player;
 
+                    })
 
+                });
+                callback();
+
+            },
+            function (callback) {
+                console.log("Set positions for: "+pid);
+                let playerPositions = currPlayer.playerPositions;
+                newGameView.seats = {};
+                async.each(Object.keys(playerPositions), function (position, callback) {
+                    newGameView.seats[position] = allPlayers[playerPositions[position]];
+                })
+                newGameView.playerView = pid;
+
+                callback();
+            }
+        ],function(error,success){
+            if(error){
+                console.log("Something went wrong");
+
+            }
+            cb(newGameView);
         });
 
 
 
-        let playerPositions = currPlayer.playerPositions;
-        newGameView.seats = {};
-        async.each(Object.keys(playerPositions),function(position,callback){
-            newGameView.seats[position] = allPlayers[playerPositions[position]];
-        })
-        newGameView.playerView = pid;
-        this.set("gameView",newGameView);
 
-        return newGameView;
+
+        //this.set("gameView",newGameView);
+
+        // return newGameView;
 
 
 
-    }).drop(),
+    }),
 
-    modifyGame: function (gameView,isNewPlayer) {
+    modifyGame: function (gameView, isNewPlayer) {
 
-        
+
 
 
         this.get("stompClient").send("/app/greggames/spades/" + gameView.gameId, {}, JSON.stringify(gameView));
 
-     
-        if(isNewPlayer){
+
+        if (isNewPlayer) {
 
             this.get("stompClient").send("/app/greggames/spades", {}, JSON.stringify(gameView));
         }
@@ -221,7 +241,7 @@ export default Ember.Service.extend(SpadeMixin, {
         return this.getGameById(gameId);
     },
 
-    leaveGame: function(player){
+    leaveGame: function (player) {
         let gameView = Ember.copy(this.get("gameView"), true);
         gameView.playerNotification = SpadeConstants.GAME_STATES.LEAVE_GAME;
         gameView.gameModifier = player;

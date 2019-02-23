@@ -30,12 +30,6 @@ export default Ember.Route.extend({
 
     },
     beforeModel(){
-        console.log(this.get("spadeService.gameView"));
-        if(this.get("isCreator")){
-            this.set("isCreator",false);
-            this.transitionTo("greggames.cards.spades.games.game",this.get("spadeService.gameView.newGame.gameId"))
-        }
-
 
     },
     model(params) {
@@ -50,8 +44,12 @@ export default Ember.Route.extend({
                 
                 //console.log("Tissue paper!!!/1/.1");
                 //console.log(newGameState);
-                that.set("spadeService.gameView",newGameState);  
-                that.refresh();
+                that.set("spadeService.gameView",newGameState); 
+                if(that.get("isCreator")){
+                    self.set("isCreator",false);
+                    that.transitionTo("greggames.cards.spades.games.game",that.get("spadeService.gameView.newGame.gameId"))
+                }
+                 
                 
             });
 
@@ -61,10 +59,9 @@ export default Ember.Route.extend({
         return this.get("spadeService").getGameView().then(function (response) {
      
            
-            self.set("spadeService.gameState", response);
+            self.set("spadeService.gameView", response);
             //self.set("spadeService.gameState.newGameId",self.get("spadeService.gameState.newGameId"));
-
-            return self.get("spadeService.gameState");
+            return self.get("spadeService.gameView");
         });
 
     },
@@ -81,6 +78,12 @@ export default Ember.Route.extend({
 
 
     }),
+
+    // setupController:function(controller,model){
+    //     controller.set('gameView',Ember.computed("spadeService.gameView",function(){
+    //         return this.get("spadeService.gameView");
+    //     }));
+    // },
     actions: {
 
         addGame(newGame) {

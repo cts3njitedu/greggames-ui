@@ -9,8 +9,10 @@ export default Ember.Route.extend({
 
     isGetGame: true,
 
+    isCreator: false,
     init(){
 
+        console.log("Comming here a second time");
         // this._super();
         // let self = this;
         // setInterval(function(){
@@ -34,19 +36,13 @@ export default Ember.Route.extend({
     },
 
     beforeModel() {
-
-        // console.log("Comming again: " + this.get("isSocket"));
-        // if(this.get("refreshGameRoute")){
-        //     this.set("refreshGameRoute",false);
-        //     window.location.reload(true);
+        // console.log("beforekdie");
+        // if(this.get("isCreator")){
+        //     this.set("isCreator",false);
+        //     console.log("Creating again");
+        //     this.transitionTo("greggames.cards.spades.games.game.players.player", this.get("gamerId"), this.get("playerId"));
         // }
-        // }
-        // if (this.get("isSocket")) {
-        //     this.set("isSocket", false);
-        //     this.transitionTo("greggames.cards.spades.games.game.players.player", this.get("spadeService.gameView.gameId"), this.get("playerId"));
-        //     //this.transitionTo("greggames.cards.spades.games.game", this.get("spadeService.gameView.gameId"));
-        // }
-
+        
     },
 
 
@@ -58,12 +54,15 @@ export default Ember.Route.extend({
 
         this.get("spadeService").makeConnection().then(function (stompClient) {
             let that = self;
-            console.log(params);
             let subscriber = stompClient.subscribe('/topic/spades/' + params.gameId, function (response) {
+                
+                var newGame = JSON.parse(response.body);
+                let that = self;
+             
+                that.get("createGameViewSubscriberTask").perform(newGame, params);
+        
+              
                     
-               self.set("spadeService.gameView",JSON.parse(response.body));
-               self.refresh();
-                        
             });
 
             that.set("subscriber", subscriber);
@@ -74,42 +73,23 @@ export default Ember.Route.extend({
         // })
         return this.get("spadeService").getGame(params.gameId).then(function (game) {
             console.log("Single game");
-
-
-            self.set("spadeService.gameView", game);
-
-            let gameView = self.get("spadeService.gameView");
-
-            console.log(gameView);
-            return self.get("spadeService.gameView");
+            return self.get("createGameViewTask").perform(game, params);
 
         })
 
-
-
-
     },
-    // createGameViewTask: task(function* (game, params) {
-
-    //     let newGameView = yield this.get("spadeService").get("getPlayerViewTask").perform(game,"PLAYER1");
-    //     //console.log(newGameView);
-    //     return this.get("spadeService.gameView");
-
-
-
-    // }).drop(),
     createPlayerViewTask: task(function*(playerMetaData){
 
-        console.log("This is a task");
-        let gameView = this.get("spadeService.gameView");
+        
+        let gameView = Ember.copy(this.get("spadeService.gameDetails"),true);
         gameView.newPlayer = true;
-        console.log("We are marshal");
         console.log(gameView);
         console.log(playerMetaData.name);
 
         gameView.teams[playerMetaData.team].players[playerMetaData.name].userId = playerMetaData.name;
-        this.set("isSocket", true);
+        this.set("isCreator", true);
         this.set("playerId", playerMetaData.name);
+        this.set("gamerId",gameView.gameId);
         Ember.set(gameView, "playerNotification", SpadeConstants.GAME_STATES.NEW_PLAYER);
         Ember.set(gameView, "gameModifier",playerMetaData.name);
         console.log(gameView);
@@ -117,43 +97,87 @@ export default Ember.Route.extend({
         
 
         yield  self.get("spadeService").modifyGame(gameView,true);
+        // yield self.transitionTo("greggames.cards.spades.games.game.players.player", self.get("spadeService.gameDetails.gameId"), self.get("playerId"));
         
-        this.refresh();
-        console.log("Transitioning---0");
-        self.transitionTo("greggames.cards.spades.games.game.players.player", self.get("spadeService.gameView.gameId"), self.get("playerId"));
-    
 
     }).drop(),
 
+    createGameViewSubscriberTask: task(function*(game,params){
+        let self = this;
+        console.log("Value of creator is : "+self.get("isCreator"));
+        if(self.get("isCreator")){
+            self.set("isCreator",false);
+            console.log("Creator....");
+            console.log(self.get("playerId"));
+            self.transitionTo("greggames.cards.spades.games.game.players.player", this.get("gamerId"), this.get("playerId"));
+            
+        }
+        else if(self.get("isLeavingGame")){
+           self.set("isLeavingGame",false);
+            console.log("Leaving....");
+            yield self.get("createGameViewTask").perform(game, params);
+           self.transitionTo("greggames.cards.spades.games.game",self.get("gamerId"));
+
+        }
+        else{
+            let x = yield self.get("createGameViewTask").perform(game, params);
+        }
+       
+        
+
+
+    }),
+    createGameViewTask: task(function* (game,params) {
+
+        //hardcode to player1
+        console.log("Game View Task");
+        this.set("playerId", "PLAYER1");
+        this.set("gamerId",params.gameId);
+        let that = this;
+        let newGameView = yield this.get("spadeService").get("getPlayerViewTask").perform(game,this.get("playerId"),function(newGame){
+            console.log("in call back game");
+            that.set("spadeService.gameDetails",newGame);
+        });
+
+        return this.get("spadeService.gameDetails");
+
+
+
+    }),
     leaveGameTask: task(function*(player){
 
 
         console.log("Sugar Honey Ice Teaasfdsafsoo3ir0");
         this.set("refreshGameRoute",true);
-        let gameView = Ember.copy(this.get("spadeService.gameView"), true);
+        let gameView = Ember.copy(this.get("spadeService.gameDetails"), true);
         gameView.playerNotification = SpadeConstants.GAME_STATES.LEAVE_GAME;
         gameView.gameModifier = player;
         console.log("Leaving Game....");
-        console.log(gameView);
-        
+        this.set("gamerId",gameView.gameId);
+        this.set("isLeavingGame",true);
         yield this.get("spadeService").modifyGame(gameView,true);
         let self=this;
         //window.location.reload(true);
 
         //this.refresh();
         // this.refresh();
-        yield this.transitionTo("greggames.cards.spades.games.game",this.get("spadeService.gameView").gameId);
+        // yield this.transitionTo("greggames.cards.spades.games.game",this.get("spadeService.gameView").gameId);
         // this.refresh();
         //window.location.reload(true);
         
         
 
     }).drop(),
+
+
+    deactivate:function(){
+        this.get("subscriber").unsubscribe();
+    },
     actions: {
 
         createPlayerView(playerMetaData) {
 
-
+            // console.log("We are here");
             this.get("createPlayerViewTask").perform(playerMetaData);
             
 
@@ -192,5 +216,8 @@ export default Ember.Route.extend({
             this.get("leaveGameTask").perform(player);
         }
 
+    },
+    willTransition(){
+        console.log("Transitioning from game " + this.get("gamerId"));
     }
 });

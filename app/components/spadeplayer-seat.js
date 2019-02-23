@@ -5,37 +5,45 @@ export default Ember.Component.extend({
 
 
     isShowScore: false,
-
     init(){
 
         this._super(...arguments);
+        console.log("We adksfjklsdjf");
         console.log("CurrentTime spade player");
-        console.log(this.get("maxTime"));
-        if(!this.get('greggamesUtil')){
-            this.set('greggamesUtil',GreggamesUtil.create());
-        }
     },
 
     allowClick: Ember.computed("isPlayerTurn",function(){
         
         return this.get("isPlayerTurn");
     }),
+    playerView: Ember.computed("gameView.playerView",function(){
+        if(this.get("isGameView")){
+            return null;
+        }
+        return this.get("gameView.playerView")
+    }),
+    player: Ember.computed("gameView",function(){
+        console.log("Player: "+ this.get("position"));
+        console.log(this.get("gameView.seats"));
+        console.log(this.get("playerView"))
+        return this.get("gameView.seats")[this.get("position")];
 
-    isStarting: Ember.computed("gameNotification",function(){
+    }),
+    isStarting: Ember.computed("gameView.gameNotification",function(){
 
-        return this.get("gameNotification")==SpadeConstants.GAME_STATES.START;
+        return this.get("gameView.gameNotification")==SpadeConstants.GAME_STATES.START;
     }),
 
-    isPlayAgainView: Ember.computed("previousHand","player.userId",function(){
+    isPlayAgainView: Ember.computed("gameView.previousHand","player.userId",function(){
 
         console.log("What is going on tonight");
-        return this.get("player.userId")==null&&this.get("previousHand")==null;
+        return this.get("player.userId")==null&&this.get("gameView.previousHand")==null;
 
     }),
 
     isWonTrick: Ember.computed("player.won", function () {
 
-        return this.get("player.won") && (this.get("previousTrick") != null);
+        return this.get("player.won") && (this.get("gameView.previousTrick") != null);
 
 
     }),
@@ -63,10 +71,9 @@ export default Ember.Component.extend({
 
 
     }),
-    playerAction: Ember.computed("gameNotification", function () {
+    playerAction: Ember.computed("gameView.gameNotification", function () {
 
-        console.log("Bottles bottles bottles");
-        if (this.get("gameNotification") == SpadeConstants.GAME_STATES.PLAY) {
+        if (this.get("gameView.gameNotification") == SpadeConstants.GAME_STATES.PLAY) {
 
             return SpadeConstants.GAME_STATES.PLAY;
         }
@@ -77,48 +84,48 @@ export default Ember.Component.extend({
 
     }),
 
-    playerCards: Ember.computed("player.remainingCards.@each", function () {
+    playerCards: Ember.computed("player.remainingCards", function () {
         console.log(this.isDestroyed+ " : " +this.isDestroying + " : "+this.get("isGameView"));
-        if(this.get("player")!=null){
-            let hearts = this.get("player.remainingCards").filter(function (card, index, enumerable) {
+        // if(this.get("player")!=null){
+        //     let hearts = this.get("player.remainingCards").filter(function (card, index, enumerable) {
 
-                return card.suit == SpadeConstants.SUITS.HEARTS;
-            });
-            hearts.sort(function (a, b) {
+        //         return card.suit == SpadeConstants.SUITS.HEARTS;
+        //     });
+        //     hearts.sort(function (a, b) {
     
-                return SpadeConstants.CARD_NUM_VALUE[a.value] - SpadeConstants.CARD_NUM_VALUE[b.value];
-            })
-            let diamonds = this.get("player.remainingCards").filter(function (card, index, enumerable) {
+        //         return SpadeConstants.CARD_NUM_VALUE[a.value] - SpadeConstants.CARD_NUM_VALUE[b.value];
+        //     })
+        //     let diamonds = this.get("player.remainingCards").filter(function (card, index, enumerable) {
     
-                return card.suit == SpadeConstants.SUITS.DIAMONDS;
-            });
-            diamonds.sort(function (a, b) {
+        //         return card.suit == SpadeConstants.SUITS.DIAMONDS;
+        //     });
+        //     diamonds.sort(function (a, b) {
     
-                return SpadeConstants.CARD_NUM_VALUE[a.value] - SpadeConstants.CARD_NUM_VALUE[b.value];
-            })
-            let clubs = this.get("player.remainingCards").filter(function (card, index, enumerable) {
+        //         return SpadeConstants.CARD_NUM_VALUE[a.value] - SpadeConstants.CARD_NUM_VALUE[b.value];
+        //     })
+        //     let clubs = this.get("player.remainingCards").filter(function (card, index, enumerable) {
     
-                return card.suit == SpadeConstants.SUITS.CLUBS;
-            });
-            clubs.sort(function (a, b) {
+        //         return card.suit == SpadeConstants.SUITS.CLUBS;
+        //     });
+        //     clubs.sort(function (a, b) {
     
-                return SpadeConstants.CARD_NUM_VALUE[a.value] - SpadeConstants.CARD_NUM_VALUE[b.value];
-            })
-            let spades = this.get("player.remainingCards").filter(function (card, index, enumerable) {
+        //         return SpadeConstants.CARD_NUM_VALUE[a.value] - SpadeConstants.CARD_NUM_VALUE[b.value];
+        //     })
+        //     let spades = this.get("player.remainingCards").filter(function (card, index, enumerable) {
     
-                return card.suit == SpadeConstants.SUITS.SPADES;
-            });
-            spades.sort(function (a, b) {
+        //         return card.suit == SpadeConstants.SUITS.SPADES;
+        //     });
+        //     spades.sort(function (a, b) {
     
-                return SpadeConstants.CARD_NUM_VALUE[a.value] - SpadeConstants.CARD_NUM_VALUE[b.value];
-            })
+        //         return SpadeConstants.CARD_NUM_VALUE[a.value] - SpadeConstants.CARD_NUM_VALUE[b.value];
+        //     })
     
-            let cardsToPlay = diamonds.concat(clubs).concat(hearts).concat(spades);
-            return cardsToPlay;
-        }
-        
+        //     let cardsToPlay = diamonds.concat(clubs).concat(hearts).concat(spades);
+        //     return cardsToPlay;
+        // }
+       
 
-        return new Ember.A();
+        return this.get("player.remainingCards");
     }),
 
     playerBid: Ember.computed("player.bidNil", "player.playerCurrentScore", function () {
@@ -133,106 +140,12 @@ export default Ember.Component.extend({
 
     }),
 
-    didRender(){
+    isPlayerTurn: Ember.computed("gameView.currTurn", "player.name", function () {
 
-
-
-        console.log("Initializating Player Seat");
-        Ember.run.schedule("afterRender",this,function(){
-
-            this.send("handleDisplayedCard");
-        })
-
-    },
-    // didRender(){
-       
-       
-    
-    //     if(this.get("isTrickOver")){
-
-    //         this.handleDisplayedCard();
-    //     }
-    //     else{
-    //         this.set("displayedCard",this.get("player.playingCard.name"));
-      
-    //     }
-        
-            
-        
-        
-
-    // },
-    
-
-
-
-    trickOverHandler() {
-
-        let self = this;
-        setTimeout(function () {
-            console.log("Trick is over");
-
-            self.set("previousTrick", null);
-            self.set("isWonTrick",false);
-            self.set("isTrickOver",false);
-
-        }, 2000)
-
-
-
-    },
-    handOverHandler() {
-
-        if (this.get("player.name") == this.get("playerView")) {
-
-            let self = this;
-
-            this.set("isShowScore", true);
-            setTimeout(function () {
-
-
-                self.set("previousHand",null);
-                self.set("isHandOver",false);
-                   
-
-            }, 10000)
-
-
-
-
-        }
-        else{
-            return;
-        }
-
-
-    },
-
-    gameOverHander() {
-
-        this.set("isShowScore",false);
-  
-        this.set("isPlayAgainView", true);
-        this.set("isShowPlayerCards", false);
-        this.set("isGameOver",false);
-        let self = this;
-        // setTimeout(function () {
-        //     self.set("isPlayAgainView", false);
-        //     self.set("isGameOver",false);
-        //     if (self.get("player.name") == self.get("playerView")) {
-        //         self.set("isShowPlayerCards", true);
-        //     }
-
-
-        // }, 5000)
-
-    },
-    isPlayerTurn: Ember.computed("currTurn", "player.name", function () {
-
-        return this.get("currTurn") == this.get("player.name");
+        return this.get("gameView.currTurn") == this.get("player.name");
 
     }),
-    hasPlayingCard: Ember.computed("previousTrick", "player.playingCard", function () {
+    hasPlayingCard: Ember.computed("gameView.previousTrick", "player.playingCard", function () {
         let isPlayingCardAvailble = true;
         let playingCard = this.get("player.playingCard");
         
@@ -249,17 +162,13 @@ export default Ember.Component.extend({
         console.log("Playing Card: "+ isPlayingCardAvailble);
 
         let isShow = (isPlayingCardAvailble)
-            || (this.get("previousTrick") != null)
+            || (this.get("gameView.previousTrick") != null)
         return (isShow);
-
-
-        // return (this.get("previousTrick")!=null)||(this.get("player.playingCard")!=null);
     }),
-
-    // willDestroyElement(){
-
-    //     console.log("Destroyed element "+this.get("player").name);
-    // },
+    displayedCard: Ember.computed("player.playingCard.name",function(){
+        return this.get("player.playingCard.name");
+    }),
+  
     actions: {
 
         playerCard(card) {
@@ -284,46 +193,21 @@ export default Ember.Component.extend({
         leaveGame(player){
             
             console.log("I am leaving the game " + player);
-            this.set("isPlayAgainView", false);
-            this.set("isShowPlayerCards", false);
             this.sendAction("leaveGame",player);
         },
         createPlayerView(player) {
             console.log("Seat Player metadata");
             this.set("isPlayAgainView", false);
-            this.set("isShowPlayerCards", true);
+            //this.set("isShowPlayerCards", true);
             this.sendAction("createPlayerView", player);
         },
         handleDisplayedCard(){
 
             console.log("Handle Displaying Card");
-            if (this.get("isTrickOver")) {
-    
-               console.log("Tricking");
-                let previousPlayer = this.get("previousTrick.players");
-       
-                let playerData = previousPlayer[this.get("player.name")];
-                if(playerData.won){
-                    this.set("isWonTrick",true);
-                }
-                this.set("displayedCard", playerData.playingCard.name);
-                this.trickOverHandler();
-    
-    
-    
-            }
-            else if(this.get("isHandOver")&&!this.get("isTrickOver")){
-
-                this.handOverHandler();
-            }
-            else if(this.get("isGameOver")&&!this.get("isHandOver")&&!this.get("isTrickOver")){
-
-                this.gameOverHander();
-            }
-            else{
-                this.set("displayedCard",this.get("player.playingCard.name"));
+            console.log(this.get("player.playingCard.name"));
+            this.set("displayedCard",this.get("player.playingCard.name"));
                 
-            }
+            
     
     
     

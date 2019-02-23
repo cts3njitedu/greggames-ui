@@ -4,8 +4,12 @@ export default Ember.Component.extend({
 
     showModal: false,
     isCreator: false,
-    gameState: null,
+
     spadeService: Ember.inject.service("spade-service"),
+    
+    gameView: Ember.computed("spadeService.gameView",function(){
+        return this.get("spadeService.gameView");
+    }),
     init() {
 
         this._super(...arguments);

@@ -15,7 +15,6 @@ export default Ember.Component.extend({
         
         let self = this;
 
-        this.set("gameView",this.get("spadeService.gameView"));
         
     },
     createPlayerViewTask: task(function* (game) {
@@ -29,9 +28,13 @@ export default Ember.Component.extend({
 
     }).drop(),
 
-    gameView: Ember.computed("spadeService.gameView",function(){
-        console.log("Game View for life");
-        return this.gets("spadeService.gameView");
+    gameView: Ember.computed("spadeService.gameDetails","spadeService.playerDetails",function(){
+        if(this.get("isGameView")){
+            return this.get("spadeService.gameDetails");
+        }
+        else{
+            return this.get("spadeService.playerDetails");
+        }
 
     }),
     teams: Ember.computed("gameView.teams",function(){
@@ -73,6 +76,18 @@ export default Ember.Component.extend({
             console.log(gameId);
             console.log(this.get("playerName"));
             this.sendAction("renderGameView",gameId);
+        },
+        startGame(gameView){
+            this.sendAction("startGame",gameView);
+        },
+        leaveGame(player){
+            this.sendAction("leaveGame",player);
+        },
+        playerBid(bid){
+            this.sendAction("playerBid",bid);
+        },
+        playerCard(cardDetails){
+            this.sendAction("playerCard",cardDetails);
         }
     }
 });
