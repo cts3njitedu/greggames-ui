@@ -3,6 +3,7 @@
 {{#if isShowPlayerCards}}
 
 {{!-- <img {{action "playerCard" card}} src={{image-src "/assets/images/cards/" card.name ".jpeg"}} id={{id-formatter player.name index}} class="cardSize cardDetails">  --}}
+
 {{card-generator card=card cardName=card.name index=index playerCard="playerCard" allowClick=allowClick}}
 {{else}}
 {{card-generator cardName="BACK_CARD" index=index}} 
@@ -17,11 +18,10 @@
 {{/if}}
 
 
-{{!-- {{#if isShowPlayerCardsWhenOver}}
-{{#if isPlayAgainView}}
-{{playagain-modal createPlayerView="createPlayerView" player=player}}
-{{/if}}
-{{/if}} --}}
+
+
+
+
 
 
 <div class="playerPoints"><p>Player Bid: {{playerBid}}</p>
@@ -36,6 +36,7 @@
 {{countdown-timer currentTime=maxTime}}
 {{/if}}
 {{/unless}}
+
 <div class="playCardDiv container">
     
     
@@ -69,4 +70,5 @@
     {{/unless}}
 
  {{/if}}
+
 

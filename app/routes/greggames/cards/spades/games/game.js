@@ -42,7 +42,7 @@ export default Ember.Route.extend({
         //     console.log("Creating again");
         //     this.transitionTo("greggames.cards.spades.games.game.players.player", this.get("gamerId"), this.get("playerId"));
         // }
-        
+        this.get("spadeService").deleteSubscribers();
     },
 
 
@@ -57,14 +57,16 @@ export default Ember.Route.extend({
             let subscriber = stompClient.subscribe('/topic/spades/' + params.gameId, function (response) {
                 
                 var newGame = JSON.parse(response.body);
-                let that = self;
+                let thatOne = that;
              
-                that.get("createGameViewSubscriberTask").perform(newGame, params);
+                thatOne.get("createGameViewSubscriberTask").perform(newGame, params);
+                // that.get("spadeService").getGame(params.gameId).then(function (game) {
+                //     console.log("Single game");
+                //     thatOne.get("createGameViewSubscriberTask").perform(game, params);
         
-              
-                    
+                // });     
             });
-
+        
             that.set("subscriber", subscriber);
         });
         
@@ -216,8 +218,5 @@ export default Ember.Route.extend({
             this.get("leaveGameTask").perform(player);
         }
 
-    },
-    willTransition(){
-        console.log("Transitioning from game " + this.get("gamerId"));
     }
 });

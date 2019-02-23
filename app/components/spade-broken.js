@@ -3,33 +3,18 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
 
-    didRender(){
+    spadeBroken: Ember.computed("gameView.spadeBroken",function(){
+        
+        return this.get("gameView.spadeBroken");
+    }),
 
+    isSpadeBroken: Ember.computed("spadeBroken",function(){
+        
+        return this.get("spadeBroken")!=null;
+    }),
 
+    isFirstSpade: Ember.computed("spadeBroken.firstSpade",function(){
 
-        console.log("Initializating Player Seat");
-        Ember.run.schedule("afterRender",this,function(){
-
-            this.send("handleDisplayedCard");
-        })
-
-    },
-
-    actions: {
-
-        spadeBroken(){
-
-            this.set("isFirstSpade",this.get("spadeBroken.isFirstSpade"));
-            let self = this;
-            setTimeout(function () {
-
-
-                self.set("isFirstSpade",false);
-                   
-
-            }, 3000)
-
-        }
-
-    }
+        return this.get("spadeBroken.firstSpade");
+    })
 });

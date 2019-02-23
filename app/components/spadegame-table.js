@@ -37,6 +37,14 @@ export default Ember.Component.extend({
         }
 
     }),
+
+    playerMessage: Ember.computed("spadeService.playerMessage",function(){
+
+       
+        return this.get("spadeService.playerMessage");
+        
+
+    }),
     teams: Ember.computed("gameView.teams",function(){
 
         let gameTeams = this.get("gameView.teams");
@@ -88,6 +96,9 @@ export default Ember.Component.extend({
         },
         playerCard(cardDetails){
             this.sendAction("playerCard",cardDetails);
+        },
+        playAgain(gameView){
+            console.log("We are playing again!!!!!<<<<");
         }
     }
 });

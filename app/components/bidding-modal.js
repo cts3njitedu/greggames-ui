@@ -16,7 +16,7 @@ export default Ember.Component.extend({
 
     console.log(this.get("gameView.playerView"));
 
-    return (this.get("gameView.playerView")==this.get("gameView.currTurn")) 
+    return !this.get("player.playAgain") && (this.get("gameView.playerView")==this.get("gameView.currTurn")) 
     &&(this.get("gameView.gameNotification")==SpadeConstants.GAME_STATES.BID)&&(this.get("player.userId")!=null);
 
   }),

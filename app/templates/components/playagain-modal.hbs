@@ -1,4 +1,9 @@
-<div class="container playAgainModal">
+{{!-- <div class="container playAgainModal">
 
     <div class="playAgainButtonDiv"><button {{action "createPlayerView" player}} class="playAgainButton">Play Again</button></div>
+</div> --}}
+{{#if player.playAgain}}
+<div class="container">
+   <button class="playAgainButton" {{action "createPlayerView" player}} >Play Again</button>
 </div>
+{{/if}}

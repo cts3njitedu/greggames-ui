@@ -37,10 +37,10 @@ export default Ember.Component.extend({
         return this.get("gameView.gameNotification")==SpadeConstants.GAME_STATES.START;
     }),
 
-    isPlayAgainView: Ember.computed("gameView.previousHand","player.userId",function(){
+    isPlayAgainView: Ember.computed("gameView.gameNotification",function(){
 
         console.log("What is going on tonight");
-        return this.get("player.userId")==null&&this.get("gameView.previousHand")==null;
+        return this.get("gameView.gameNotification")==SpadeConstants.GAME_OVER;
 
     }),
 
@@ -52,7 +52,7 @@ export default Ember.Component.extend({
     }),
     isShowPlayerCards: Ember.computed("playerView", "player.name", function () {
 
-        return this.get("player.name") == this.get("playerView");
+        return (this.get("player.name") == this.get("playerView")) && !this.get("player.playAgain");
     }),
 
     isSentNewPlayerNotification: false,
@@ -90,45 +90,46 @@ export default Ember.Component.extend({
     playerCards: Ember.computed("player.remainingCards", function () {
         console.log(this.isDestroyed+ " : " +this.isDestroying + " : "+this.get("isGameView"));
         // if(this.get("player")!=null){
-        //     let hearts = this.get("player.remainingCards").filter(function (card, index, enumerable) {
+            let hearts = this.get("player.remainingCards").filter(function (card, index, enumerable) {
 
-        //         return card.suit == SpadeConstants.SUITS.HEARTS;
-        //     });
-        //     hearts.sort(function (a, b) {
+                return card.suit == SpadeConstants.SUITS.HEARTS;
+            });
+            hearts.sort(function (a, b) {
     
-        //         return SpadeConstants.CARD_NUM_VALUE[a.value] - SpadeConstants.CARD_NUM_VALUE[b.value];
-        //     })
-        //     let diamonds = this.get("player.remainingCards").filter(function (card, index, enumerable) {
+                return SpadeConstants.CARD_NUM_VALUE[a.value] - SpadeConstants.CARD_NUM_VALUE[b.value];
+            })
+            let diamonds = this.get("player.remainingCards").filter(function (card, index, enumerable) {
     
-        //         return card.suit == SpadeConstants.SUITS.DIAMONDS;
-        //     });
-        //     diamonds.sort(function (a, b) {
+                return card.suit == SpadeConstants.SUITS.DIAMONDS;
+            });
+            diamonds.sort(function (a, b) {
     
-        //         return SpadeConstants.CARD_NUM_VALUE[a.value] - SpadeConstants.CARD_NUM_VALUE[b.value];
-        //     })
-        //     let clubs = this.get("player.remainingCards").filter(function (card, index, enumerable) {
+                return SpadeConstants.CARD_NUM_VALUE[a.value] - SpadeConstants.CARD_NUM_VALUE[b.value];
+            })
+            let clubs = this.get("player.remainingCards").filter(function (card, index, enumerable) {
     
-        //         return card.suit == SpadeConstants.SUITS.CLUBS;
-        //     });
-        //     clubs.sort(function (a, b) {
+                return card.suit == SpadeConstants.SUITS.CLUBS;
+            });
+            clubs.sort(function (a, b) {
     
-        //         return SpadeConstants.CARD_NUM_VALUE[a.value] - SpadeConstants.CARD_NUM_VALUE[b.value];
-        //     })
-        //     let spades = this.get("player.remainingCards").filter(function (card, index, enumerable) {
+                return SpadeConstants.CARD_NUM_VALUE[a.value] - SpadeConstants.CARD_NUM_VALUE[b.value];
+            })
+            let spades = this.get("player.remainingCards").filter(function (card, index, enumerable) {
     
-        //         return card.suit == SpadeConstants.SUITS.SPADES;
-        //     });
-        //     spades.sort(function (a, b) {
+                return card.suit == SpadeConstants.SUITS.SPADES;
+            });
+            spades.sort(function (a, b) {
     
-        //         return SpadeConstants.CARD_NUM_VALUE[a.value] - SpadeConstants.CARD_NUM_VALUE[b.value];
-        //     })
+                return SpadeConstants.CARD_NUM_VALUE[a.value] - SpadeConstants.CARD_NUM_VALUE[b.value];
+            })
     
-        //     let cardsToPlay = diamonds.concat(clubs).concat(hearts).concat(spades);
-        //     return cardsToPlay;
+            let cardsToPlay = diamonds.concat(clubs).concat(hearts).concat(spades);
+            return cardsToPlay;
         // }
        
 
-        return this.get("player.remainingCards");
+        // return this.get("player.remainingCards");
+        // return new Ember([]);
     }),
 
     playerBid: Ember.computed("player.bidNil", "player.playerCurrentScore", function () {
@@ -171,7 +172,7 @@ export default Ember.Component.extend({
     displayedCard: Ember.computed("player.playingCard.name",function(){
         return this.get("player.playingCard.name");
     }),
-  
+
     actions: {
 
         playerCard(card) {

@@ -12,6 +12,7 @@ export default Ember.Service.extend(SpadeMixin, {
 
     gameView: {},
 
+    allSubscribers: [],
 
 
     init() {
@@ -37,7 +38,16 @@ export default Ember.Service.extend(SpadeMixin, {
 
     },
 
+    deleteSubscribers(){
+        // let that = this;
+        // if(this.get("stompClient")!=null){
+        //     async.each(Object.keys(this.get("stompClient").subscriptions), function (sub, callback) {
+        //         that.get("stompClient").unsubscribe(sub);
+        //      });
+        // }
+        
 
+    },
 
 
     makeGameSubscriber: function (gameId) {

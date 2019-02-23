@@ -4,37 +4,41 @@
     <div class="teamScoreBoard container">
 
         <table class="teamPointsTable container">
-             <tr>
+            <tr>
 
                 <td class="container gameMetaData">Current Turn: {{gameView.currTurn}}</td>
             </tr>
             <tr>
                 {{#each teams as |team|}}
                 <td class="teamPointsReset">
-                    
-                        <p class="container teamData">{{team.name}}:</p>
-                        <p class="container teamData">Team Points: {{team.totalScore}}</p>
-                        <p class="container teamData">Bags: {{divide-spadescore team.totalBags}}</p>
-                   
+
+                    <p class="container teamData">{{team.name}}:</p>
+                    <p class="container teamData">Team Points: {{team.totalScore}}</p>
+                    <p class="container teamData">Bags: {{divide-spadescore team.totalBags}}</p>
+
                 </td>
                 {{/each}}
 
 
             </tr>
-           
+
 
 
         </table>
 
-        
+
 
     </div>
 
+    <div class="container">
+        {{spade-broken gameView=gameView}}
+    </div>
 
     <div class="container">
         {{spadegame-button startGame="startGame" gameView=gameView}}
+        {{playagain-modal createPlayerView="createPlayerView" gameView=gameView player=gameView.seats.PLAYERSOUTH}}
         <div class="container playerSeatNorth">
-            {{spadeplayer-seat position="PLAYERNORTH" createPlayerView="createPlayerView" classButton="playerButtonNorth" isGameView=isGameView gameView=gameView}}  
+            {{spadeplayer-seat position="PLAYERNORTH" createPlayerView="createPlayerView" classButton="playerButtonNorth" isGameView=isGameView gameView=gameView}}
         </div>
         <div class="container playerSeatWest">
             {{spadeplayer-seat  position="PLAYERWEST" createPlayerView="createPlayerView" classButton="playerButtonWest" isGameView=isGameView gameView=gameView}}
@@ -42,7 +46,7 @@
 
         <div class="container playerSeatEast">
             {{spadeplayer-seat position="PLAYEREAST" createPlayerView="createPlayerView" classButton="playerButtonEast" isGameView=isGameView gameView=gameView}}
-    
+
         </div>
         <div class="container playerSeatSouth">
             {{#if isGameView}}
@@ -50,6 +54,10 @@
             {{else}}
             {{spadeplayer-seat createPlayerView="createPlayerView" position="PLAYERSOUTH" leaveGame="leaveGame" playerCard="playerCard" isGameView=isGameView gameView=gameView}}
             {{bidding-modal playerBid="playerBid" gameView=gameView player=gameView.seats.PLAYERSOUTH}}
+            {{#if playerMessage.error}}
+
+            <div class="container">{{error-modal playerMessage=playerMessage closeErrorModal="closeErrorModal"}}</div>
+            {{/if}}
             {{/if}}
         </div>
         {{!-- {{yield (hash gameView=gameView)}} --}}

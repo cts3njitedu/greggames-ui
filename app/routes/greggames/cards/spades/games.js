@@ -14,7 +14,7 @@ export default Ember.Route.extend({
 
 
     init() {
- 
+        // this.get("spadeService").makeConnection();
 
     },
 
@@ -32,6 +32,10 @@ export default Ember.Route.extend({
     beforeModel(){
 
     },
+
+    deactivate:function(){
+        this.get("subscriber").unsubscribe();
+    },
     model(params) {
 
        
@@ -41,14 +45,23 @@ export default Ember.Route.extend({
             let subscriber = stompClient.subscribe('/topic/spades', function (response) {
                 
                 let newGameState = JSON.parse(response.body);
+                let thatOne = that;
+                that.get("spadeService").getGameView().then(function (response) {
                 
+                    newGameState.spadeGames = response.spadeGames;
+                    thatOne.set("spadeService.gameView",newGameState); 
+                    // console.log("buffer is good");
+                    // console.log(Buffer.from(JSON.parse(newGameState).data));
+                    if(thatOne.get("isCreator")){
+                        thatOne.set("isCreator",false);
+                        thatOne.transitionTo("greggames.cards.spades.games.game",that.get("spadeService.gameView.newGame.gameId"))
+                    }
+
+                    //self.set("spadeService.gameState.newGameId",self.get("spadeService.gameState.newGameId"));
+                });
                 //console.log("Tissue paper!!!/1/.1");
                 //console.log(newGameState);
-                that.set("spadeService.gameView",newGameState); 
-                if(that.get("isCreator")){
-                    self.set("isCreator",false);
-                    that.transitionTo("greggames.cards.spades.games.game",that.get("spadeService.gameView.newGame.gameId"))
-                }
+                
                  
                 
             });
@@ -57,7 +70,8 @@ export default Ember.Route.extend({
         });
 
         return this.get("spadeService").getGameView().then(function (response) {
-     
+            // console.log("buffer is good");
+            // console.log(Buffer.from(JSON.parse(response).data));
            
             self.set("spadeService.gameView", response);
             //self.set("spadeService.gameState.newGameId",self.get("spadeService.gameState.newGameId"));

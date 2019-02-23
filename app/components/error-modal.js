@@ -3,17 +3,17 @@ import Ember from 'ember';
 export default Ember.Component.extend({
 
     
-    displayError: Ember.computed("player.error",function(){
+    displayError: Ember.computed("playerMessage.error",function(){
         
 
-        return this.get("player.error");
+        return this.get("playerMessage.error");
 
 
     }),
 
-    errors: Ember.computed("player.errorMessages",function(){
+    errors: Ember.computed("playerMessage.errorMessages",function(){
 
-        let errorMessages = this.get("player.errorMessages");
+        let errorMessages = this.get("playerMessage.errorMessages");
         let displayedError = [];
         for(var em in errorMessages){
 
@@ -24,8 +24,7 @@ export default Ember.Component.extend({
     actions: {
 
         closeErrorModal(){
-
-            console.log("I like chicken");
+            this.set()
             this.sendAction("closeErrorModal");
         }
 

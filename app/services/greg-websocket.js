@@ -38,14 +38,30 @@ export default Ember.Service.extend({
 
             let self = this;
             var socket = new SockJS(ENV.APP.API_HOST + '/ggsocket');
+          
             var stompClient = Stomp.over(socket);
+
+          
+            stompClient.maxWebSocketFrameSize=200*1024*1024;
+
+
+
 
             stompClient.connect({}, function (frame) {
                 self.set("client",stompClient);
                 console.log("Websocket connection dolce: ");
+                // console.log(frame);
+                // stompClient.ws.onclose(function(message){
+
+                //     console.log("Closing the connection");
+                // });
                 cb(stompClient);
+
             });
 
+            console.log(stompClient);
+            
+    
         // }
 
 

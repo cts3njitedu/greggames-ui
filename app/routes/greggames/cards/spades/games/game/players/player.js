@@ -49,6 +49,16 @@ export default Ember.Route.extend({
 
             that.set("subscriber", subscriber);
         });
+
+        this.get("spadeService").makeConnection().then(function (stompClient) {
+            let that = self;
+            let subscriber = stompClient.subscribe('/topic/spades/' + params.gameId + "/" + params.playerId, function (response) {
+                self.set("spadeService.playerMessage",JSON.parse(response.body));  
+                    
+            });
+
+            that.set("subscriberPlayer", subscriber);
+        });
         
         return this.get("spadeService").getGame(gameId).then(function (game) {
             console.log("What is game value");
@@ -72,6 +82,7 @@ export default Ember.Route.extend({
         //     this.set("isTransition",false);
         //     this.refresh()
         // }
+        this.get("spadeService").deleteSubscribers();
 
     },
 
@@ -106,6 +117,7 @@ export default Ember.Route.extend({
     deactivate:function(){
         this.set("spadeService.playerDetails",null);
         this.get("subscriber").unsubscribe();
+        this.get("subscriberPlayer").unsubscribe();
     },
     actions: {
 
