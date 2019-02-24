@@ -4,9 +4,9 @@
 
 {{!-- <img {{action "playerCard" card}} src={{image-src "/assets/images/cards/" card.name ".jpeg"}} id={{id-formatter player.name index}} class="cardSize cardDetails">  --}}
 
-{{card-generator card=card cardName=card.name index=index playerCard="playerCard" allowClick=allowClick}}
+{{card-generator card=card cardName=card.name index=index playerCard="playerCard" allowClick=allowClick class="cardSize cardDetails cardHover"}}
 {{else}}
-{{card-generator cardName="BACK_CARD" index=index}} 
+{{card-generator cardName="BACK_CARD" index=index class="cardSize cardDetails"}} 
 {{/if}}
 {{/each}}
 {{#if gameView.handOver}}

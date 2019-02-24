@@ -4,7 +4,7 @@ export default Ember.Component.extend({
 
     tagName:"img",
     attributeBindings: ['src','style'],
-    classNames: ["cardSize","cardDetails"],
+    // classNames: ["cardSize","cardDetails"],
 
     src: Ember.computed("cardName",function(){
 
@@ -17,6 +17,11 @@ export default Ember.Component.extend({
     init(){
         this._super(...arguments);
         // console.log("Inside card generator");
+        // if(this.get("isClickCard")){
+        //     console.log("Card generator");
+        //     let cN = new Ember.A(this.get("classNames"));
+        //     cN.pushObject("cardHover");
+        //  }
 
     },
     style: Ember.computed("index",function(){
@@ -30,6 +35,7 @@ export default Ember.Component.extend({
             cursor = "cursor:pointer"
 
         }
+
         
 
         return new Ember.String.htmlSafe(zIndex+";"+left+";"+cursor);
@@ -59,25 +65,25 @@ export default Ember.Component.extend({
         this.sendAction("playerCard",this.get("card"));
        }
 
-    },
-    mouseEnter(event){
-        // if(this.get("cardName")!="BACK_CARD"){
-
-        //     event.currentTarget.style.border="3px solid yellow";
-        // }
-
-        if(this.get("isClickCard")){
-            event.currentTarget.style.border="3px solid yellow";
-        }
-    },
-    mouseLeave(event){
-        // if(this.get("cardName")!="BACK_CARD"){
-
-        //     event.currentTarget.style.border="";
-        // }
-
-        if(this.get("isClickCard")){
-            event.currentTarget.style.border="";
-        }
     }
+    // mouseEnter(event){
+    //     // if(this.get("cardName")!="BACK_CARD"){
+
+    //     //     event.currentTarget.style.border="3px solid yellow";
+    //     // }
+
+    //     if(this.get("isClickCard")){
+    //         event.currentTarget.style.border="3px solid yellow";
+    //     }
+    // },
+    // mouseLeave(event){
+    //     // if(this.get("cardName")!="BACK_CARD"){
+
+    //     //     event.currentTarget.style.border="";
+    //     // }
+
+    //     if(this.get("isClickCard")){
+    //         event.currentTarget.style.border="";
+    //     }
+    // }
 });

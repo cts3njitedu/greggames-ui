@@ -129,6 +129,12 @@
     height:95%;
     width:22%;
 }
+
+
+.cardHover:hover{
+    transform: scale(1.5);
+    border: 3px solid yellow;
+}
 .cardDetails{
 
     position:absolute;

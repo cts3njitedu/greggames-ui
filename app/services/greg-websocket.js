@@ -59,7 +59,7 @@ export default Ember.Service.extend({
 
             });
 
-            console.log(stompClient);
+            
             
     
         // }
